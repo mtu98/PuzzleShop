@@ -16,6 +16,11 @@ app {
     align-items: center;
 }
 
+.logo {
+    width: 30px;
+    height: 30px;
+}
+
 .main {
     flex: 1;
 }
@@ -91,9 +96,7 @@ app {
 }
 
 @media (min-width: 768px) {
-    app {
-        flex-direction: row;
-    }
+    app { flex-direction: row; }
 
     .sidebar {
         width: 250px;
@@ -112,9 +115,7 @@ app {
         padding-right: 1.5rem !important;
     }
 
-    .navbar-toggler {
-        display: none;
-    }
+    .navbar-toggler { display: none; }
 
     .sidebar .collapse {
         /* Never collapse the sidebar for wide screens */
