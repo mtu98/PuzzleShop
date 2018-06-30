@@ -1,9 +1,7 @@
-@inherits BlazorLayoutComponent
+@inherits Microsoft.AspNetCore.Blazor.Layouts.BlazorLayoutComponent
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <NavMenu />
-</nav>
-<div class="container" style="margin-top:50px">
+<main id="page-content" class="wrap container">
+    <NavigatorMenu />
     @Body
-    <div style="height: 1000px"></div>
-</div>
+</main>
+<FooterLayout />
