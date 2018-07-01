@@ -42,11 +42,15 @@
         }
     </style>
     <script>
-        function toggleSearchForm(form) {
+        function toggleSearchForm(form, searchIcon) {
             if (!form.classList.contains("active")) {
                 form.classList.add("active");
+                searchIcon.classList.remove("fa-search");
+                searchIcon.classList.add("fa-times");
             } else {
                 form.classList.remove("active");
+                searchIcon.classList.remove("fa-times");
+                searchIcon.classList.add("fa-search");
             }
         }
     </script>
@@ -84,7 +88,7 @@
     <script type="blazor-boot">
     </script>
 
-    <!--<script src="js/plugins.min.js"></script>
-    <script src="js/main.min.js"></script>-->
+    <script src="js/plugins.min.js"></script>
+    <script src="js/main.min.js"></script>
 </body>
 </html>
