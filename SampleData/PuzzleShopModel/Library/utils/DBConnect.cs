@@ -12,9 +12,12 @@ namespace Library.utils
     {
         public static IMongoDatabase getDB()
         {
+
             string strConnection = ConfigurationManager.ConnectionStrings["MongoDB"].ConnectionString;
             MongoClient client = new MongoClient(strConnection);
+
             var db = client.GetDatabase(ConfigurationManager.AppSettings["DB"]);
+
             return db;
         }
     }

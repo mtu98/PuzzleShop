@@ -9,6 +9,11 @@ namespace Library
 {
     public class MD5Hash
     {
+        /// <summary>
+        /// Generate a MD5 Hash
+        /// </summary>
+        /// <param name="input">source to generate MD5Hash</param>
+        /// <returns>Hash MD5 string</returns>
         public static string GetMD5Hash(string input)
         {
             //Convert input to byte
@@ -28,7 +33,12 @@ namespace Library
             return builder.ToString();
         }
 
-
+        /// <summary>
+        /// Take input then hash and compare with already hash string before
+        /// </summary>
+        /// <param name="input">The input string need to compare</param>
+        /// <param name="hash">The hashed one</param>
+        /// <returns>true if equal</returns>
         public static bool VerifyMD5Hash(string input, string hash)
         {
             //Hash input
@@ -43,15 +53,6 @@ namespace Library
             }
             else
                 return false;
-        }
-
-
-        public static void Main()
-        {
-            string input = Console.ReadLine();
-            MD5 MD5Hash = MD5.Create();
-            string Hash = GetMD5Hash(input);
-            Console.WriteLine(Hash);
         }
     }
 }

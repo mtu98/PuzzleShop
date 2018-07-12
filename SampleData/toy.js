@@ -125,3 +125,8 @@ db.Toy.insertMany(
     }
     ]
 )
+
+//show inserted result
+print("Toy Collection");
+result = db.Toy.find().toArray();
+printjson(result);
