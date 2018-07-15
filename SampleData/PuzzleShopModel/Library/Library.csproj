@@ -62,8 +62,6 @@
   <ItemGroup>
     <Compile Include="Account\AccountDAO.cs" />
     <Compile Include="Account\AccountDTO.cs" />
-    <Compile Include="ToyType\ToyTypeDAO.cs" />
-    <Compile Include="ToyType\ToyTypeDTO.cs" />
     <Compile Include="utils\MD5Hash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Toy\ToyDAO.cs" />

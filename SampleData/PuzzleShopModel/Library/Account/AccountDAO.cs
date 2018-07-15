@@ -23,10 +23,8 @@ namespace Library.Account
             var db = utils.DBConnect.getDB();
             var accounts = db.GetCollection<AccountDTO>("Account");
             var builder = Builders<AccountDTO>.Filter;
+            //Find account by username or password
             var filter = builder.Where(a => a.username.Equals(Username_Email)) | builder.Where(a =>a.email.Equals(Username_Email));
-            //filter = builder.Or({username.Equals(username) })
-            
-            //filter = new BsonDocument { { username, new BsonDocument { { "$regex", username } } } };
             
             List<AccountDTO> list = accounts.Find(filter).ToList();
             if(list.Count > 0)

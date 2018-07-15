@@ -24,8 +24,6 @@ namespace Library.Toy
                 Console.WriteLine(t.ToString());
             }
 
-            
-            
         }
     }
 }

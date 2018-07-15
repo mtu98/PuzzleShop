@@ -7,13 +7,12 @@ using MongoDB.Bson;
 
 namespace Library.Toy
 {
-    class ToyDTO
+    public class ToyDTO
     {
-        public ObjectId _id { get; set; }
+        public BsonObjectId _id { get; set; }
         public string ToyName { get; set; }
-        public ObjectId ToyType { get; set; }
+        public BsonObjectId ToyType { get; set; }
         public string Producer { get; set; }
-        public string Size { get; set; }
         public int SizeX { get; set; }
         public int SizeY { get; set; }
         public int SizeZ { get; set; }

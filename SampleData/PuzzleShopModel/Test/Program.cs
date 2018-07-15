@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Library.Account;
 using Library.Toy;
-
 namespace Test
 {
     class Program

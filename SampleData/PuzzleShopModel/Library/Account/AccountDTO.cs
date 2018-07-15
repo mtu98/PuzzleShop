@@ -8,9 +8,9 @@ using MongoDB.Bson;
 namespace Library.Account
 {
 
-    class AccountDTO
+    public class AccountDTO
     {
-        public ObjectId _id { get; set; }
+        public BsonObjectId _id { get; set; }
         public string username { get; set; }
         public string passwordHash { get; set; }
         public string firstName { get; set; }
