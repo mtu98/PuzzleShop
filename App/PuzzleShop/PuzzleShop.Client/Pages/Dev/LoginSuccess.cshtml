@@ -1,2 +1,32 @@
-﻿@page "/loginSuccess"
+﻿@using PuzzleShop.Shared.Models
+@page "/loginSuccess"
 <h1>Login success!</h1>
+
+@{
+    list.Add(new User() {
+        Email = "email1",
+        Password = "pass1"
+    });
+    list.Add(new User() {
+        Email = "email2",
+        Password = "pass2"
+    });
+    list.Add(new User() {
+        Email = "email3",
+        Password = "pass3"
+    });
+
+}
+
+@foreach (var user in list) {
+    <p>
+        <h3>@user.Email</h3>
+        <h4>@user.Password</h4>
+    </p>
+}
+
+@functions {
+
+List<User> list = new List<User>();
+
+}

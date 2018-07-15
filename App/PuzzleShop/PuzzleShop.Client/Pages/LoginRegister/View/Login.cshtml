@@ -1,20 +1,18 @@
-﻿@using System.Diagnostics
-@using PuzzleShop.Shared.Models
+﻿@using PuzzleShop.Shared.Models
+@using PuzzleShop.Client.Pages.LoginRegister.Logic
 @page "/login"
-@inject HttpClient http
-@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inherits LoginLogic
 <div id="banner" class="jumbotron row">
     <h1>Sign In / Register</h1>
 </div>
 <section class="page-section row col-split-2">
     <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-1">
-        @*<form data-ajax-handler="shop:onLogin" data-validation-message="" method="post" action="#">*@
         <form method="post">
             <h2>Sign In</h2>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Email" value="" bind="@user.Email" />
-                    <label for="email">Email</label>
+                    <input type="text" name="emailOrUsername" id="emailOrUsername" class="form-control" placeholder="Email or Username" value="" bind="@user.Username" />
+                    <label for="emailOrUsername">Email or Username</label>
                 </div>
                 <div class="col-xs-12 form-group">
                     <input type="password" name="password" id="password" class="form-control" placeholder="Password" bind="@user.Password" />
@@ -28,9 +26,13 @@
         </form>
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-2">
-        <form data-ajax-handler="shop:onSignup" data-validation-message="" method="post" action="#">
+        <form method="post">
             <h2>Register a New Account</h2>
             <div class="row">
+                <div class="col-xs-12 form-group">
+                    <input name="signup[username]" id="signup[username]" type="text" class="form-control" placeholder="Username *" />
+                    <label for="signup[username]">Username</label>
+                </div>
                 <div class="col-xs-12 form-group">
                     <input name="signup[first_name]" id="signup[first_name]" type="text" class="form-control" placeholder="First Name *" />
                     <label for="signup[first_name]">First Name</label>
@@ -51,34 +53,18 @@
                     <input name="signup[password_confirmation]" id="signup[password_confirmation]" type="password" class="form-control" placeholder="Confirm Password *" />
                     <label for="signup[password_confirmation]">Confirm Password</label>
                 </div>
-                <input type="hidden" name="autologin" value="1" />
-                <input type="hidden" name="redirect" value="/registered" />
+                <div class="col-xs-12 form-group">
+                    <input name="signup[birthdate]" id="signup[birthdate]" type="date" class="form-control" placeholder="Birthdate" />
+                    <label for="signup[birthdate]">Birthdate</label>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <input name="signup[phoneNumber]" id="signup[phoneNumber]" type="text" class="form-control" placeholder="Phone number" />
+                    <label for="signup[phoneNumber]">Phone Number</label>
+                </div>
             </div>
-            <input type="checkbox" name="accepts_marketing" id="accepts_marketing" checked /> Recieve promotional emails
             <br>
-            <br>
-            <button class="btn btn-primary">Submit <i class="fa fa-arrow-right"></i></button>
+            <button class="btn btn-primary" type="button">Submit <i class="fa fa-arrow-right"></i></button>
         </form>
     </div>
 </section>
 
-@functions {
-
-User user = new User();
-
-protected void LoginAction() {
-    Debug.WriteLine("Login onclicked!");
-    if (!string.IsNullOrEmpty(user.Email) && !string.IsNullOrEmpty(user.Password)) {
-        if (user.Email.Equals("admin@admin.admin") && user.Password.Equals("admin")) {
-            Debug.WriteLine("Success");
-            UriHelper.NavigateTo("/loginSuccess");
-        } else {
-            Debug.WriteLine("fail");
-
-            UriHelper.NavigateTo("/loginFail");
-
-        }
-    }
-}
-
-}
