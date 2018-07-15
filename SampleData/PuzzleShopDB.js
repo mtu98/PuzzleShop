@@ -32,6 +32,8 @@ db.Account.insertMany(
 	}
 	]
 	)
+db.Account.createIndex({username:1},{unique:true,name:"UNIQUE USERNAME"});
+db.Account.createIndex({email:1},{unique:true,name:"UNIQUE EMAIL"});
 //Show inserted result
 print("Account Collection");
 result = db.Account.find().toArray();
@@ -57,12 +59,15 @@ printjson(result);
 db.Toy.insertMany(
 	[
 	{
-		ToyName:"3x3 Rubik",
+		ToyName:"Rubik 3x3",
 		ToyType:rubikID,
 		Producer:"Xiao Xi",
-		Size:"3x3",
-		Price:80000,
+		SizeX:3,
+		SizeY:3,
+		SizeZ:3,
+		Price:15.99,
 		Quantity:50,
+		YearOfManufacture: 2018,
 		Description:"",
 		PhotoURL:"",
 		Comment:[
@@ -78,45 +83,53 @@ db.Toy.insertMany(
 		}]
 	},
 	{
-		ToyName:"4x4 Rubik",
+		ToyName:"Rubik 4x4",
 		ToyType:rubikID,
 		Producer:"Xi Meng",
-		Size:"4x4",
-		Price:120000,
+		SizeX:4,
+		SizeY:4,
+		SizeZ:4,
+		Price:22.99,
 		Quantity:50,
+		YearOfManufacture: 2018,
+		PhotoURL:"",
 		Description:""
 	},
 	{
-		ToyName:"3x4 Rubik",
+		ToyName:"Rubik 4x3",
 		ToyType:rubikID,
 		Producer:"Xi Xong",
-		Size:"3x4",
-		Price:110000,
+		SizeX:4,
+		SizeY:3,
+		SizeZ:3,
+		Price:20.50,
 		Quantity:60,
+		YearOfManufacture: 2018,
+		PhotoURL:"",
 		Description:""
 	},
 	{
-		ToyName:"100 pieces puzzle",
+		ToyName:"1000 pieces puzzle",
 		ToyType:puzzleID,
 		Producer:"ABC INC",
-		Size:"100 pirces",
-		Price:60000,
+		SizeX:50,
+		SizeY:20,
+		Price:30.10,
 		Quantity:30,
+		YearOfManufacture: 2018,
+		PhotoURL:"",
 		Description:""
 	},
 	{
-		ToyName:"200 pieces puzzle",
+		ToyName:"2000 pieces puzzle",
 		ToyType:puzzleID,
 		Producer:"ABC INC",
-		Size:"200 pirces",
-		Price:100000,
+		SizeX:80,
+		SizeY:25,
+		Price:39.99,
 		Quantity:10,
+		YearOfManufacture: 2018,
+		PhotoURL:"",
 		Description:""
 	}
 	]);
-
-//show inserted result
-print("Toy Collection");
-result = db.Toy.find().toArray();
-printjson(result);
-
