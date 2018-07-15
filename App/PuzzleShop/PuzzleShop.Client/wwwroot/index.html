@@ -53,6 +53,16 @@
                 searchIcon.classList.add("fa-search");
             }
         }
+        function addEnterToSubmitFormEvent(elementId, buttonId) {
+            var el = document.getElementById(elementId);
+            el.addEventListener('keyup',
+                function(event) {
+                    event.preventDefault();
+                    if (event.keyCode === 13) {
+                        document.getElementById(buttonId).click();
+                    }
+                });
+        }
     </script>
     <link href="css/rubik-loading.css" rel="stylesheet" />
 </head>
