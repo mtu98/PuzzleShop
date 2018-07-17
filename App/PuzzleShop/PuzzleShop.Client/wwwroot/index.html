@@ -40,6 +40,10 @@
         .navbar .container {
             background: white;
         }
+
+        .validation-error > ul > li {
+            color: red;
+        }
     </style>
     <script>
         function toggleSearchForm(form, searchIcon) {
@@ -52,16 +56,6 @@
                 searchIcon.classList.remove("fa-times");
                 searchIcon.classList.add("fa-search");
             }
-        }
-        function addEnterToSubmitFormEvent(elementId, buttonId) {
-            var el = document.getElementById(elementId);
-            el.addEventListener('keyup',
-                function(event) {
-                    event.preventDefault();
-                    if (event.keyCode === 13) {
-                        document.getElementById(buttonId).click();
-                    }
-                });
         }
     </script>
     <link href="css/rubik-loading.css" rel="stylesheet" />
@@ -99,6 +93,6 @@
     </script>
 
     <!--<script src="js/plugins.min.js"></script>
-    <script src="js/main.min.js"></script>-->
+        <script src="js/main.min.js"></script>-->
 </body>
 </html>

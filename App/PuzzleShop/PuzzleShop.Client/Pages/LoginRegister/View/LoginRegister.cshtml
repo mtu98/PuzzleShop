@@ -1,0 +1,78 @@
+﻿@using PuzzleShop.Shared.Models
+@using PuzzleShop.Client.Pages.LoginRegister.Logic
+@addTagHelper *, Blazor.Validation
+@page "/login"
+@inherits LoginRegisterLogic
+<div id="banner" class="jumbotron row">
+    <h1>Sign In / Register</h1>
+</div>
+<section class="page-section row col-split-2">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-1">
+        <form method="post">
+            <h2>Sign In</h2>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <input type="text" name="emailOrUsername" id="emailOrUsername" class="form-control" placeholder="Email or Username" value="" bind="@loginUser.Username" />
+                    <label for="emailOrUsername">Email or Username</label>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" bind="@loginUser.Password" />
+                    <label for="password">Password</label>
+                </div>
+                <div class="col-xs-12 form-group clearfix">
+                    <a class="btn btn-default forget-link pull-left" href="#">forgot your password?</a>
+                    <button class="btn btn-primary pull-right" onclick="@LoginAction" type="button">Log In <i class="fa fa-lock"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-2">
+        <form method="post" id="registerForm">
+            <h2>Register a New Account</h2>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    <input name="signup[username]" id="signup[username]" type="text" class="form-control" placeholder="Username *" bind="@registerUser.Username" />
+                    <label for="signup[username]">Username</label>
+                    <ValidationError Subject="@registerUser" Property="@nameof(registerUser.Username)" IsActive="@ActiveValidate" />
+                </div>
+                <div class="col-xs-12 form-group">
+                    <input name="signup[first_name]" id="signup[first_name]" type="text" class="form-control" placeholder="First Name *" bind="@registerUser.FirstName" />
+                    <label for="signup[first_name]">First Name</label>
+                    <ValidationError Subject="@registerUser" Property="@nameof(registerUser.FirstName)" IsActive="@ActiveValidate" />
+                </div>
+                <div class="col-xs-12 form-group">
+                    <input name="signup[last_name]" id="signup[last_name]" type="text" class="form-control" placeholder="Last Name *" bind="@registerUser.LastName" />
+                    <label for="signup[last_name]">Last Name</label>
+                    <ValidationError Subject="@registerUser" Property="@nameof(registerUser.LastName)" IsActive="@ActiveValidate" />
+
+                </div>
+                <div class="col-xs-12 form-group">
+                    <input id="signup[email]" type="email" name="signup[email]" class="form-control" placeholder="Email *" bind="@registerUser.Email" />
+                    <label for="signup[email]">Email</label>
+                    <ValidationError Subject="@registerUser" Property="@nameof(registerUser.Email)" IsActive="@ActiveValidate" />
+                </div>
+                <div class="col-xs-12 form-group">
+                    <input name="signup[password]" id="signup[password]" type="password" class="form-control" placeholder="Password *" bind="@registerUser.Password" />
+                    <label for="signup[password]">Password</label>
+                    <ValidationError Subject="@registerUser" Property="@nameof(registerUser.Password)" IsActive="@ActiveValidate" />
+                </div>
+                <div class="col-xs-12 form-group">
+                    <input name="signup[password_confirmation]" id="signup[password_confirmation]" type="password" class="form-control" placeholder="Confirm Password *" bind="@registerUser.ConfirmedPassword" />
+                    <label for="signup[password_confirmation]">Confirm Password</label>
+                    <ValidationError Subject="@registerUser" Property="@nameof(registerUser.ConfirmedPassword)" IsActive="@ActiveValidate" />
+                </div>
+                @*<div class="col-xs-12 form-group">
+                        <input name="signup[birthdate]" id="signup[birthdate]" type="date" class="form-control" placeholder="Birthdate" bind="@registerUser.Birthdate" />
+                        <label for="signup[birthdate]">Birthdate</label>
+                    </div>*@
+                <div class="col-xs-12 form-group">
+                    <input name="signup[phoneNumber]" id="signup[phoneNumber]" type="text" class="form-control" placeholder="Phone number" bind="@registerUser.PhoneNumber" />
+                    <label for="signup[phoneNumber]">Phone Number</label>
+                </div>
+            </div>
+            <br>
+            <button class="btn btn-primary" type="button" onclick="@RegisterAction">Submit <i class="fa fa-arrow-right"></i></button>
+        </form>
+    </div>
+</section>
+
