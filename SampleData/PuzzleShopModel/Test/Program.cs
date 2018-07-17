@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
-using Library.Account;
+using Library.User;
 using Library.Toy;
+
 namespace Test
 {
     class Program
@@ -13,19 +14,29 @@ namespace Test
         static void Main(string[] args)
         {
             
-            AccountDAO dao = new AccountDAO();
+            UserDAO dao = new UserDAO();
             Console.WriteLine("Username or email: ");
-            string username = Console.ReadLine();
+            string Username = Console.ReadLine();
             Console.WriteLine("Password: ");
-            string password = Console.ReadLine();
-            bool result = dao.checkLogin(username, password);
-            if (result)
+            string Password = Console.ReadLine();
+            User result = dao.checkLogin(Username, Password);
+            if (result != null)
             {
                 Console.WriteLine("Login success");
                 Console.WriteLine("Search toy: ");
                 string toyName = Console.ReadLine();
                 ToyDAO ToyDao = new ToyDAO();
-                ToyDao.FindToys(toyName);
+                List<Toy> list = ToyDao.FindToys(toyName);
+
+
+                foreach (Toy t in list)
+                {
+                    Console.WriteLine(t.ToString());
+                }
+
+                Console.WriteLine("Comment: ");
+                string cmt = Console.ReadLine();
+                ToyDao.CommentInToy(result, list[0], cmt);
             }
             else
             {
@@ -73,7 +84,7 @@ namespace Test
                 string email = Console.ReadLine();
                 if (username == null || password == null || firstName == null || lastName == null || email == null)
                     return false;
-                AccountDAO dao = new AccountDAO();
+                UserDAO dao = new UserDAO();
                 try
                 {
                     dao.register(username, password, firstName, lastName, email);
@@ -83,9 +94,9 @@ namespace Test
                 {
                     throw e;
                 }
-                
+                return true;
             }
-            return true;
+            return false;
         }
     }
 }

@@ -60,12 +60,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\AccountDAO.cs" />
-    <Compile Include="Account\AccountDTO.cs" />
+    <Compile Include="Orders\Orders.cs" />
+    <Compile Include="Orders\OrdersDAO.cs" />
+    <Compile Include="User\UserDAO.cs" />
+    <Compile Include="User\User.cs" />
     <Compile Include="utils\MD5Hash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Toy\ToyDAO.cs" />
-    <Compile Include="Toy\ToyDTO.cs" />
+    <Compile Include="Toy\Toy.cs" />
     <Compile Include="utils\DBConnect.cs" />
   </ItemGroup>
   <ItemGroup>

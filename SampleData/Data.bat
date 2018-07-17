@@ -1,4 +1,5 @@
 @echo off
 mongo PuzzleShopDB.js
-mongo toy.js
+mongo Toy.js
+mongo Orders.js
 pause

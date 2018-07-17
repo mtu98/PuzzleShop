@@ -7,11 +7,11 @@ using MongoDB.Bson;
 
 namespace Library.Toy
 {
-    public class ToyDTO
+    public class Toy
     {
         public BsonObjectId _id { get; set; }
         public string ToyName { get; set; }
-        public BsonObjectId ToyType { get; set; }
+        public string ToyType { get; set; }
         public string Producer { get; set; }
         public int SizeX { get; set; }
         public int SizeY { get; set; }
@@ -37,9 +37,16 @@ namespace Library.Toy
 
     public class Comment
     {
-        public string username { get; set; }
+        public string Username { get; set; }
         public string Content { get; set; }
         public string Date { get; set; }
+
+        public override string ToString()
+        {
+            return Username + ": " + Content + "\n" + Date;
+        }
     }
+
+
 
 }

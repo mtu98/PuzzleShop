@@ -1,3 +1,13 @@
 [Login]
 1. Create collection User
 2. Import User.json
+
+
+ROLE
+ 1: Member
+ 2: Admin
+
+ORDER STATUS
+ 1: Delivered
+ 0: Processing
+ -1:Pending
