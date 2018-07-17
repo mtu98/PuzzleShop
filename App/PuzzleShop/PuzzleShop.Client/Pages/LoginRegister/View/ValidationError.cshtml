@@ -1,0 +1,40 @@
+﻿@using System.ComponentModel
+@using Microsoft.AspNetCore.Blazor.Components
+@using PuzzleShop.Shared.Models
+
+@if (IsActive && Error != null) {
+    <div class="validation-error">
+        <ul>
+            <li>@Error</li>
+        </ul>
+    </div>
+}
+
+@functions {
+
+[Parameter]
+protected object Subject { get; set; }
+
+[Parameter]
+protected string Property { get; set; }
+
+[Parameter]
+protected bool IsActive { get; set; }
+
+public string Error {
+    get {
+        switch (Subject) {
+            case null:
+                return $"{nameof(Subject)} has not been set!";
+            case User user:
+                if (Property == null) {
+                    return $"{nameof(Property)} has not been set!";
+                }
+                return user.GetErrors(Property);
+            default:
+                return null;
+        }
+    }
+}
+
+}

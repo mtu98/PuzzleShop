@@ -1,4 +1,11 @@
-﻿<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+﻿@using Microsoft.AspNetCore.Blazor.Components
+@using PuzzleShop.Shared.Models
+
+@inherits PuzzleShop.Client.Shared.Logic.NavigationMenuLogic
+
+@inject HttpClient http
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -12,7 +19,15 @@
         <div class="navbar-right navbar-utils">
             <ul class="list-unstyled clearfix">
                 <li class="hidden-xs">
-                    <a href="/login" class="btn"><span>Log In</span> <i class="fa fa-lock"></i></a>
+                    @if (LoginUser == null) {
+                        <a href="/login" class="btn"><span>Log In</span> <i class="fa fa-lock"></i></a>
+                    } else {
+                        <text>Welcome, @LoginUser.Username!</text>
+                        <a href="/myOrder">My Orders</a> <text>|</text>
+                        <a href="/myProfile">My Profile</a>
+                        <a href="/logout" class="btn"><span>Log Out</span> <i class="fa fa-unlock-alt"></i></a>
+
+                    }
                 </li>
                 <li id="navbar-totals" class="totals">
                     <span class="hidden-xs">0 Items</span>

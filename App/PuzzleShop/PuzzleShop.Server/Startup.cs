@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using System;
 using System.Linq;
 using System.Net.Mime;
 
@@ -23,6 +24,12 @@ namespace PuzzleShop.Server {
                     WasmMediaTypeNames.Application.Wasm,
                 });
             });
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +39,8 @@ namespace PuzzleShop.Server {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSession();
 
             app.UseMvc(routes => {
                 routes.MapRoute(name: "default", template: "{controller}/{action}/{id?}");
