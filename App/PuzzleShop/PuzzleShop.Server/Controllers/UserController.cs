@@ -28,5 +28,11 @@ namespace PuzzleShop.Server.Controllers {
         public string GetLoginUser() {
             return HttpContext.Session.GetString("USERNAME");
         }
+
+        [HttpDelete]
+        [Route("api/User/Logout")]
+        public void Logout() {
+            HttpContext.Session.Remove("USERNAME");
+        }
     }
 }
