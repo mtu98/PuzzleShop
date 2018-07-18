@@ -92,7 +92,15 @@
     <script type="blazor-boot">
     </script>
 
+    <script>
+        function reloadPage() {
+            location.reload();
+        }
+
+        Blazor.registerFunction("ReloadPage", reloadPage);
+    </script>
+
     <!--<script src="js/plugins.min.js"></script>
-        <script src="js/main.min.js"></script>-->
+            <script src="js/main.min.js"></script>-->
 </body>
 </html>

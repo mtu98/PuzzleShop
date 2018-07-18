@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Blazor;
+using Microsoft.AspNetCore.Blazor.Browser.Interop;
 using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
 using PuzzleShop.Shared.Models;
@@ -23,9 +24,12 @@ namespace PuzzleShop.Client.Pages.LoginRegister.Logic {
             ActiveValidate = false;
         }
 
+        protected string processing = "hide";
+
         protected async void LoginAction() {
             if (!string.IsNullOrEmpty(loginUser.Username) && !string.IsNullOrEmpty(loginUser.Password)) {
                 //Http.SendJsonAsync(HttpMethod.Post, "/api/User/Login", loginUser);
+                processing = "show";
                 User user = null;
                 try {
                     user = await Http.SendJsonAsync<User>(HttpMethod.Post, "api/User/Login", loginUser);
@@ -35,10 +39,14 @@ namespace PuzzleShop.Client.Pages.LoginRegister.Logic {
 
 
                 UriHelper.NavigateTo(user != null ? "/" : "/loginFail");
+                RegisteredFunction.Invoke<bool>("ReloadPage");
+                processing = "hide";
             }
         }
 
         protected async void RegisterAction() {
+            processing = "show";
+
             ActiveValidate = true;
             registerUser.Validate();
             if (!registerUser.HasErrors) {
@@ -51,6 +59,8 @@ namespace PuzzleShop.Client.Pages.LoginRegister.Logic {
                     registerUser.Validate();
                 }
             }
+            processing = "hide";
+
         }
     }
 }
