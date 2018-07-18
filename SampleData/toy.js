@@ -2,83 +2,83 @@ con = new Mongo();
 db = con.getDB("PuzzleShopDB");
 
 //insert toy
-db.Toy.insertMany(
-    [
-    {
-        ToyName:"Rubik 3x3",
-        ToyType:"Rubik",
-        Producer:"Xiao Xi",
-        SizeX:3,
-        SizeY:3,
-        SizeZ:3,
-        Price:15.99,
-        Quantity:50,
-        YearOfManufacture: 2018,
-        Description:"",
-        PhotoURL:"",
-        Comment:[
-        {
-            Username:"nmt",
-            Content:"Good",
-            Date:"1-1-2018",
-        },
-        {
-            Username:"ttn",
-            Content:"Not bad",
-            Date:"10-2-2018",
-        }]
-    },
-    {
-        ToyName:"Rubik 4x4",
-        ToyType:"Rubik",
-        Producer:"Xi Meng",
-        SizeX:4,
-        SizeY:4,
-        SizeZ:4,
-        Price:22.99,
-        Quantity:50,
-        YearOfManufacture: 2018,
-        PhotoURL:"",
-        Description:""
-    },
-    {
-        ToyName:"Rubik 4x3",
-        ToyType:"Rubik",
-        Producer:"Xi Xong",
-        SizeX:4,
-        SizeY:3,
-        SizeZ:3,
-        Price:20.50,
-        Quantity:60,
-        YearOfManufacture: 2018,
-        PhotoURL:"",
-        Description:""
-    },
-    {
-        ToyName:"1000 pieces puzzle",
-        ToyType:"Puzzle",
-        Producer:"ABC INC",
-        SizeX:50,
-        SizeY:20,
-        Price:30.10,
-        Quantity:30,
-        YearOfManufacture: 2018,
-        PhotoURL:"",
-        Description:""
-    },
-    {
-        ToyName:"2000 pieces puzzle",
-        ToyType:"Puzzle",
-        Producer:"ABC INC",
-        SizeX:80,
-        SizeY:25,
-        Price:39.99,
-        Quantity:10,
-        YearOfManufacture: 2018,
-        PhotoURL:"",
-        Description:""
-    }
-    ]);
+// db.Toy.insertMany(
+//     [
+//     {
+//         ToyName:"Rubik 3x3",
+//         ToyType:"Rubik",
+//         Producer:"Xiao Xi",
+//         SizeX:3,
+//         SizeY:3,
+//         SizeZ:3,
+//         Price:15.99,
+//         Quantity:50,
+//         YearOfManufacture: 2018,
+//         Description:"",
+//         PhotoURL:"",
+//         Comment:[
+//         {
+//             Username:"nmt",
+//             Content:"Good",
+//             Date:"1-1-2018",
+//         },
+//         {
+//             Username:"ttn",
+//             Content:"Not bad",
+//             Date:"10-2-2018",
+//         }]
+//     },
+//     {
+//         ToyName:"Rubik 4x4",
+//         ToyType:"Rubik",
+//         Producer:"Xi Meng",
+//         SizeX:4,
+//         SizeY:4,
+//         SizeZ:4,
+//         Price:22.99,
+//         Quantity:50,
+//         YearOfManufacture: 2018,
+//         PhotoURL:"",
+//         Description:""
+//     },
+//     {
+//         ToyName:"Rubik 4x3",
+//         ToyType:"Rubik",
+//         Producer:"Xi Xong",
+//         SizeX:4,
+//         SizeY:3,
+//         SizeZ:3,
+//         Price:20.50,
+//         Quantity:60,
+//         YearOfManufacture: 2018,
+//         PhotoURL:"",
+//         Description:""
+//     },
+//     {
+//         ToyName:"1000 pieces puzzle",
+//         ToyType:"Puzzle",
+//         Producer:"ABC INC",
+//         SizeX:50,
+//         SizeY:20,
+//         Price:30.10,
+//         Quantity:30,
+//         YearOfManufacture: 2018,
+//         PhotoURL:"",
+//         Description:""
+//     },
+//     {
+//         ToyName:"2000 pieces puzzle",
+//         ToyType:"Puzzle",
+//         Producer:"ABC INC",
+//         SizeX:80,
+//         SizeY:25,
+//         Price:39.99,
+//         Quantity:10,
+//         YearOfManufacture: 2018,
+//         PhotoURL:"",
+//         Description:""
+//     }
+//     ]);
 
 db.Toy.insertMany(
     [
