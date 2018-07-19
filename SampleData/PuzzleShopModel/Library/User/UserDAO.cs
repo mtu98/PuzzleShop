@@ -7,7 +7,7 @@ using System.Configuration;
 using MongoDB.Driver;
 using MongoDB.Bson;
 
-namespace Library.User
+namespace Library.UserCollection
 {
     public class UserDAO
     {
@@ -36,10 +36,20 @@ namespace Library.User
             return null;
         }
 
+
+        /// <summary>
+        /// Register, input must be validated first
+        /// If Username or Email existed in system, throw Duplicate Exception
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="email"></param>
         public void register(string username, string password, string firstName, string lastName, string email)
         {
             var db = utils.DBConnect.getDB();
-            var accounts = db.GetCollection<User>("Account");
+            var accounts = db.GetCollection<User>("User");
             string passwordHash = MD5Hash.GetMD5Hash(password);
             try
             {
