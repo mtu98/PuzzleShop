@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 
-namespace Library.Toy
+namespace Library.ToyCollection
 {
     public class Toy
     {
-        public BsonObjectId _id { get; set; }
+        public string _id { get; set; }
         public string ToyName { get; set; }
         public string ToyType { get; set; }
         public string Producer { get; set; }

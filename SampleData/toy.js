@@ -2,87 +2,93 @@ con = new Mongo();
 db = con.getDB("PuzzleShopDB");
 
 //insert toy
-// db.Toy.insertMany(
-//     [
-//     {
-//         ToyName:"Rubik 3x3",
-//         ToyType:"Rubik",
-//         Producer:"Xiao Xi",
-//         SizeX:3,
-//         SizeY:3,
-//         SizeZ:3,
-//         Price:15.99,
-//         Quantity:50,
-//         YearOfManufacture: 2018,
-//         Description:"",
-//         PhotoURL:"",
-//         Comment:[
-//         {
-//             Username:"nmt",
-//             Content:"Good",
-//             Date:"1-1-2018",
-//         },
-//         {
-//             Username:"ttn",
-//             Content:"Not bad",
-//             Date:"10-2-2018",
-//         }]
-//     },
-//     {
-//         ToyName:"Rubik 4x4",
-//         ToyType:"Rubik",
-//         Producer:"Xi Meng",
-//         SizeX:4,
-//         SizeY:4,
-//         SizeZ:4,
-//         Price:22.99,
-//         Quantity:50,
-//         YearOfManufacture: 2018,
-//         PhotoURL:"",
-//         Description:""
-//     },
-//     {
-//         ToyName:"Rubik 4x3",
-//         ToyType:"Rubik",
-//         Producer:"Xi Xong",
-//         SizeX:4,
-//         SizeY:3,
-//         SizeZ:3,
-//         Price:20.50,
-//         Quantity:60,
-//         YearOfManufacture: 2018,
-//         PhotoURL:"",
-//         Description:""
-//     },
-//     {
-//         ToyName:"1000 pieces puzzle",
-//         ToyType:"Puzzle",
-//         Producer:"ABC INC",
-//         SizeX:50,
-//         SizeY:20,
-//         Price:30.10,
-//         Quantity:30,
-//         YearOfManufacture: 2018,
-//         PhotoURL:"",
-//         Description:""
-//     },
-//     {
-//         ToyName:"2000 pieces puzzle",
-//         ToyType:"Puzzle",
-//         Producer:"ABC INC",
-//         SizeX:80,
-//         SizeY:25,
-//         Price:39.99,
-//         Quantity:10,
-//         YearOfManufacture: 2018,
-//         PhotoURL:"",
-//         Description:""
-//     }
-//     ]);
+db.Toy.insertMany(
+    [
+    {
+    	_id: "T01",
+        ToyName:"Rubik 3x3",
+        ToyType:"Rubik",
+        Producer:"Xiao Xi",
+        SizeX:3,
+        SizeY:3,
+        SizeZ:3,
+        Price:15.99,
+        Quantity:50,
+        YearOfManufacture: 2018,
+        Description:"",
+        PhotoURL:"",
+        Comment:[
+        {
+            Username:"nmt",
+            Content:"Good",
+            Date:"1-1-2018",
+        },
+        {
+            Username:"ttn",
+            Content:"Not bad",
+            Date:"10-2-2018",
+        }]
+    },
+    {
+    	_id: "T02",
+        ToyName:"Rubik 4x4",
+        ToyType:"Rubik",
+        Producer:"Xi Meng",
+        SizeX:4,
+        SizeY:4,
+        SizeZ:4,
+        Price:22.99,
+        Quantity:50,
+        YearOfManufacture: 2018,
+        PhotoURL:"",
+        Description:""
+    },
+    {
+    	_id: "T03",
+        ToyName:"Rubik 4x3",
+        ToyType:"Rubik",
+        Producer:"Xi Xong",
+        SizeX:4,
+        SizeY:3,
+        SizeZ:3,
+        Price:20.50,
+        Quantity:60,
+        YearOfManufacture: 2018,
+        PhotoURL:"",
+        Description:""
+    },
+    {
+    	_id: "T04",
+        ToyName:"1000 pieces puzzle",
+        ToyType:"Puzzle",
+        Producer:"ABC INC",
+        SizeX:50,
+        SizeY:20,
+        Price:30.10,
+        Quantity:30,
+        YearOfManufacture: 2018,
+        PhotoURL:"",
+        Description:""
+    },
+    {
+    	_id: "T05",
+        ToyName:"2000 pieces puzzle",
+        ToyType:"Puzzle",
+        Producer:"ABC INC",
+        SizeX:80,
+        SizeY:25,
+        Price:39.99,
+        Quantity:10,
+        YearOfManufacture: 2018,
+        PhotoURL:"",
+        Description:""
+    }
+    ]);
 
 db.Toy.insertMany(
     [
     {
+    	_id: "T06",
         ToyName: "RUBIK’S TOWER",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -96,6 +102,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/tower_1__enlarged.png"
     }, 
     {
+    	_id: "T07",
         ToyName: "RUBIK’S TWIST",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -109,6 +116,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/twist_1___enlarged.png"
     }, 
     {
+    	_id: "T08",
         ToyName: "RUBIK’S SNAKE",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -122,6 +130,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/snake_3__enlarged.png"
     }, 
     {
+    	_id: "T09",
         ToyName: "RUBIK’S VOID",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -135,6 +144,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/void_1__enlarged.png"
     }, 
     {
+    	_id: "T10",
         ToyName: "RUBIK’S 2X2 CUBE",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -148,6 +158,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/2x2_4__enlarged.png"
     }, 
     {
+    	_id: "T11",
         ToyName: "RUBIK’S JUNIOR KITTEN",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -161,6 +172,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/kitten__enlarged.png"
     }, 
     {
+    	_id: "T12",
         ToyName: "MY FIRST CUBE",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -174,6 +186,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/my_first_cube__enlarged.png"
     }, 
     {
+    	_id: "T13",
         ToyName: "BLANK CUBE",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -187,6 +200,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/blank_cube__enlarged.png"
     }, 
     {
+    	_id: "T14",
         ToyName: "RUBIK’S 3X3 KEYCHAIN",
         ToyType: "Rubik",
         Producer: "Rubiks",
