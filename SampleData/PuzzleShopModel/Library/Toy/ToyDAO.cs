@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using Library.User;
+using MongoDB.Bson;
+using Library.UserCollection;
 
 
-namespace Library.Toy
+namespace Library.ToyCollection
 {
     public class ToyDAO
     {
@@ -18,6 +19,10 @@ namespace Library.Toy
         /// <returns></returns>
         public List<Toy> FindToys(string ToyName)
         {
+            if(ToyName == null || ToyName.Length == 0)
+            {
+                return null;
+            }
             //Get connection and PuzzleShopDB
             var db = utils.DBConnect.getDB();
             var toys = db.GetCollection<Toy>("Toy");
@@ -37,6 +42,7 @@ namespace Library.Toy
             }
             
         }
+
 
         /// <summary>
         /// Take list found toy and filter by type
@@ -77,16 +83,22 @@ namespace Library.Toy
             return list;
         }
 
-
-        public void CommentInToy(User.User User, Toy Toy, string Content)
+        /// <summary>
+        /// User Add a comment in a toy
+        /// </summary>
+        /// <param name="User"></param>
+        /// <param name="Toy"></param>
+        /// <param name="Content"></param>
+        public void CommentInToy(User User, Toy Toy, string Content)
         {
 
             var db = utils.DBConnect.getDB();
             var toys = db.GetCollection<Toy>("Toy");
             var builder = Builders<Toy>.Filter;
+            //Build filter to query the toy need to cmt
             var filter = builder.Where(toy => toy._id.Equals(Toy._id));
-            var updateBuilder = Builders<Toy>.Update;
-
+            
+            //Create Comment
             Comment cmt = new Comment
             {
                 Username = User.Username,
@@ -94,6 +106,8 @@ namespace Library.Toy
                 Date = DateTime.Now.ToString()
             };
 
+            var updateBuilder = Builders<Toy>.Update;
+            //Build update, import Comment
             var update = updateBuilder.AddToSet(toy => toy.Comment, cmt);
 
             try
@@ -107,5 +121,37 @@ namespace Library.Toy
             }
         }
 
+
+        /// <summary>
+        /// Query 3 first Toy
+        /// </summary>
+        /// <returns></returns>
+        public List<Toy> RandomToy()
+        {
+            //Get connection and PuzzleShopDB
+            var db = utils.DBConnect.getDB();
+            var toys = db.GetCollection<Toy>("Toy");
+
+            Random rng = new Random();
+
+            List<Toy> list = toys.Find(new BsonDocument()).Limit(3).Skip(rng.Next(10)).ToList();
+
+            return list;
+        }
+
+        /// <summary>
+        /// Get All Toys
+        /// </summary>
+        /// <returns></returns>
+        public List<Toy> AllToys()
+        {
+            //Get connection and PuzzleShopDB
+            var db = utils.DBConnect.getDB();
+            var toys = db.GetCollection<Toy>("Toy");
+
+            List<Toy> list = toys.Find(new BsonDocument()).ToList();
+
+            return list;
+        }
     }
 }

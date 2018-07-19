@@ -5,6 +5,7 @@ db = con.getDB("PuzzleShopDB");
 db.Toy.insertMany(
     [
     {
+    	_id: "T01",
         ToyName:"Rubik 3x3",
         ToyType:"Rubik",
         Producer:"Xiao Xi",
@@ -29,6 +30,7 @@ db.Toy.insertMany(
         }]
     },
     {
+    	_id: "T02",
         ToyName:"Rubik 4x4",
         ToyType:"Rubik",
         Producer:"Xi Meng",
@@ -42,6 +44,7 @@ db.Toy.insertMany(
         Description:""
     },
     {
+    	_id: "T03",
         ToyName:"Rubik 4x3",
         ToyType:"Rubik",
         Producer:"Xi Xong",
@@ -55,6 +58,7 @@ db.Toy.insertMany(
         Description:""
     },
     {
+    	_id: "T04",
         ToyName:"1000 pieces puzzle",
         ToyType:"Puzzle",
         Producer:"ABC INC",
@@ -67,6 +71,7 @@ db.Toy.insertMany(
         Description:""
     },
     {
+    	_id: "T05",
         ToyName:"2000 pieces puzzle",
         ToyType:"Puzzle",
         Producer:"ABC INC",
@@ -83,6 +88,7 @@ db.Toy.insertMany(
 db.Toy.insertMany(
     [
     {
+    	_id: "T06",
         ToyName: "RUBIK’S TOWER",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -96,6 +102,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/tower_1__enlarged.png"
     }, 
     {
+    	_id: "T07",
         ToyName: "RUBIK’S TWIST",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -109,6 +116,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/twist_1___enlarged.png"
     }, 
     {
+    	_id: "T08",
         ToyName: "RUBIK’S SNAKE",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -122,6 +130,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/snake_3__enlarged.png"
     }, 
     {
+    	_id: "T09",
         ToyName: "RUBIK’S VOID",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -135,6 +144,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/void_1__enlarged.png"
     }, 
     {
+    	_id: "T10",
         ToyName: "RUBIK’S 2X2 CUBE",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -148,6 +158,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/2x2_4__enlarged.png"
     }, 
     {
+    	_id: "T11",
         ToyName: "RUBIK’S JUNIOR KITTEN",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -161,6 +172,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/kitten__enlarged.png"
     }, 
     {
+    	_id: "T12",
         ToyName: "MY FIRST CUBE",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -174,6 +186,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/my_first_cube__enlarged.png"
     }, 
     {
+    	_id: "T13",
         ToyName: "BLANK CUBE",
         ToyType: "Rubik",
         Producer: "Rubiks",
@@ -187,6 +200,7 @@ db.Toy.insertMany(
         PhotoURL: "img/Products/blank_cube__enlarged.png"
     }, 
     {
+    	_id: "T14",
         ToyName: "RUBIK’S 3X3 KEYCHAIN",
         ToyType: "Rubik",
         Producer: "Rubiks",

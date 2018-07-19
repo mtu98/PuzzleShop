@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 
-namespace Library.User
+namespace Library.UserCollection
 {
 
     public class User

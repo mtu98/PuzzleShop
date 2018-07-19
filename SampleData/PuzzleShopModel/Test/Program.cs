@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
-using Library.User;
-using Library.Toy;
+using Library.UserCollection;
+using Library.ToyCollection;
 
 namespace Test
 {
