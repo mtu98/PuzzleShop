@@ -26,10 +26,18 @@ namespace PuzzleShop.Client.Pages.LoginRegister.Logic {
 
         protected string processing = "hide";
 
+        private void startProcessing() {
+            processing = "show";
+        }
+
+        private void endProcessing() {
+            processing = "hide";
+        }
+
         protected async void LoginAction() {
             if (!string.IsNullOrEmpty(loginUser.Username) && !string.IsNullOrEmpty(loginUser.Password)) {
                 //Http.SendJsonAsync(HttpMethod.Post, "/api/User/Login", loginUser);
-                processing = "show";
+                startProcessing();
                 User user = null;
                 try {
                     user = await Http.SendJsonAsync<User>(HttpMethod.Post, "api/User/Login", loginUser);
@@ -40,7 +48,7 @@ namespace PuzzleShop.Client.Pages.LoginRegister.Logic {
 
                 UriHelper.NavigateTo(user != null ? "/" : "/loginFail");
                 RegisteredFunction.Invoke<bool>("ReloadPage");
-                processing = "hide";
+                endProcessing();
             }
         }
 

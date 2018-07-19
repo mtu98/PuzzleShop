@@ -30,7 +30,7 @@
             <div id="" class="row">
                 @foreach (var toy in ToyList) {
                     <div class="col-xs-12 col-sm-6 col-md-4 product-holder">
-                        <form class="custom" onsubmit="return false" method="post" action="/search">
+                        <form class="custom" onsubmit="return false" method="post">
                             <div class="product-item text-center">
                                 <a class="product-img" href="#">
                                     <img class="img-responsive" src="../@toy.PhotoURL" alt="@toy.ToyName" />
@@ -55,3 +55,18 @@
         </div>
     </div>
 </section>
+
+<!-- dimming the page while prcessing -->
+<div class="cover @processing"></div>
+
+<style>
+    .cover {
+        background: rgba(150, 150, 150, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1001;
+    }
+</style>

@@ -16,13 +16,25 @@ namespace PuzzleShop.Client.Pages.Search.Logic {
         [Inject]
         public HttpClient Http { get; set; }
 
+        protected string processing = "hide";
+
+        private void startProcessing() {
+            processing = "show";
+        }
+
+        private void endProcessing() {
+            processing = "hide";
+        }
+
         protected override void OnInit() {
             SearchToy();
         }
 
         protected async void SearchToy() {
             try {
+                startProcessing();
                 ToyList = await Http.SendJsonAsync<List<Toy>>(HttpMethod.Post, "api/Toy/Search", SearchValue);
+                endProcessing();
                 StateHasChanged();
             } catch (Exception ex) {
                 Debug.WriteLine("SearchLogic Exception: " + ex.Message);
