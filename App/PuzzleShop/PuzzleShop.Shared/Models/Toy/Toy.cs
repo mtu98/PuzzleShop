@@ -1,11 +1,6 @@
-﻿using MongoDB.Bson;
-using Newtonsoft.Json;
-
-namespace PuzzleShop.Shared.Models.Toy {
+﻿namespace PuzzleShop.Shared.Models.Toy {
     public class Toy {
-        [JsonIgnore]
-        public BsonObjectId _id { get; set; }
-
+        public string _id { get; set; }
         public string ToyName { get; set; }
         public string ToyType { get; set; }
         public string Producer { get; set; }

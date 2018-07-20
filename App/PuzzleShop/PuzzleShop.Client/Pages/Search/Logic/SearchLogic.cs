@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Blazor;
 using Microsoft.AspNetCore.Blazor.Components;
+using Microsoft.AspNetCore.Blazor.Services;
 using PuzzleShop.Shared.Models.Toy;
 using System;
 using System.Collections.Generic;
@@ -16,29 +17,42 @@ namespace PuzzleShop.Client.Pages.Search.Logic {
         [Inject]
         public HttpClient Http { get; set; }
 
-        protected string processing = "hide";
+        [Inject]
+        public IUriHelper UriHelper { get; set; }
 
-        private void startProcessing() {
-            processing = "show";
+        protected string Processing = "hide";
+
+        private void StartProcessing() {
+            Processing = "show";
         }
 
-        private void endProcessing() {
-            processing = "hide";
+        private void EndProcessing() {
+            Processing = "hide";
         }
 
-        protected override void OnInit() {
+        //protected override void OnInit() {
+        //    SearchToy();
+        //}
+
+        protected override void OnParametersSet() {
             SearchToy();
         }
 
         protected async void SearchToy() {
             try {
-                startProcessing();
+                StartProcessing();
                 ToyList = await Http.SendJsonAsync<List<Toy>>(HttpMethod.Post, "api/Toy/Search", SearchValue);
-                endProcessing();
+                EndProcessing();
                 StateHasChanged();
             } catch (Exception ex) {
                 Debug.WriteLine("SearchLogic Exception: " + ex.Message);
             }
+        }
+
+        protected void ViewToyDetail(string toyId) {
+
+            UriHelper.NavigateTo("/toyDetail/" + toyId);
+            //return "return false";
         }
     }
 }

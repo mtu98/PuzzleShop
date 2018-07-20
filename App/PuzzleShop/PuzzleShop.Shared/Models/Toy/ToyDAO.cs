@@ -1,16 +1,32 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using Utils;
 
 namespace PuzzleShop.Shared.Models.Toy {
     public class ToyDAO {
+
+        public Toy FindToyById(string toyId) {
+            var db = DBConnect.getDB();
+            var toys = db.GetCollection<Toy>("Toy");
+            try {
+                var toy = toys.Find(t => t._id.Equals(toyId)).Single();
+                return toy;
+            } catch (Exception ex) {
+                throw;
+            }
+        }
+
         /// <summary>
         /// Find toy by ToyName
         /// </summary>
         /// <param name="ToyName"></param>
         /// <returns></returns>
         public List<Toy> FindToys(string ToyName) {
+            if (string.IsNullOrEmpty(ToyName)) {
+                return null;
+            }
             //Get connection and PuzzleShopDB
             var db = DBConnect.getDB();
             var toys = db.GetCollection<Toy>("Toy");
@@ -27,6 +43,7 @@ namespace PuzzleShop.Shared.Models.Toy {
             }
 
         }
+
 
         /// <summary>
         /// Take list found toy and filter by type
@@ -61,21 +78,29 @@ namespace PuzzleShop.Shared.Models.Toy {
             return list;
         }
 
-
+        /// <summary>
+        /// User Add a comment in a toy
+        /// </summary>
+        /// <param name="User"></param>
+        /// <param name="Toy"></param>
+        /// <param name="Content"></param>
         public void CommentInToy(User User, Toy Toy, string Content) {
 
             var db = DBConnect.getDB();
             var toys = db.GetCollection<Toy>("Toy");
             var builder = Builders<Toy>.Filter;
+            //Build filter to query the toy need to cmt
             var filter = builder.Where(toy => toy._id.Equals(Toy._id));
-            var updateBuilder = Builders<Toy>.Update;
 
+            //Create Comment
             Comment cmt = new Comment {
                 Username = User.Username,
                 Content = Content,
                 Date = DateTime.Now.ToString()
             };
 
+            var updateBuilder = Builders<Toy>.Update;
+            //Build update, import Comment
             var update = updateBuilder.AddToSet(toy => toy.Comment, cmt);
 
             try {
@@ -84,6 +109,37 @@ namespace PuzzleShop.Shared.Models.Toy {
 
                 throw;
             }
+        }
+
+
+        /// <summary>
+        /// Query 3 first Toy
+        /// </summary>
+        /// <returns></returns>
+        public List<Toy> RandomToy() {
+            //Get connection and PuzzleShopDB
+            var db = DBConnect.getDB();
+            var toys = db.GetCollection<Toy>("Toy");
+
+            Random rng = new Random();
+
+            List<Toy> list = toys.Find(new BsonDocument()).Limit(3).Skip(rng.Next(10)).ToList();
+
+            return list;
+        }
+
+        /// <summary>
+        /// Get All Toys
+        /// </summary>
+        /// <returns></returns>
+        public List<Toy> AllToys() {
+            //Get connection and PuzzleShopDB
+            var db = DBConnect.getDB();
+            var toys = db.GetCollection<Toy>("Toy");
+
+            List<Toy> list = toys.Find(new BsonDocument()).ToList();
+
+            return list;
         }
     }
 }
