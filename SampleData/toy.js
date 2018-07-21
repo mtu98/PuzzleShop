@@ -17,16 +17,22 @@ db.Toy.insertMany(
         YearOfManufacture: 2018,
         Description:"",
         PhotoURL:"",
-        Comment:[
+        Review:[
         {
-            Username:"nmt",
-            Content:"Good",
+            Name:"ABC",
+            Email: "guest@gmail.com",
+            Title:"Good",
+            Content: "This thing is great, my kids love it!",
+            Star: 5,
             Date:"1-1-2018",
         },
         {
-            Username:"ttn",
-            Content:"Not bad",
-            Date:"10-2-2018",
+            Name:"DEF",
+            Email: "anotherguest@gmail.com",
+            Title:"Fine",
+            Content: "Great product",
+            Star: 4,
+            Date:"5-1-2018",
         }]
     },
     {
