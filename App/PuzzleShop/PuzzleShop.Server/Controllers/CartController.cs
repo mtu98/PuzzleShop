@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using PuzzleShop.Shared.Models.Cart;
 using PuzzleShop.Shared.Models.Toy;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace PuzzleShop.Server.Controllers {
@@ -22,7 +21,9 @@ namespace PuzzleShop.Server.Controllers {
             } else {
                 toyList = JsonConvert.DeserializeObject<List<KeyValuePair<Toy, int>>>(cartJson);
                 cart = new Cart(toyList.ToDictionary(item => item.Key, item => item.Value));
-                quantity = cart[toy];
+                if (cart.ContainsKey(toy)) {
+                    quantity = cart[toy];
+                }
             }
 
             // add toy to cart
@@ -34,8 +35,15 @@ namespace PuzzleShop.Server.Controllers {
             cartJson = JsonConvert.SerializeObject(toyList);
             HttpContext.Session.SetString("CART", cartJson);
 
-            Debug.WriteLine("===> Added toy: " + toy._id + ", " + cart[toy] + "; json: " + cartJson);
+            //Debug.WriteLine("===> Added toy: " + toy._id + ", " + cart[toy] + "; json: " + cartJson);
             return true;
+        }
+
+        [HttpGet]
+        [Route("api/Cart/GetCart")]
+        public string GetCartListAsJson() {
+            var cartJson = HttpContext.Session.GetString("CART");
+            return cartJson;
         }
     }
 }

@@ -30,16 +30,43 @@
                     }
                 </li>
                 <li id="navbar-totals" class="totals">
-                    <span class="hidden-xs">0 Items</span>
-                    <span class="visible-lg">$0.00</span>
+                    <span class="hidden-xs">@GetTotalItemQuantityInCart() Items</span>
+                    <span class="visible-lg">$@GetPriceOfCart().ToString("N")</span>
                 </li>
                 <li class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="btn btn-primary cart-btn">
+                    <a href="#" data-toggle="dropdown" class="btn btn-primary cart-btn" onclick="@GetCart">
                         <i class="fa fa-shopping-cart"></i>
                     </a>
                     <div id="mini-cart" class="dropdown-menu">
-                        <h6>No items in cart.</h6>
+
+                        @if (Cart == null || Cart.Count == 0) {
+                            <h6>No items in cart.</h6>
+                        } else {
+                            <ul class="cart-items list-unstyled hidden-xs">
+                                @foreach (var item in Cart) {
+                                    <li class="row cart-item">
+                                        <div class="product-thumb col-xs-4">
+                                            <img class="img-responsive" alt="@item.Key.ToyName" src="../@item.Key.PhotoURL">
+                                        </div>
+                                        <div class="product-info col-xs-8">
+                                            <h6 class="product-title">@item.Key.ToyName</h6>
+                                            <div class="price">
+                                                @item.Value x <span>$@item.Key.Price.ToString("N")</span>
+                                            </div>
+                                            <a class="remove-item" href="#"><i class="fa fa-times"></i></a>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+
+                            <div class="mini-cart-totals">
+                                <h4 class="subtotal">Subtotal: $@GetPriceOfCart().ToString("N")</h4>
+                                <a class="btn btn-default btn-lg" href="#">View Cart</a>
+                                <a class="col-xs-12 btn btn-danger solid btn-lg" href="#">Checkout</a>
+                            </div>
+                        }
                     </div>
+
                 </li>
             </ul>
         </div>

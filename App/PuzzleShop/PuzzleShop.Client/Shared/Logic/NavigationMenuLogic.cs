@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
+using Newtonsoft.Json;
 using PuzzleShop.Shared.Models;
+using PuzzleShop.Shared.Models.Cart;
+using PuzzleShop.Shared.Models.Toy;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 
 namespace PuzzleShop.Client.Shared.Logic {
@@ -22,6 +27,8 @@ namespace PuzzleShop.Client.Shared.Logic {
         }
 
         protected string SearchValue { get; set; }
+
+        protected Cart Cart { get; set; }
 
         protected async void GetLoginUser() {
             string username = null;
@@ -46,6 +53,49 @@ namespace PuzzleShop.Client.Shared.Logic {
                 UriHelper.NavigateTo("/search/" + SearchValue);
             }
             return "return false"; // prevent the form to be submitted
+        }
+
+        protected double GetPriceOfCart() {
+            if (Cart == null) {
+                return 0;
+            }
+
+            double price = 0;
+            foreach (var item in Cart) {
+                price += item.Key.Price * item.Value;
+            }
+
+            return price;
+        }
+
+        protected int GetTotalItemQuantityInCart() {
+            if (Cart == null) {
+                return 0;
+            }
+
+            int quantity = 0;
+            foreach (var item in Cart) {
+                quantity += item.Value;
+            }
+
+            return quantity;
+        }
+
+        protected async void GetCart() {
+            var cartJson = await Http.GetStringAsync("api/Cart/GetCart");
+            if (string.IsNullOrEmpty(cartJson)) {
+                return;
+            }
+            try {
+                var toyList = JsonConvert.DeserializeObject<List<KeyValuePair<Toy, int>>>(cartJson);
+                if (toyList != null) {
+                    Cart = new Cart(toyList.ToDictionary(item => item.Key, item => item.Value));
+                    StateHasChanged();
+                }
+            } catch (Exception ex) {
+                Debug.WriteLine("NavigationMenuLogic GetCart " + ex.Message);
+                throw;
+            }
         }
     }
 }

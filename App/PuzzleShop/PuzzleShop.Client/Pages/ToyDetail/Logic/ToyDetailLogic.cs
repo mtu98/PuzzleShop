@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Blazor;
 using Microsoft.AspNetCore.Blazor.Browser.Interop;
 using Microsoft.AspNetCore.Blazor.Components;
+using Microsoft.AspNetCore.Blazor.Services;
 using PuzzleShop.Shared.Models.Toy;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +19,22 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
 
         protected Toy CurrentToy { get; set; }
 
+        protected bool AddSuccess { get; set; } = false;
+
         [Inject]
         private HttpClient Http { get; set; }
+
+        [Inject]
+        private IUriHelper UriHelper { get; set; }
 
         protected override void OnParametersSet() {
             if (string.IsNullOrEmpty(ToyId)) {
                 return;
             }
             CurrentToy = ToyList.SingleOrDefault(toy => toy._id.Equals(ToyId));
-            CurrentToy.Quantity = 1;
+            if (CurrentToy != null) {
+                CurrentToy.Quantity = 1;
+            }
             //StateHasChanged();
         }
 
@@ -43,6 +51,7 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
                 largeImageUrl += imageName;
                 //RegisteredFunction.Invoke<bool>("ZoomImage", "#toy-img-zoom", largeImageUrl);
                 RegisteredFunction.Invoke<bool>("ZoomImage", "#toy-img-zoom");
+                RegisteredFunction.Invoke<bool>("ActivateStarRating");
             }
         }
 
@@ -53,8 +62,13 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
             CurrentToy.Quantity += offsetValue;
         }
 
+        protected string AddingItemDisplay { get; set; } = "none";
+
         protected async Task<string> AddToCart() {
+            AddingItemDisplay = "inline-block";
             await Http.SendJsonAsync<bool>(HttpMethod.Post, "api/Cart/AddToCart", CurrentToy);
+            AddingItemDisplay = "none";
+            AddSuccess = true;
             return "return false";
         }
     }

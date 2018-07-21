@@ -60,6 +60,11 @@
 
 <div id="toy-detail" class="@(IsDisplay.Equals("show") ? "hide" : "show")">
     <ToyDetail ToyList="@ToyList" ToyId="@SelectedToyId" />
+    <div style="margin-bottom: 10px">
+        <a class="btn btn-default btn-continue-shopping" href="#" onclick="@BackToSearchResult">
+            <i class="fa fa-arrow-left"></i> Back to search result
+        </a>
+    </div>
 </div>
 
 <!-- dimming the page while prcessing -->

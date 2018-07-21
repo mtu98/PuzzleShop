@@ -16,6 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/lemonstand.js"></script>
     <script src="js/jquery.zoom.js"></script>
+    <script src="js/jquery.raty.min.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -106,53 +107,63 @@
         function writeReview() {
             $('#productWriteModal').modal('show');
         }
-        //Rating Star activator
-        if ($('.star').length > 0) {
-            $('.star').raty({
-                starOff: 'images/star-off.png',
-                starOn: 'images/star-on.png',
-                score: function() {
-                    return $(this).attr('data-score');
+
+        function activateStarRating() {
+            //Rating Star activator
+            if ($('.star').length > 0) {
+                $('.star').raty({
+                    starOff: 'images/star-off.png',
+                    starOn: 'images/star-on.png',
+                    score: function() {
+                        return $(this).attr('data-score');
+                    }
+                });
+            }
+
+            //
+            // Star rating
+            //
+            $('.rating > span').click(function() {
+                var currentId = $(this).attr('id');
+                if (currentId === 'hate') {
+                    $('#hate').addClass('select');
+                    $('#dont-like, #ok, #like, #love').removeClass('select');
+                    $('.rating > p').text('I hate it');
+                    $("#item_rating").val('1');
                 }
+                if (currentId === 'dont-like') {
+                    $('#hate, #dont-like').addClass('select');
+                    $('#ok, #like, #love').removeClass('select');
+                    $('.rating > p').text('I don\'t like it');
+                    $("#item_rating").val('2');
+                }
+                if (currentId === 'ok') {
+                    $('#hate, #dont-like, #ok').addClass('select');
+                    $('#like, #love').removeClass('select');
+                    $('.rating > p').text('It\'s ok');
+                    $("#item_rating").val('3');
+                }
+                if (currentId === 'like') {
+                    $('#hate, #dont-like, #ok, #like').addClass('select');
+                    $('#love').removeClass('select');
+                    $('.rating > p').text('I like it');
+                    $("#item_rating").val('4');
+                }
+                if (currentId === 'love') {
+                    $('#hate, #dont-like, #ok, #like, #love').addClass('select');
+                    $('.rating > p').text('I love it');
+                    $("#item_rating").val('5');
+                }
+
             });
         }
 
-        //
-        // Star rating
-        //
-        $('.rating > span').click(function() {
-            var currentId = $(this).attr('id');
-            if (currentId === 'hate') {
-                $('#hate').addClass('select');
-                $('#dont-like, #ok, #like, #love').removeClass('select');
-                $('.rating > p').text('I hate it');
-                $("#item_rating").val('1');
-            }
-            if (currentId === 'dont-like') {
-                $('#hate, #dont-like').addClass('select');
-                $('#ok, #like, #love').removeClass('select');
-                $('.rating > p').text('I don\'t like it');
-                $("#item_rating").val('2');
-            }
-            if (currentId === 'ok') {
-                $('#hate, #dont-like, #ok').addClass('select');
-                $('#like, #love').removeClass('select');
-                $('.rating > p').text('It\'s ok');
-                $("#item_rating").val('3');
-            }
-            if (currentId === 'like') {
-                $('#hate, #dont-like, #ok, #like').addClass('select');
-                $('#love').removeClass('select');
-                $('.rating > p').text('I like it');
-                $("#item_rating").val('4');
-            }
-            if (currentId === 'love') {
-                $('#hate, #dont-like, #ok, #like, #love').addClass('select');
-                $('.rating > p').text('I love it');
-                $("#item_rating").val('5');
-            }
-
-        });
+        function prep(id, url) {
+            console.log("haha");
+            $(id).zoom({
+                url: url
+            });
+        }
 
         Blazor.registerFunction("AutoReloadPage", autoReloadPage);
         //Blazor.registerFunction("ZoomImage", (toyImageId, largeImageUrl) => {
@@ -160,19 +171,16 @@
         //    return true;
         //});
         Blazor.registerFunction("ZoomImage", (toyImageId) => {
-            try {
-                $(toyImageId).zoom({
-                    url: 'img/Products/large-rubik-4x4.jpg'
-                });
-            } catch (error) {
-                console.log("Zoom error: " + error);
-            }
+            $(toyImageId).zoom({
+                url: 'img/Products/large-rubik-4x4.jpg'
+            });
             return true;
         });
+        Blazor.registerFunction("ActivateStarRating", activateStarRating);
 
     </script>
 
     <!--<script src="js/plugins.min.js"></script>
-            <script src="js/main.min.js"></script>-->
+    <script src="js/main.min.js"></script>-->
 </body>
 </html>
