@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Blazor.Components;
+using Microsoft.AspNetCore.Blazor.Services;
 using PuzzleShop.Shared.Models;
 using System;
 using System.Diagnostics;
@@ -12,10 +13,15 @@ namespace PuzzleShop.Client.Shared.Logic {
         [Inject]
         public HttpClient Http { get; set; }
 
+        [Inject]
+        public IUriHelper UriHelper { get; set; }
+
         protected override void OnInit() {
             GetLoginUser();
 
         }
+
+        protected string SearchValue { get; set; }
 
         protected async void GetLoginUser() {
             string username = null;
@@ -33,6 +39,13 @@ namespace PuzzleShop.Client.Shared.Logic {
             }
 
             this.StateHasChanged();
+        }
+
+        protected string Search() {
+            if (!string.IsNullOrEmpty(SearchValue)) {
+                UriHelper.NavigateTo("/search/" + SearchValue);
+            }
+            return "return false"; // prevent the form to be submitted
         }
     }
 }

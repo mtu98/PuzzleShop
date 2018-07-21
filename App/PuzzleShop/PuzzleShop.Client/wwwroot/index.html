@@ -15,6 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/lemonstand.js"></script>
+    <script src="js/jquery.zoom.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -93,11 +94,31 @@
     </script>
 
     <script>
-        function reloadPage() {
+        function autoReloadPage() {
             location.reload();
         }
+        function zoomImage(toyImageId, largeImageUrl) {
+            $(toyImageId).zoom({
+                url: largeImageUrl
+            });
 
-        Blazor.registerFunction("ReloadPage", reloadPage);
+        }
+
+        Blazor.registerFunction("AutoReloadPage", autoReloadPage);
+        //Blazor.registerFunction("ZoomImage", (toyImageId, largeImageUrl) => {
+        //    zoomImage(toyImageId, largeImageUrl);
+        //    return true;
+        //});
+        Blazor.registerFunction("ZoomImage", (toyImageId) => {
+            try {
+                $(toyImageId).zoom({
+                    url: 'img/Products/large-rubik-4x4.jpg'
+                });
+            } catch (error) {
+                console.log("Zoom error: " + error);
+            }
+            return true;
+        });
     </script>
 
     <!--<script src="js/plugins.min.js"></script>

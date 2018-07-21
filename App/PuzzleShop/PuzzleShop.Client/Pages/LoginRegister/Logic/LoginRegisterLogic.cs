@@ -9,8 +9,8 @@ using System.Net.Http;
 
 namespace PuzzleShop.Client.Pages.LoginRegister.Logic {
     public class LoginRegisterLogic : BlazorComponent {
-        protected User loginUser = new User();
-        protected User registerUser = new User();
+        protected User LoginUser = new User();
+        protected User RegisterUser = new User();
 
         [Inject]
         protected IUriHelper UriHelper { get; set; }
@@ -24,42 +24,50 @@ namespace PuzzleShop.Client.Pages.LoginRegister.Logic {
             ActiveValidate = false;
         }
 
-        protected string processing = "hide";
+        protected string Processing = "hide";
+
+        private void StartProcessing() {
+            Processing = "show";
+        }
+
+        private void EndProcessing() {
+            Processing = "hide";
+        }
 
         protected async void LoginAction() {
-            if (!string.IsNullOrEmpty(loginUser.Username) && !string.IsNullOrEmpty(loginUser.Password)) {
+            if (!string.IsNullOrEmpty(LoginUser.Username) && !string.IsNullOrEmpty(LoginUser.Password)) {
                 //Http.SendJsonAsync(HttpMethod.Post, "/api/User/Login", loginUser);
-                processing = "show";
+                StartProcessing();
                 User user = null;
                 try {
-                    user = await Http.SendJsonAsync<User>(HttpMethod.Post, "api/User/Login", loginUser);
+                    user = await Http.SendJsonAsync<User>(HttpMethod.Post, "api/User/Login", LoginUser);
                 } catch (Exception ex) {
                     Debug.WriteLine("Exception: " + ex.Message);
                 }
 
 
                 UriHelper.NavigateTo(user != null ? "/" : "/loginFail");
-                RegisteredFunction.Invoke<bool>("ReloadPage");
-                processing = "hide";
+                RegisteredFunction.Invoke<bool>("AutoReloadPage");
+                EndProcessing();
             }
         }
 
         protected async void RegisterAction() {
-            processing = "show";
+            Processing = "show";
 
             ActiveValidate = true;
-            registerUser.Validate();
-            if (!registerUser.HasErrors) {
+            RegisterUser.Validate();
+            if (!RegisterUser.HasErrors) {
                 var registerSuccess =
-                    await Http.SendJsonAsync<bool>(HttpMethod.Post, "api/User/Register", registerUser);
+                    await Http.SendJsonAsync<bool>(HttpMethod.Post, "api/User/Register", RegisterUser);
                 if (registerSuccess) {
                     UriHelper.NavigateTo("/registerSuccess");
                 } else {
-                    registerUser.DuplicateUsername = true;
-                    registerUser.Validate();
+                    RegisterUser.DuplicateUsername = true;
+                    RegisterUser.Validate();
                 }
             }
-            processing = "hide";
+            Processing = "hide";
 
         }
     }

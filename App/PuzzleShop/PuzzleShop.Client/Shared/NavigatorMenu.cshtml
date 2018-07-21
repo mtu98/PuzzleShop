@@ -98,9 +98,9 @@
                     </li>
                 </ul>
             </div>
-            <form id="search-form" class="navbar-form" role="form" method="get" action="/search">
+            <form id="search-form" class="navbar-form" role="form" method="get" onsubmit="@Search()">
                 <div class="input-group">
-                    <input type="text" class="search-form form-control" name="query" id="query" placeholder="Type your search term and press Enter" autocomplete="off" value="" />
+                    <input type="text" class="search-form form-control" name="searchValue" id="searchValue" placeholder="Type your search term and press Enter" autocomplete="off" value="" bind="@SearchValue" />
                     <span class="input-group-btn" onclick="toggleSearchForm(this.parentElement.parentElement, this.children[0].children[0])">
                         <button class="btn search-btn toggle hidden-xs hidden-sm" type="button"><i class="fa fa-search"></i></button>
                         <button class="btn search-btn hidden-md hidden-lg" type="submit"><i class="fa fa-search"></i></button>
