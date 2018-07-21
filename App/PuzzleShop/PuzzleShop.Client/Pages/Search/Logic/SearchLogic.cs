@@ -14,6 +14,10 @@ namespace PuzzleShop.Client.Pages.Search.Logic {
 
         protected List<Toy> ToyList { get; set; } = new List<Toy>();
 
+        protected string IsDisplay { get; set; } = "show";
+
+        protected string SelectedToyId { get; set; }
+
         [Inject]
         public HttpClient Http { get; set; }
 
@@ -40,6 +44,7 @@ namespace PuzzleShop.Client.Pages.Search.Logic {
 
         protected async void SearchToy() {
             try {
+                IsDisplay = "show";
                 StartProcessing();
                 ToyList = await Http.SendJsonAsync<List<Toy>>(HttpMethod.Post, "api/Toy/Search", SearchValue);
                 EndProcessing();
@@ -49,10 +54,12 @@ namespace PuzzleShop.Client.Pages.Search.Logic {
             }
         }
 
-        protected void ViewToyDetail(string toyId) {
-
-            UriHelper.NavigateTo("/toyDetail/" + toyId);
-            //return "return false";
+        protected string ViewToyDetail(string toyId) {
+            //UriHelper.NavigateTo("/toyDetail/" + toyId);
+            SelectedToyId = toyId;
+            IsDisplay = "hide";
+            StateHasChanged();
+            return "return false";
         }
     }
 }

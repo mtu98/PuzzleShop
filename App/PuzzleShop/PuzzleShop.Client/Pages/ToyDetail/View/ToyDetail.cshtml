@@ -1,5 +1,232 @@
 ﻿@using PuzzleShop.Client.Pages.ToyDetail.Logic
-@page "/toyDetail/{ToyId}"
 @inherits ToyDetailLogic
 
-<p>View detail of toy @ToyId</p>
+@if (CurrentToy != null) {
+    <div itemscope itemtype="http://schema.org/Product">
+        <div id="banner" class="jumbotron row">
+            <h1 itemprop="name">@CurrentToy.ToyName</h1>
+            <p itemprop="description">
+                <span class="span-ellipsis">@CurrentToy.Description</span>
+            </p>
+        </div>
+        <section id="single-product" class="page-section">
+            @*<ol class="breadcrumb">
+                    <li class="hidden-xs"><a href="/">Home</a></li>
+                    <li class="hidden-xs"><a href="/shop">Shop</a></li>
+                    <li><a href="/category/wearable-tech">Wearable Tech</a></li>
+                    <li class="active"><a href="/product/pink-bluetooth-watch">Pink Bluetooth Watch</a></li>
+                </ol>*@
+            <form class="custom" onsubmit="return false">
+                <div class="row">
+                    <div id="product-images">
+                        <div class="col-xs-12 col-sm-6">
+                            <div data-lg="../@CurrentToy.PhotoURL" class="product-img-zoom">
+                                <span class="zoom" id="toy-img-zoom">
+                                    <img class="product-img img-responsive" alt="@CurrentToy.ToyName" src="../@CurrentToy.PhotoURL" itemprop="image" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="img-modal" tabindex="-1" role="dialog" aria-labelledby="img-modalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img class="img-responsive" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="product-page">
+                        <div class="col-sm-6">
+                            <h1 itemprop="name">@CurrentToy.ToyName</h1>
+                            <div class="product-rating-container">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <!-- product ratings -->
+                                        <p style="display: inline;">
+                                            <span style="margin-right: -4px">
+                                                &starf;&starf;&starf;&starf;&starf;
+                                            </span> (1)
+                                            <div class="modal fade" id="productReviewModal" tabindex="-1" role="dialog" aria-labelledby="productReviewModal">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h1 class="modal-title">@CurrentToy.ToyName</h1>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-xs-6 col-sm- 6">
+                                        <p>
+                                            <span style="margin-right: -4px">
+                                                &starf;&starf;&starf;&starf;&starf;
+                                            </span> Based on 1 review
+                                        </p>
+                                    </div>
+                                    <div class="col-xs-6 col-sm- 6 text-right">
+                                        <a class="blue" href="#" data-dismiss="modal" onclick="writeReview();" id="write-review-inview"><strong>Write a Review</strong></a>
+                                    </div>
+                                </div>
+                                <div class="reviews">
+                                    <div class="review-rating">&starf;&starf;&starf;&starf;&starf;</div>
+                                    <p class="review-date">Oct 20th, 2017</p>
+                                    <p><strong>Cute and works well.</strong></p>
+                                    <p><em>Love the colour.</em></p>
+                                    <p>Julie</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- View Review -->
+                <a id="view-review" href="#" data-toggle="modal" data-target="#productReviewModal">View Review(s)</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <!-- Write Review -->
+                <a id="write-review" href="#" data-toggle="modal" data-target="#productWriteModal">Write Review</a>
+                </p>
+    </div>
+    <!-- <div class="col-xs-12 col-sm-6 product-review-controls">
+
+    </div> -->
+    </div>
+    </div>
+    <div class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <h2 itemprop="price">
+            $@CurrentToy.Price
+        </h2>
+        <link itemprop="availability" href="http://schema.org/InStock" />
+    </div>
+    <div class="excerpt" itemprop="description">
+        <p>@CurrentToy.Description</p>
+    </div>
+    <input type="hidden" name="productId" value="13" />
+    <div class="add-cart-holder form-group">
+        <div class="quantity-selector">
+            <button class="quantity-btn minus btn btn-lg btn-default"><i class="fa fa-minus"></i></button>
+            <input class="form-control quantity" type="text" value="1" name="quantity" />
+            <button class="quantity-btn plus btn btn-lg btn-default"><i class="fa fa-plus"></i></button>
+        </div>
+        <a class="btn btn-lg btn-danger btn-add-cart" href="#">Add to Cart <i class="fa fa-shopping-cart"></i></a>
+    </div>
+
+    <div id="sharrre" class="social-buttons">
+        <h6 class="share-title">share with your friends</h6>
+        <ul class="inline list-inline square-icons">
+            <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+        </ul>
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </form>
+    <div id="write-modal">
+        <div class="modal fade" id="productWriteModal" tabindex="-1" role="dialog" aria-labelledby="productWriteModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h1 class="modal-title">@CurrentToy.ToyName</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-body section-contact-form">
+                            <form data-ajax-handler="system:onSendMessage" method="post" action="/product/pink-bluetooth-watch">
+                                <div class="row field-row">
+                                    <div class="col-xs-12 col-sm-12 form-group">
+                                        <input type="text" class="required form-control" id="contact_name" name="fields[name]" value="" placeholder="Your name" />
+                                        <span class="error"></span>
+                                    </div>
+                                </div>
+                                <div class="row field-row">
+                                    <div class="col-xs-12 col-sm-12 form-group">
+                                        <input type="text" class="required form-control" id="contact_email" name="fields[email]" value="" placeholder="Email address" />
+                                        <span class="error"></span>
+                                    </div>
+                                </div>
+                                <div class="row field-row">
+                                    <div class="col-xs-12 col-sm-12 form-group">
+                                        <input type="text" class="required form-control" id="subject" name="fields[subject]" value="" placeholder="Title for your review" />
+                                        <span class="error"></span>
+                                    </div>
+                                </div>
+                                <div class="row field-row">
+                                    <div class="col-xs-12 col-sm-12 form-group">
+                                        <textarea class="required form-control" id="contact_message" name="fields[message]" value="" rows="10" placeholder="Your review"></textarea>
+                                        <span class="error"></span>
+                                    </div>
+                                </div>
+                                <div class="rating">
+                                    <span id="love">☆</span><span id="like">☆</span><span id="ok">☆</span><span id="dont-like">☆</span><span id="hate">☆</span>
+                                    <p>&nbsp;</p>
+                                </div>
+                                <select style="display:none" id="item_rating" name="fields[item_rating]">
+                                    <option value="" diabled>-</option>
+                                    <option value="1">&starf;&star;&star;&star;&star;</option>
+                                    <option value="2">&starf;&starf;&star;&star;&star;</option>
+                                    <option value="3">&starf;&starf;&starf;&star;&star;</option>
+                                    <option value="4">&starf;&starf;&starf;&starf;&star;</option>
+                                    <option value="5">&starf;&starf;&starf;&starf;&starf;</option>
+                                </select>
+                                <span class="error"></span>
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit" style="width: 100%" />
+                                <input type="text" name="hp" value="" style="display: none" />
+                                <input type="hidden" name="fields[shop_customer_id]" value="" />
+                                <input type="hidden" name="fields[shop_product_id]" value="13" />
+                                <input type="hidden" name="template" value="system:product-review" />
+                                <input type="hidden" name="fields[message_type]" value="review" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    </div>
+}
+
+<style>
+    .span-ellipsis {
+        width: 80%;
+        display: inline-block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    /*.span-ellipsis:hover {
+            overflow: visible;
+            white-space: normal;
+        }*/
+
+    .zoom {
+        display: inline-block;
+        position: relative;
+    }
+
+        /* magnifying glass icon */
+        .zoom:after {
+            content: '';
+            display: block;
+            width: 33px;
+            height: 33px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: url(icon.png);
+        }
+
+        .zoom img {
+            display: block;
+        }
+
+            .zoom img::selection {
+                background-color: transparent;
+            }
+</style>
