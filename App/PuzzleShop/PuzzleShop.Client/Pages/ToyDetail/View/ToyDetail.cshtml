@@ -106,11 +106,11 @@
     <input type="hidden" name="productId" value="13" />
     <div class="add-cart-holder form-group">
         <div class="quantity-selector">
-            <button class="quantity-btn minus btn btn-lg btn-default"><i class="fa fa-minus"></i></button>
-            <input class="form-control quantity" type="text" value="1" name="quantity" />
-            <button class="quantity-btn plus btn btn-lg btn-default"><i class="fa fa-plus"></i></button>
+            <button class="quantity-btn minus btn btn-lg btn-default" onclick="@(() => ChangeValue("toy-quantity", -1))"><i class="fa fa-minus"></i></button>
+            <input id="toy-quantity" class="form-control quantity" type="text" name="quantity" bind="@CurrentToy.Quantity" />
+            <button class="quantity-btn plus btn btn-lg btn-default" onclick="@(() => ChangeValue("toy-quantity", 1))"><i class="fa fa-plus"></i></button>
         </div>
-        <a class="btn btn-lg btn-danger btn-add-cart" href="#">Add to Cart <i class="fa fa-shopping-cart"></i></a>
+        <a class="btn btn-lg btn-danger btn-add-cart" href="#" onclick="@(() => AddToCart())">Add to Cart <i class="fa fa-shopping-cart"></i></a>
     </div>
 
     <div id="sharrre" class="social-buttons">
