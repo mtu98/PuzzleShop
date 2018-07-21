@@ -7,12 +7,12 @@
         public int SizeX { get; set; }
         public int SizeY { get; set; }
         public int SizeZ { get; set; }
-        public double Price { get; set; }
+        public float Price { get; set; }
         public int Quantity { get; set; }
         public int YearOfManufacture { get; set; }
         public string Description { get; set; }
         public string PhotoURL { get; set; }
-        public Comment[] Comment { get; set; }
+        public Review[] Review { get; set; }
 
         public override string ToString() {
             return ToyName + "\n" +
@@ -22,17 +22,15 @@
                 YearOfManufacture + "\n" +
                 Description + "\n";
         }
-
     }
 
-    public class Comment {
-        public string Username { get; set; }
+    public class Review {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Title { get; set; }
         public string Content { get; set; }
+        public int Star { get; set; }
         public string Date { get; set; }
-
-        public override string ToString() {
-            return Username + ": " + Content + "\n" + Date;
-        }
     }
 
 }

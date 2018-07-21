@@ -44,6 +44,23 @@ namespace PuzzleShop.Shared.Models.Toy {
 
         }
 
+        public List<Toy> GetAllToyOfType(string ToyType) {
+            //Get connection and PuzzleShopDB
+            var db = DBConnect.getDB();
+            var Toys = db.GetCollection<Toy>("Toy");
+
+            var builder = Builders<Toy>.Filter;
+            var filter = builder.Where(t => t.ToyType.Equals(ToyType));
+
+            try {
+                List<Toy> list = Toys.Find(filter).ToList();
+                return list;
+            } catch (Exception) {
+
+                throw;
+            }
+        }
+
 
         /// <summary>
         /// Take list found toy and filter by type
@@ -79,51 +96,66 @@ namespace PuzzleShop.Shared.Models.Toy {
         }
 
         /// <summary>
-        /// User Add a comment in a toy
+        /// Review a toy without login
         /// </summary>
-        /// <param name="User"></param>
         /// <param name="Toy"></param>
+        /// <param name="Title"></param>
         /// <param name="Content"></param>
-        public void CommentInToy(User User, Toy Toy, string Content) {
+        /// <param name="Name"></param>
+        /// <param name="Email"></param>
+        public void ReviewAToy(Toy Toy, string Name, string Email, string Title, string Content) {
 
             var db = DBConnect.getDB();
-            var toys = db.GetCollection<Toy>("Toy");
+            var Toys = db.GetCollection<Toy>("Toy");
             var builder = Builders<Toy>.Filter;
             //Build filter to query the toy need to cmt
             var filter = builder.Where(toy => toy._id.Equals(Toy._id));
 
-            //Create Comment
-            Comment cmt = new Comment {
-                Username = User.Username,
+            //Create Review
+            Review rv = new Review {
+                Name = Name,
+                Email = Email,
+                Title = Title,
                 Content = Content,
                 Date = DateTime.Now.ToString()
             };
 
             var updateBuilder = Builders<Toy>.Update;
             //Build update, import Comment
-            var update = updateBuilder.AddToSet(toy => toy.Comment, cmt);
+            var update = updateBuilder.AddToSet(toy => toy.Review, rv);
 
             try {
-                toys.UpdateOne(filter, update);
+                Toys.UpdateOne(filter, update);
             } catch (Exception) {
 
                 throw;
             }
         }
 
-
         /// <summary>
         /// Query 3 first Toy
         /// </summary>
         /// <returns></returns>
-        public List<Toy> RandomToy() {
+        public List<Toy> Random3Toy() {
             //Get connection and PuzzleShopDB
             var db = DBConnect.getDB();
-            var toys = db.GetCollection<Toy>("Toy");
+            var Toys = db.GetCollection<Toy>("Toy");
 
             Random rng = new Random();
 
-            List<Toy> list = toys.Find(new BsonDocument()).Limit(3).Skip(rng.Next(10)).ToList();
+            List<Toy> list = Toys.Find(new BsonDocument()).Limit(3).Skip(rng.Next(10)).ToList();
+
+            return list;
+        }
+
+        public List<Toy> Random5Toy() {
+            //Get connection and PuzzleShopDB
+            var db = DBConnect.getDB();
+            var Toys = db.GetCollection<Toy>("Toy");
+
+            Random rng = new Random();
+
+            List<Toy> list = Toys.Find(new BsonDocument()).Limit(5).Skip(rng.Next(10)).ToList();
 
             return list;
         }
@@ -140,6 +172,50 @@ namespace PuzzleShop.Shared.Models.Toy {
             List<Toy> list = toys.Find(new BsonDocument()).ToList();
 
             return list;
+        }
+
+        /// <summary>
+        /// Get a List of All Toy Type in database
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAllToyType() {
+            //Get connection and PuzzleShopDB
+            var db = DBConnect.getDB();
+            var Toys = db.GetCollection<Toy>("Toy");
+
+            List<string> AllType = new List<string>();
+
+            try {
+                AllType = Toys.Distinct<string>("ToyType", new BsonDocument()).ToList();
+            } catch (Exception) {
+
+                throw;
+            }
+            return AllType;
+        }
+
+
+        /// <summary>
+        /// Get amount Toy of a Type
+        /// </summary>
+        /// <param name="ToyType"></param>
+        /// <returns></returns>
+        public long GetQuantityOfAType(string ToyType) {
+            //Get connection and PuzzleShopDB
+            var db = DBConnect.getDB();
+            var Toys = db.GetCollection<Toy>("Toy");
+
+            var builder = Builders<Toy>.Filter;
+            var filter = builder.Where(t => t.ToyType.Equals(ToyType));
+
+            try {
+                long quantity = Toys.CountDocuments(filter);
+                return quantity;
+            } catch (Exception) {
+
+                throw;
+            }
+
         }
     }
 }
