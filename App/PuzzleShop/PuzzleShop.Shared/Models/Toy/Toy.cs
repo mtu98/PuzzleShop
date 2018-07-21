@@ -26,7 +26,7 @@ namespace PuzzleShop.Shared.Models.Toy {
 
         public string PhotoURL { get; set; }
 
-        public Comment[] Comment { get; set; }
+        public Review[] Review { get; set; }
 
         public override string ToString() {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
@@ -49,13 +49,13 @@ namespace PuzzleShop.Shared.Models.Toy {
 
     }
 
-    public class Comment {
-        public string Username { get; set; }
-
+    public class Review {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Title { get; set; }
         public string Content { get; set; }
-
+        public int Star { get; set; }
         public string Date { get; set; }
-
         public override string ToString() {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
