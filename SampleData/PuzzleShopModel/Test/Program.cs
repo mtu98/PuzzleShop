@@ -23,11 +23,15 @@ namespace Test
             if (result != null)
             {
                 Console.WriteLine("Login success");
+
+                ToyDAO ToyDao = new ToyDAO();
+
                 Console.WriteLine("Search toy: ");
                 string toyName = Console.ReadLine();
-                ToyDAO ToyDao = new ToyDAO();
                 List<Toy> list = ToyDao.FindToys(toyName);
 
+                //Console.WriteLine("Three Random Toys");
+                //List<Toy> list = ToyDao.RandomToy();
 
                 foreach (Toy t in list)
                 {
