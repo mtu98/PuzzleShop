@@ -89,9 +89,11 @@ namespace PuzzleShop.Client.Pages.ViewCart.Logic {
             return "return false";
         }
 
-        protected void UpdateCart() {
+        protected async void UpdateCart() {
             StartProcessing();
-
+            var toyList = Cart.ToList();
+            var cartJson = JsonConvert.SerializeObject(toyList);
+            await Http.PostJsonAsync<bool>("api/Cart/UpdateCart", cartJson);
             GetCart();
             EndProcessing();
             StateHasChanged();

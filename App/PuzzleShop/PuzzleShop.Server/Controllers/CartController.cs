@@ -75,6 +75,12 @@ namespace PuzzleShop.Server.Controllers {
             return true;
         }
 
-
+        [HttpPost]
+        [Route("api/Cart/UpdateCart")]
+        public bool UpdateCart([FromBody] string cartJson) {
+            // add cart to session
+            HttpContext.Session.SetString("CART", cartJson);
+            return true;
+        }
     }
 }
