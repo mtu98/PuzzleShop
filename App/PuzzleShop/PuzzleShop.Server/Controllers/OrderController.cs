@@ -6,6 +6,7 @@ using PuzzleShop.Shared.Models.Order;
 using PuzzleShop.Shared.Models.Toy;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace PuzzleShop.Server.Controllers {
@@ -31,8 +32,9 @@ namespace PuzzleShop.Server.Controllers {
             var username = HttpContext.Session.GetString("USERNAME");
             try {
                 var result = _ordersDao.CreateOrder(username, cart);
+                Debug.WriteLine("==> save order result: " + result);
                 if (result) {
-                    HttpContext.Session.SetString("CART", null); // delete cart
+                    HttpContext.Session.Remove("CART"); // delete cart
                 }
 
                 return result;

@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Checkout\Payment\Logic\" />
-    <Folder Include="Pages\UserProfile\Logic\" />
   </ItemGroup>
 
   <!--<ItemGroup>

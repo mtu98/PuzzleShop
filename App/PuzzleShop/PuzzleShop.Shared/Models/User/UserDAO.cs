@@ -41,6 +41,21 @@ namespace PuzzleShop.Shared.Models {
             return true;
         }
 
+        public User GetUserByUsername(string emailOrUsername) {
+            //Get connection and PuzzleShopDB
+            var db = DBConnect.getDB();
+            var accounts = db.GetCollection<User>("User");
+            var builder = Builders<User>.Filter;
+
+            var filter = builder.Where(user => user.Username.Equals(emailOrUsername) | user.Email.Equals(emailOrUsername));
+            List<User> list = accounts.Find(filter).ToList();
+
+            foreach (var user in list) {
+                return user;
+            }
+            return null;
+        }
+
         /// <summary>
         /// Update a user password
         /// </summary>
