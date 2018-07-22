@@ -53,10 +53,11 @@
                                             <div class="price">
                                                 @item.Value x <span>$@item.Key.Price.ToString("N")</span>
                                             </div>
-                                            <a class="remove-item" href="#"><i class="fa fa-times"></i></a>
+                                            <a class="remove-item" href="#" onclick="@(() => RemoveItem(item.Key._id))"><i class="fa fa-times"></i></a>
                                         </div>
                                     </li>
                                 }
+                                <DimScreen Processing="@Processing" />
                             </ul>
 
                             <div class="mini-cart-totals">

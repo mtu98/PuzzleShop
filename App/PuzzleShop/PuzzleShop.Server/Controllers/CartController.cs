@@ -45,5 +45,36 @@ namespace PuzzleShop.Server.Controllers {
             var cartJson = HttpContext.Session.GetString("CART");
             return cartJson;
         }
+
+        [HttpPost]
+        [Route("api/Cart/RemoveItem")]
+        public bool RemoveItem([FromBody] string toyId) {
+            // get cart in session
+
+            Cart cart = null;
+            List<KeyValuePair<Toy, int>> toyList = null;
+            var cartJson = HttpContext.Session.GetString("CART");
+            if (string.IsNullOrEmpty(cartJson)) {
+                return false;
+            }
+
+            toyList = JsonConvert.DeserializeObject<List<KeyValuePair<Toy, int>>>(cartJson);
+            cart = new Cart(toyList.ToDictionary(item => item.Key, item => item.Value));
+
+
+            cart.Remove(new Toy { _id = toyId });
+            if (cart.Count == 0) {
+                HttpContext.Session.Remove("CART");
+            } else {
+                // add cart to session
+                toyList = cart.ToList();
+                cartJson = JsonConvert.SerializeObject(toyList);
+                HttpContext.Session.SetString("CART", cartJson);
+            }
+
+            return true;
+        }
+
+
     }
 }
