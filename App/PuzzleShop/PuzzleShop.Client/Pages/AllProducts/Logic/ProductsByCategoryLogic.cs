@@ -5,9 +5,12 @@ using System.Collections.Generic;
 using System.Net.Http;
 
 namespace PuzzleShop.Client.Pages.AllProducts.Logic {
-    public class AllProductsLogic : BlazorComponent {
+    public class ProductsByCategoryLogic : BlazorComponent {
         [Inject]
         private HttpClient Http { get; set; }
+
+        [Parameter]
+        protected string CategoryName { get; set; }
 
         protected List<Toy> ToyList { get; set; }
 
@@ -21,13 +24,13 @@ namespace PuzzleShop.Client.Pages.AllProducts.Logic {
             Processing = "hide";
         }
 
-        protected override void OnInit() {
-            GetAllToys();
+        protected override void OnParametersSet() {
+            GetAllToysOfCategory();
         }
 
-        private async void GetAllToys() {
+        private async void GetAllToysOfCategory() {
             StartProcessing();
-            ToyList = await Http.GetJsonAsync<List<Toy>>("api/Toy/GetAllToys");
+            ToyList = await Http.PostJsonAsync<List<Toy>>("api/Toy/GetAllToysOfCategory", CategoryName);
             EndProcessing();
             StateHasChanged();
         }

@@ -79,37 +79,19 @@
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="shop-dropdown">
                             <li role="presentation">
-                                <a href="/category/3x3" role="menuitem" tabindex="-1">
-                                    2&#215;2
+                                <a href="/shop" role="menuitem" tabindex="-1">
+                                    All Products
                                 </a>
                             </li>
-                            <li role="presentation">
-                                <a href="/category/3x3" role="menuitem" tabindex="-1">
-                                    3&#215;3
-                                </a>
-                            </li>
-
-                            <li role="presentation">
-                                <a href="/category/4x4" role="menuitem" tabindex="-1">
-                                    4&#215;4
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="/category/5x5" role="menuitem" tabindex="-1">
-                                    5&#215;5
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="/category/5x5" role="menuitem" tabindex="-1">
-                                    6&#215;6
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="/category/5x5" role="menuitem" tabindex="-1">
-                                    7&#215;7
-                                </a>
-                            </li>
-
+                            @if (CategoryList != null) {
+                                foreach (var category in CategoryList) {
+                                    <li role="presentation">
+                                        <a href="/shop/@category" role="menuitem" tabindex="-1">
+                                            @category
+                                        </a>
+                                    </li>
+                                }
+                            }
                         </ul>
                     </li>
                 </ul>

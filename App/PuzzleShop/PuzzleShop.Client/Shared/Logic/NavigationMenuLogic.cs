@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Blazor.Components;
+﻿using Microsoft.AspNetCore.Blazor;
+using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
 using Newtonsoft.Json;
 using PuzzleShop.Shared.Models;
@@ -12,6 +13,9 @@ using System.Net.Http;
 
 namespace PuzzleShop.Client.Shared.Logic {
     public class NavigationMenuLogic : BlazorComponent {
+
+        private readonly string _getCategoryApiPath = "api/Toy/GetCategory";
+
         [Parameter]
         protected User LoginUser { get; set; }
 
@@ -23,8 +27,15 @@ namespace PuzzleShop.Client.Shared.Logic {
 
         protected override void OnInit() {
             GetLoginUser();
-
+            GetCategory();
         }
+
+        private async void GetCategory() {
+            CategoryList = await Http.GetJsonAsync<List<string>>(_getCategoryApiPath);
+            this.StateHasChanged();
+        }
+
+        protected List<string> CategoryList { get; set; }
 
         protected string SearchValue { get; set; }
 
