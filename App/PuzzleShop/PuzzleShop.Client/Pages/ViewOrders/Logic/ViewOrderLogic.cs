@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
 using PuzzleShop.Shared.Models.Order;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 
 namespace PuzzleShop.Client.Pages.ViewOrders.Logic {
@@ -25,6 +26,7 @@ namespace PuzzleShop.Client.Pages.ViewOrders.Logic {
             var username = await Http.GetStringAsync("api/User/GetLoginUser");
             OrderList = await Http.PostJsonAsync<List<Orders>>("api/Order/GetOrder", username);
             EndProcessing();
+            ShowAll = "show";
             StateHasChanged();
         }
 
@@ -46,6 +48,26 @@ namespace PuzzleShop.Client.Pages.ViewOrders.Logic {
             }
 
             return "";
+        }
+
+        protected string ShowAll { get; set; } = "show";
+
+        protected Orders SelectedOrder { get; set; }
+
+        protected int IndexSelectedOrder { get; set; }
+
+        protected string SelectOrder(Orders order) {
+            Debug.WriteLine("==> order date " + order.OrderDate);
+            IndexSelectedOrder = OrderList.IndexOf(order) + 1;
+            SelectedOrder = order;
+            ShowAll = "hide";
+            StateHasChanged();
+            return "return false";
+        }
+
+        protected void BackToOrderHistory() {
+            ShowAll = "show";
+            StateHasChanged();
         }
     }
 }

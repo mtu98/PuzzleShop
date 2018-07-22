@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace PuzzleShop.Client.Shared.Logic {
     public class NavigationMenuLogic : BlazorComponent {
@@ -95,6 +96,8 @@ namespace PuzzleShop.Client.Shared.Logic {
         protected async void GetCart() {
             var cartJson = await Http.GetStringAsync("api/Cart/GetCart");
             if (string.IsNullOrEmpty(cartJson)) {
+                Cart = null;
+                StateHasChanged();
                 return;
             }
             try {
@@ -111,6 +114,25 @@ namespace PuzzleShop.Client.Shared.Logic {
 
         protected string ViewCart() {
             UriHelper.NavigateTo("/viewCart");
+            return "return false";
+        }
+
+        protected string Processing = "hide";
+
+        private void StartProcessing() {
+            Processing = "show";
+        }
+
+        private void EndProcessing() {
+            Processing = "hide";
+        }
+
+        protected async Task<string> RemoveItem(string toyId) {
+            StartProcessing();
+            await Http.PostJsonAsync<bool>("api/Cart/RemoveItem", toyId);
+            GetCart();
+            EndProcessing();
+            StateHasChanged();
             return "return false";
         }
     }

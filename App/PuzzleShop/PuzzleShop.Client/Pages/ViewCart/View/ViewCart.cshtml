@@ -7,7 +7,8 @@
 
 <section id="cart" class="page-section row">
     @if (Cart == null || Cart.Count == 0) {
-        <p>Your cart is empty!</p>
+        <h4 class="flash info">&nbsp;&nbsp;Your cart is empty!</h4>
+
     } else {
         <form class="custom" method="post">
             <div id="cart-content">
@@ -54,13 +55,13 @@
                                     <div class="h4 total-price">
                                         $@item.Key.Price.ToString("N")
                                     </div>
-                                    <a class="remove-item" href="#close"><i class="fa fa-times"></i></a>
+                                    <a class="remove-item" href="#" onclick="@(async () => await RemoveItem(item.Key._id))"><i class="fa fa-times"></i></a>
                                 </div>
                             </div>
                         }
                     </div>
                     <div id="cart-actions" class="btn-holder clearfix">
-                        <a class="btn btn-default btn-update-cart" href="#">Update Cart <i class="fa fa-refresh"></i></a>
+                        <a class="btn btn-default btn-update-cart" href="#" onclick="@UpdateCart">Update Cart <i class="fa fa-refresh"></i></a>
                         <a class="btn btn-default btn-continue-shopping" href="/shop"><i class="fa fa-arrow-left"></i> Continue Shopping</a>
                     </div>
                 </div>
@@ -78,3 +79,6 @@
     }
 </section>
 
+<!-- dimming the page while prcessing -->
+
+<DimScreen Processing="@Processing" />

@@ -6,30 +6,37 @@
 </div>
 
 @if (OrderList != null) {
-    <section class="page-section">
-
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th class="h6">Order #</th>
-                    <th class="h6">Date</th>
-                    <th class="h6">Status</th>
-                    <th class="h6">Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < OrderList.Count; ++i) {
-                    var order = OrderList[i];
+    <div class="@ShowAll">
+        <section class="page-section">
+            <table class="table table-bordered table-striped">
+                <thead>
                     <tr>
-                        <td><a href="#">@(i + 1)</a></td>
-                        <td><a href="#">@order.OrderDate</a></td>
-                        <td><a href="#">@(ParseOrderStatus(order.Status))</a></td>
-                        <td><a href="#"><i>$@order.Total.ToString("N")</i></a></td>
+                        <th class="h6">Order #</th>
+                        <th class="h6">Date</th>
+                        <th class="h6">Status</th>
+                        <th class="h6">Total</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </section>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < OrderList.Count; ++i) {
+                        var order = OrderList[i];
+                        <tr>
+                            <td><a href="#" onclick="@(() => SelectOrder(order))">@(i + 1)</a></td>
+                            <td><a href="#" onclick="@(() => SelectOrder(order))">@order.OrderDate</a></td>
+                            <td><a href="#" onclick="@(() => SelectOrder(order))">@(ParseOrderStatus(order.Status))</a></td>
+                            <td><a href="#" onclick="@(() => SelectOrder(order))"><i>$@order.Total.ToString("N")</i></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <div class="@(ShowAll.Equals("show") ? "hide" : "show")">
+        <ViewAnOrder Order="@SelectedOrder" OrderNumber="@IndexSelectedOrder" />
+        <a href="#" onclick="@BackToOrderHistory" class="btn btn-default"><i class="fa fa-arrow-left"></i> Back to History</a>
+        <br />
+        <br />
+    </div>
 } else {
     <h4 class="flash info">Orders not found</h4>
 

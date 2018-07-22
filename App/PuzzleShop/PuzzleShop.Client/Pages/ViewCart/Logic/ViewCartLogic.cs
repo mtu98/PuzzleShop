@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Blazor.Components;
+﻿using Microsoft.AspNetCore.Blazor;
+using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
 using Newtonsoft.Json;
 using PuzzleShop.Shared.Models.Cart;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace PuzzleShop.Client.Pages.ViewCart.Logic {
     public class ViewCartLogic : BlazorComponent {
@@ -25,8 +27,12 @@ namespace PuzzleShop.Client.Pages.ViewCart.Logic {
         }
 
         protected async void GetCart() {
+            StartProcessing();
             var cartJson = await Http.GetStringAsync("api/Cart/GetCart");
+            EndProcessing();
             if (string.IsNullOrEmpty(cartJson)) {
+                Cart = null;
+                StateHasChanged();
                 return;
             }
 
@@ -62,6 +68,35 @@ namespace PuzzleShop.Client.Pages.ViewCart.Logic {
             }
 
             return price;
+        }
+
+        protected string Processing = "hide";
+
+        private void StartProcessing() {
+            Processing = "show";
+        }
+
+        private void EndProcessing() {
+            Processing = "hide";
+        }
+
+        protected async Task<string> RemoveItem(string toyId) {
+            StartProcessing();
+            await Http.PostJsonAsync<bool>("api/Cart/RemoveItem", toyId);
+            GetCart();
+            EndProcessing();
+            StateHasChanged();
+            return "return false";
+        }
+
+        protected async void UpdateCart() {
+            StartProcessing();
+            var toyList = Cart.ToList();
+            var cartJson = JsonConvert.SerializeObject(toyList);
+            await Http.PostJsonAsync<bool>("api/Cart/UpdateCart", cartJson);
+            GetCart();
+            EndProcessing();
+            StateHasChanged();
         }
     }
 }
