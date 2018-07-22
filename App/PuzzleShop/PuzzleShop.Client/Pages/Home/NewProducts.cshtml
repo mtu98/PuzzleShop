@@ -1,178 +1,52 @@
-﻿<section id="new-products" class="page-section row">
-    <h2 class="section-title"><span>What's New</span></h2>
-    <div id="product-carousel" class="col-xs-12 owl-carousel owl-theme" style="display: block; opacity: 1;">
+﻿@inherits PuzzleShop.Client.Pages.Home.Logic.NewProductsLogic
 
-        <div class="owl-wrapper-outer">
-            <div class="owl-wrapper" style="display: block; width: 2256px; left: 0px; transition: all 0ms ease; transform: translate3d(0px, 0px, 0px);">
-                <div class="owl-item" style="width: 10%;">
-                    <div class="product-holder">
-                        <form class="custom" onsubmit="return false" method="post" action="">
-                            <div class="product-item text-center">
-                                <a class="product-img" href="#">
-                                    <img class="img-responsive" src="img/Products/snake_3__enlarged.png" alt="RUBIK’S SNAKE" />
-                                </a>
-                                <h3 class="product-title">
-                                    <a href="#">RUBIK’S SNAKE</a>
-                                </h3>
-                                <div class="h4 product-price">
-                                    <span class="previous-price">€14.99</span>
-                                    <div class="sale-tag">
-                                        Sale!
-                                    </div>
-                                    <span>€12.99</span>
-                                </div>
-                                <div class="buttons-holder">
-                                    <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="#"><i class="fa fa-eye"></i></a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="owl-item" style="width: 10%;">
-                    <div class="product-holder">
-                        <form class="custom" onsubmit="return false" method="post" action="">
-                            <div class="product-item text-center">
-                                <a class="product-img" href="#">
-                                    <img class="img-responsive" src="img/Products/void_1__enlarged.png" alt="RUBIK’S VOID" />
-                                </a>
-                                <h3 class="product-title">
-                                    <a href="#">RUBIK’S VOID</a>
-                                </h3>
-                                <div class="h4 product-price">
-                                    <span class="previous-price">€16.49 </span>
-                                    <div class="sale-tag">
-                                        Sale!
-                                    </div>
-                                    <span>€13.49 </span>
-                                </div>
-                                <div class="buttons-holder">
-                                    <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="#"><i class="fa fa-eye"></i></a>
-                                    <input type="hidden" name="productId" value="12" />
-                                    <a class="btn btn-danger btn-add-cart" href="#" data-ajax-handler="shop:onAddToCart" data-ajax-update="#mini-cart=shop-minicart, #navbar-totals=shop-minicart-totals, #product-page=shop-product">Add to Cart</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="owl-item" style="width: 10%;">
-                    <div class="product-holder">
-                        <form class="custom" onsubmit="return false" method="post" action="">
-                            <div class="product-item text-center">
-                                <a class="product-img" href="#">
-                                    <img class="img-responsive" src="img/Products/2x2_4__enlarged.png" alt="RUBIK’S 2X2 CUBE" />
-                                </a>
-                                <h3 class="product-title">
-                                    <a href="#">RUBIK’S 2X2 CUBE</a>
-                                </h3>
-                                <div class="h4 product-price">
-                                    <span>€8.99</span>
-                                </div>
-                                <div class="buttons-holder">
-                                    <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="#"><i class="fa fa-eye"></i></a>
-                                    <input type="hidden" name="productId" value="8" />
-                                    <a class="btn btn-danger btn-add-cart" href="#" data-ajax-handler="shop:onAddToCart" data-ajax-update="#mini-cart=shop-minicart, #navbar-totals=shop-minicart-totals, #product-page=shop-product">Add to Cart</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="owl-item" style="width: 10%;">
-                    <div class="product-holder">
-                        <form class="custom" onsubmit="return false" method="post" action="">
-                            <div class="product-item text-center">
-                                <a class="product-img" href="#">
-                                    <img class="img-responsive" src="img/Products/kitten__enlarged.png" alt="RUBIK’S JUNIOR KITTEN" />
-                                </a>
-                                <h3 class="product-title">
-                                    <a href="#">RUBIK’S JUNIOR KITTEN</a>
-                                </h3>
-                                <div class="h4 product-price">
-                                    <span>€9.99</span>
-                                </div>
-                                <div class="buttons-holder">
-                                    <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="#"><i class="fa fa-eye"></i></a>
-                                    <input type="hidden" name="productId" value="11" />
-                                    <a class="btn btn-danger btn-add-cart" href="#" data-ajax-handler="shop:onAddToCart" data-ajax-update="#mini-cart=shop-minicart, #navbar-totals=shop-minicart-totals, #product-page=shop-product">Add to Cart</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="owl-item" style="width: 10%;">
-                    <div class="product-holder">
-                        <form class="custom" onsubmit="return false" method="post" action="">
-                            <div class="product-item text-center">
-                                <a class="product-img" href="#">
-                                    <img class="img-responsive" src="img/Products/my_first_cube__enlarged.png" alt="MY FIRST CUBE" />
-                                </a>
-                                <h3 class="product-title">
-                                    <a href="#">MY FIRST CUBE</a>
-                                </h3>
-                                <div class="h4 product-price">
-                                    <span>€6.99</span>
-                                </div>
-                                <div class="buttons-holder">
-                                    <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="#"><i class="fa fa-eye"></i></a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                @*<div class="owl-item" style="width: 10%;">
+@if (ToyList != null) {
+    <section id="new-products" class="page-section row">
+        <h2 class="section-title"><span>What's New</span></h2>
+
+        <div id="product-carousel" class="col-xs-12 owl-carousel owl-theme" style="display: block; opacity: 1;">
+
+            <div class="row">
+                @foreach (var toy in ToyList) {
+                    <div class="owl-item col-xs-3">
                         <div class="product-holder">
-                            <form class="custom" onsubmit="return false" method="post" action="">
+                            <form class="custom" onsubmit="return false">
                                 <div class="product-item text-center">
-                                    <a class="product-img" href="#">
-                                        <img class="img-responsive" src="img/Products/blank_cube__enlarged.png" alt="BLANK CUBE" />
+                                    <a class="product-img" href="/toyDetail/@toy._id">
+                                        <img class="img-responsive" src="@toy.PhotoURL" alt="@toy.ToyName" />
                                     </a>
                                     <h3 class="product-title">
-                                        <a href="#">BLANK CUBE</a>
+                                        <a href="/toyDetail/@toy._id">@toy.ToyName</a>
                                     </h3>
                                     <div class="h4 product-price">
-                                        <span>€9.99 </span>
+                                        @*<span class="previous-price">$@toy.Price.ToString("N")</span>
+                                            <div class="sale-tag">
+                                                    Sale!
+                                                </div>*@
+                                        <span>$@toy.Price.ToString("N")</span>
                                     </div>
                                     <div class="buttons-holder">
-                                        <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="#"><i class="fa fa-eye"></i></a>
-                                        <input type="hidden" name="productId" value="5" />
-                                        <a class="btn btn-danger btn-add-cart" href="#" data-ajax-handler="shop:onAddToCart" data-ajax-update="#mini-cart=shop-minicart, #navbar-totals=shop-minicart-totals, #product-page=shop-product">Add to Cart</a>
+                                        <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="/toyDetail/@toy._id"><i class="fa fa-eye"></i></a>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="owl-item" style="width: 10%;">
-                        <div class="product-holder">
-                            <form class="custom" onsubmit="return false" method="post" action="">
-                                <div class="product-item text-center">
-                                    <a class="product-img" href="#">
-                                        <img class="img-responsive" src="img/Products/3x3_key_1__enlarged.png" alt="RUBIK’S 3X3 KEYCHAIN" />
-                                    </a>
-                                    <h3 class="product-title">
-                                        <a href="#">RUBIK’S 3X3 KEYCHAIN</a>
-                                    </h3>
-                                    <div class="h4 product-price">
-                                        <span>€7.99 </span>
-                                    </div>
-                                    <div class="buttons-holder">
-                                        <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="#"><i class="fa fa-eye"></i></a>
-                                        <input type="hidden" name="productId" value="5" />
-                                        <a class="btn btn-danger btn-add-cart" href="#" data-ajax-handler="shop:onAddToCart" data-ajax-update="#mini-cart=shop-minicart, #navbar-totals=shop-minicart-totals, #product-page=shop-product">Add to Cart</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>*@
+                }
+
+
             </div>
+            @*
+                <div class="owl-controls">
+                    <div class="owl-pagination">
+                        <div class="owl-page"><span class=""></span></div>
+                        <div class="owl-page active"><span class=""></span></div>
+                    </div>
+                    <div class="owl-buttons">
+                        <div class="owl-prev fa fa-angle-left"></div>
+                        <div class="owl-next fa fa-angle-right"></div>
+                    </div>
+                </div>*@
         </div>
-        <div class="owl-controls">
-            <div class="owl-pagination">
-                <div class="owl-page"><span class=""></span></div>
-                <div class="owl-page active"><span class=""></span></div>
-            </div>
-            <div class="owl-buttons">
-                <div class="owl-prev fa fa-angle-left"></div>
-                <div class="owl-next fa fa-angle-right"></div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
+}

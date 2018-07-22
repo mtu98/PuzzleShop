@@ -34,5 +34,31 @@ namespace PuzzleShop.Server.Controllers {
         public void Logout() {
             HttpContext.Session.Remove("USERNAME");
         }
+
+        [HttpGet]
+        [Route("api/User/GetLoginUserObject")]
+        public User GetLoginUserObject() {
+            // get login username
+            var username = GetLoginUser();
+            if (string.IsNullOrEmpty(username)) {
+                return null;
+            }
+
+            return _userDao.GetUserByUsername(username);
+        }
+
+        [HttpPost]
+        [Route("api/User/UpdateProfile")]
+        public bool UpdateProfile([FromBody] User user) {
+            _userDao.EditInformation(user.Username, user.FirstName, user.LastName, user.Email);
+            return true;
+        }
+
+        [HttpPost]
+        [Route("api/User/ChangePassword")]
+        public bool UpdatePassword([FromBody] User user) {
+            _userDao.ChangePassword(user.Username, user.Password);
+            return true;
+        }
     }
 }

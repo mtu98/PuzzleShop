@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Blazor;
 using Microsoft.AspNetCore.Blazor.Browser.Interop;
 using Microsoft.AspNetCore.Blazor.Components;
+using Microsoft.AspNetCore.Blazor.Services;
 using PuzzleShop.Shared.Models.Toy;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +19,36 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
 
         protected Toy CurrentToy { get; set; }
 
+        protected bool AddSuccess { get; set; } = false;
+
+        protected string[] RatingLevel = new[] {
+            "☆☆☆☆☆",
+            "★☆☆☆☆",
+            "★★☆☆☆",
+            "★★★☆☆",
+            "★★★★☆",
+            "★★★★★"
+        };
+
+        protected Review ToyReview { get; set; } = new Review();
+
         [Inject]
         private HttpClient Http { get; set; }
+
+        [Inject]
+        private IUriHelper UriHelper { get; set; }
 
         protected override void OnParametersSet() {
             if (string.IsNullOrEmpty(ToyId)) {
                 return;
             }
             CurrentToy = ToyList.SingleOrDefault(toy => toy._id.Equals(ToyId));
-            CurrentToy.Quantity = 1;
+            if (CurrentToy != null) {
+                CurrentToy.Quantity = 1;
+                if (CurrentToy.Review == null) {
+                    CurrentToy.Review = new Review[0];
+                }
+            }
             //StateHasChanged();
         }
 
@@ -43,19 +65,52 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
                 largeImageUrl += imageName;
                 //RegisteredFunction.Invoke<bool>("ZoomImage", "#toy-img-zoom", largeImageUrl);
                 RegisteredFunction.Invoke<bool>("ZoomImage", "#toy-img-zoom");
+                RegisteredFunction.Invoke<bool>("ActivateStarRating");
             }
         }
 
-        protected void ChangeValue(string inputId, int offsetValue) {
+        protected void ChangeValue(int offsetValue) {
             if (CurrentToy.Quantity + offsetValue <= 0) {
                 return;
             }
             CurrentToy.Quantity += offsetValue;
         }
 
+        protected string AddingItemDisplay { get; set; } = "none";
+
         protected async Task<string> AddToCart() {
+            AddingItemDisplay = "inline-block";
             await Http.SendJsonAsync<bool>(HttpMethod.Post, "api/Cart/AddToCart", CurrentToy);
+            AddingItemDisplay = "none";
+            AddSuccess = true;
             return "return false";
+        }
+
+        protected int GetAverageRatingLevel() {
+            if (CurrentToy?.Review == null || CurrentToy.Review.Length == 0) {
+                return 0;
+            }
+
+            var totalRating = 0;
+            foreach (var review in CurrentToy.Review) {
+                totalRating += review.Star;
+            }
+
+            return totalRating / CurrentToy.Review.Length;
+        }
+
+        protected async void WriteReview() {
+            //ToyReview.Date = DateTime.Now.ToString("F"); // Tuesday, 22 August 2006 06:30:07
+            var simpleToyReview = new SimpleToyReview(CurrentToy, ToyReview);
+            await Http.SendJsonAsync(HttpMethod.Post, "api/Toy/WriteReview", simpleToyReview);
+        }
+
+        protected void AlertMsg(string msg) {
+            RegisteredFunction.Invoke<bool>("AlertMsg", msg);
+        }
+
+        protected void SetStarReview(int star) {
+            ToyReview.Star = star;
         }
     }
 }

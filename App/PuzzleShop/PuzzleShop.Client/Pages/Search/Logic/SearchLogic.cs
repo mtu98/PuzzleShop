@@ -61,5 +61,9 @@ namespace PuzzleShop.Client.Pages.Search.Logic {
             StateHasChanged();
             return "return false";
         }
+
+        protected void BackToSearchResult() {
+            IsDisplay = "show";
+        }
     }
 }

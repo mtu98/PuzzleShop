@@ -1,0 +1,41 @@
+﻿@page "/orders"
+@inherits PuzzleShop.Client.Pages.ViewOrders.Logic.ViewOrderLogic
+
+<div id="banner" class="jumbotron row">
+    <h1>My Orders</h1>
+</div>
+
+@if (OrderList != null) {
+    <section class="page-section">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="h6">Order #</th>
+                    <th class="h6">Date</th>
+                    <th class="h6">Status</th>
+                    <th class="h6">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < OrderList.Count; ++i) {
+                    var order = OrderList[i];
+                    <tr>
+                        <td><a href="#">@(i + 1)</a></td>
+                        <td><a href="#">@order.OrderDate</a></td>
+                        <td><a href="#">@(ParseOrderStatus(order.Status))</a></td>
+                        <td><a href="#"><i>$@order.Total.ToString("N")</i></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+} else {
+    <h4 class="flash info">Orders not found</h4>
+
+}
+
+
+<!-- dimming the page while prcessing -->
+
+<DimScreen Processing="@Processing" />

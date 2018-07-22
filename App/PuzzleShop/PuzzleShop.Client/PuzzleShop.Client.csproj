@@ -5,14 +5,23 @@
     <OutputType>Exe</OutputType>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <BlazorLinkerDescriptor Include="Linker.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Browser" Version="0.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="0.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PuzzleShop.Shared\PuzzleShop.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Checkout\Payment\Logic\" />
   </ItemGroup>
 
   <!--<ItemGroup>

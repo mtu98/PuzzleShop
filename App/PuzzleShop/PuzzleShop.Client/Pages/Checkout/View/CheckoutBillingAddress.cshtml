@@ -1,0 +1,49 @@
+﻿@page "/checkout-01"
+@inherits PuzzleShop.Client.Pages.Checkout.Logic.CheckoutBillingAddressLogic
+
+<div id="banner" class="jumbotron row">
+    <h1>Checkout</h1>
+</div>
+
+<section id="checkout" class="page-section row">
+    <div id="checkout-progress">
+        <ul class="breadcrumb list-inline checkout-progress">
+            <li class="active">1. Billing Address</li>
+            <li>2. Shipping Method</li>
+            <li>3. Pay</li>
+        </ul>
+    </div>
+    <div class="col-sm-12 col-md-9">
+        <div id="checkout-page">
+            <form class="custom">
+                <h2>Billing Information</h2>
+                <div id="billing-info" class="row">
+                    <div class="col-sm-6 form-group">
+                        <p><em>This function is currently not available! Please stay tune for the update!</em></p>
+                    </div>
+                </div>
+
+                <h2 class="inline-block">Shipping Information</h2>
+                <div class="h6">
+                    <a data-toggle-mirror="on" data-toggle="collapse" class="btn btn-default btn-form-mirror" href="#"><i class="fa fa-check"></i></a> Same as Billing Information
+                </div>
+
+                <div class="clearfix">
+                    <a class="btn btn-primary btn-lg btn-checkout-step pull-right" href="/checkout-02">Next Step <i class="fa fa-arrow-right"></i></a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="cart-totals" class="col-sm-12 col-md-3">
+        <form class="custom">
+            <div id="cart-summary">
+                <h3 class="cart-summary-title">Order Summary</h3>
+                <ul class="price-list list-group">
+                    <li class="list-group-item">Subtotal: <span class="badge">$@GetPriceOfCart().ToString("N")</span></li>
+                    <li class="list-group-item">Tax: <span class="badge">$0.00</span></li>
+                    <li class="list-group-item order-total h4 clearfix"><span>Total:</span> <span class="badge">$@GetPriceOfCart().ToString("N")</span></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</section>
