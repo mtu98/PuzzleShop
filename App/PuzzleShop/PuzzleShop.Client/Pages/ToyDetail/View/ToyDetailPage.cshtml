@@ -1,2 +1,8 @@
 ﻿@page "/toyDetail/{ToyId}"
+@using PuzzleShop.Shared.Models.Toy
 @inherits PuzzleShop.Client.Pages.ToyDetail.Logic.ToyDetailPageLogic
+@if (CurrentToy != null) {
+    <ToyDetail ToyList="@GenerateToyList()" ToyId="@CurrentToy._id" />
+}
+
+<DimScreen Processing="@Processing" />

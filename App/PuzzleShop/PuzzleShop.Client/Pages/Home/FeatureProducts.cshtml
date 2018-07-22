@@ -1,59 +1,28 @@
-﻿<section id="featured-products" class="page-section row">
-    <h2 class="section-title"><span>Featured Products</span></h2>
-    <div class="col-sm-4 product-holder">
-        <form class="custom" onsubmit="return false" method="post" action="">
-            <div class="product-item text-center">
-                <a class="product-img" href="Detail/id">
-                    <img class="img-responsive" src="img/Products/4x4_1__enlarged.png" alt="Rubik's 4x4 Cube" />
-                </a>
-                <h3 class="product-title">
-                    <a href="#">RUBIK’S 4X4 CUBE</a>
-                </h3>
-                <div class="h4 product-price">
-                    <span>€17.99 </span>
-                </div>
-                <div class="buttons-holder">
-                    <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="#"><i class="fa fa-eye"></i></a>
-                </div>
+﻿@inherits PuzzleShop.Client.Pages.Home.Logic.FeatureProductsLogic
+
+@if (ToyList != null) {
+    <section id="featured-products" class="page-section row">
+        <h2 class="section-title"><span>Featured Products</span></h2>
+        @foreach (var toy in ToyList) {
+            <div class="col-sm-4 product-holder">
+                <form class="custom" onsubmit="return false">
+                    <div class="product-item text-center">
+                        <a class="product-img" href="/toyDetail/@toy._id">
+                            <img class="img-responsive" src="@toy.PhotoURL" alt="@toy.ToyName" />
+                        </a>
+                        <h3 class="product-title">
+                            <a href="/toyDetail/@toy._id">@toy.ToyName</a>
+                        </h3>
+                        <div class="h4 product-price">
+                            <span>$@toy.Price.ToString("N") </span>
+                        </div>
+                        <div class="buttons-holder">
+                            <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="/toyDetail/@toy._id"><i class="fa fa-eye"></i></a>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-    <div class="col-sm-4 product-holder">
-        <form class="custom" onsubmit="return false" method="post" action="">
-            <div class="product-item text-center">
-                <a class="product-img" href="#">
-                    <img class="img-responsive" src="img/Products/tower_1__enlarged.png" alt="Rubik's Tower" />
-                </a>
-                <h3 class="product-title">
-                    <a href="#">RUBIK’S TOWER</a>
-                </h3>
-                <div class="h4 product-price">
-                    <span>€14.49 </span>
-                </div>
-                <div class="buttons-holder">
-                    <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="#"><i class="fa fa-eye"></i></a>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="col-sm-4 product-holder">
-        <form class="custom" onsubmit="return false" method="post" action="">
-            <div class="product-item text-center">
-                <a class="product-img" href="#">
-                    <img class="img-responsive" src="img/Products/twist_1___enlarged.png" alt="RUBIK’S TWIST" />
-                </a>
-                <h3 class="product-title">
-                    <a href="#">RUBIK’S TWIST</a>
-                </h3>
-                <div class="h4 product-price">
-                    <span>€14.99 </span>
-                </div>
-                <div class="buttons-holder">
-                    <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="#"><i class="fa fa-eye"></i></a>
-                    <input type="hidden" name="productId" value="13" />
-                    <a class="btn btn-danger btn-add-cart" href="#" data-ajax-handler="shop:onAddToCart" data-ajax-update="#mini-cart=shop-minicart, #navbar-totals=shop-minicart-totals, #product-page=shop-product">Add to Cart</a>
-                </div>
-            </div>
-        </form>
-    </div>
-</section>
+        }
+
+    </section>
+}
