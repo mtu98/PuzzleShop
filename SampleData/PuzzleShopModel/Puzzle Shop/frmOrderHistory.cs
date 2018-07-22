@@ -26,7 +26,7 @@ namespace Puzzle_Shop
         {
             OrdersDAO dao = new OrdersDAO();
 
-            List<Dictionary<Toy, int>> list = new List<Dictionary<Toy, int>>();
+            List<Orders> list = new List<Orders>();
 
             try
             {
