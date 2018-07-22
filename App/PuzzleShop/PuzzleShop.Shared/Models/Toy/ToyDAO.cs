@@ -98,26 +98,28 @@ namespace PuzzleShop.Shared.Models.Toy {
         /// <summary>
         /// Review a toy without login
         /// </summary>
-        /// <param name="Toy"></param>
-        /// <param name="Title"></param>
-        /// <param name="Content"></param>
-        /// <param name="Name"></param>
-        /// <param name="Email"></param>
-        public void ReviewAToy(Toy Toy, string Name, string Email, string Title, string Content) {
+        /// <param name="toyId"></param>
+        /// <param name="title"></param>
+        /// <param name="content"></param>
+        /// <param name="name"></param>
+        /// <param name="email"></param>
+        /// <param name="star"></param>
+        public void ReviewAToy(string toyId, string name, string email, string title, string content, int star) {
 
             var db = DBConnect.getDB();
             var Toys = db.GetCollection<Toy>("Toy");
             var builder = Builders<Toy>.Filter;
             //Build filter to query the toy need to cmt
-            var filter = builder.Where(toy => toy._id.Equals(Toy._id));
+            var filter = builder.Where(toy => toy._id.Equals(toyId));
 
             //Create Review
             Review rv = new Review {
-                Name = Name,
-                Email = Email,
-                Title = Title,
-                Content = Content,
-                Date = DateTime.Now.ToString()
+                Name = name,
+                Email = email,
+                Title = title,
+                Content = content,
+                Star = star,
+                Date = DateTime.Now.ToString("F")
             };
 
             var updateBuilder = Builders<Toy>.Update;

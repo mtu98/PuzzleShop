@@ -30,6 +30,8 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
             "★★★★★"
         };
 
+        protected Review ToyReview { get; set; } = new Review();
+
         [Inject]
         private HttpClient Http { get; set; }
 
@@ -95,6 +97,20 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
             }
 
             return totalRating / CurrentToy.Review.Length;
+        }
+
+        protected async void WriteReview() {
+            //ToyReview.Date = DateTime.Now.ToString("F"); // Tuesday, 22 August 2006 06:30:07
+            var simpleToyReview = new SimpleToyReview(CurrentToy, ToyReview);
+            await Http.SendJsonAsync(HttpMethod.Post, "api/Toy/WriteReview", simpleToyReview);
+        }
+
+        protected void AlertMsg(string msg) {
+            RegisteredFunction.Invoke<bool>("AlertMsg", msg);
+        }
+
+        protected void SetStarReview(int star) {
+            ToyReview.Star = star;
         }
     }
 }

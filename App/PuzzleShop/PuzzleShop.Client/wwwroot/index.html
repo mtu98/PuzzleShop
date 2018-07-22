@@ -178,6 +178,12 @@
         });
         Blazor.registerFunction("ActivateStarRating", activateStarRating);
 
+        Blazor.registerFunction("AlertMsg",
+            (msg) => {
+                alert(msg);
+                return true;
+            });
+
     </script>
 
     <!--<script src="js/plugins.min.js"></script>

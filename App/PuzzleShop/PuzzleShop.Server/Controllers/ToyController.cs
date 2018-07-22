@@ -13,5 +13,13 @@ namespace PuzzleShop.Server.Controllers {
             var result = _toyDao.FindToys(searchValue);
             return result;
         }
+
+        [HttpPost]
+        [Route("api/Toy/WriteReview")]
+        public bool WriteReview([FromBody] SimpleToyReview toyReview) {
+            _toyDao.ReviewAToy(toyReview.Toyid, toyReview.Username, toyReview.Email, toyReview.Title,
+                toyReview.Content, toyReview.Star);
+            return true;
+        }
     }
 }
