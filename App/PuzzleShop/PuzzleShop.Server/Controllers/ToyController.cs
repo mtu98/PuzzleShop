@@ -39,5 +39,11 @@ namespace PuzzleShop.Server.Controllers {
         public List<Toy> GetNewToys() {
             return _toyDao.Random5Toy();
         }
+
+        [HttpGet]
+        [Route("api/Toy/GetAllToys")]
+        public List<Toy> GetAllToys() {
+            return _toyDao.AllToys();
+        }
     }
 }

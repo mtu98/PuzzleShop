@@ -157,7 +157,7 @@ namespace PuzzleShop.Shared.Models.Toy {
 
             Random rng = new Random();
 
-            List<Toy> list = Toys.Find(new BsonDocument()).Limit(5).Skip(rng.Next(10)).ToList();
+            List<Toy> list = Toys.Find(new BsonDocument()).Limit(4).Skip(rng.Next(10)).ToList();
 
             return list;
         }

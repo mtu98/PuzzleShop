@@ -17,7 +17,7 @@
     <script type="text/javascript" src="js/lemonstand.js"></script>
     <script src="js/jquery.zoom.js"></script>
     <script src="js/jquery.raty.min.js"></script>
-    <script src="js/owl.carousel.js"></script>
+    <!--<script src="js/owl.carousel.js"></script>-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -159,7 +159,7 @@
             });
         }
 
-        function activeOwlCarousel() {
+        /*function activeOwlCarousel() {
             var owl = $('.owl-carousel');
             owl.owlCarousel({
                 margin: 10,
@@ -177,7 +177,7 @@
                     }
                 }
             });
-        }
+        }*/
 
         Blazor.registerFunction("AutoReloadPage", autoReloadPage);
         //Blazor.registerFunction("ZoomImage", (toyImageId, largeImageUrl) => {
@@ -195,7 +195,7 @@
             alert(msg);
             return true;
         });
-        Blazor.registerFunction("ActiveOwlCarousel", activeOwlCarousel);
+        //Blazor.registerFunction("ActiveOwlCarousel", activeOwlCarousel);
 
     </script>
 
