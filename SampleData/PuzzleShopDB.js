@@ -32,8 +32,8 @@ db.User.insertMany(
 	}
 	]
 	)
-db.User.createIndex({username:1},{unique:true,name:"UNIQUE USERNAME"});
-db.User.createIndex({email:1},{unique:true,name:"UNIQUE EMAIL"});
+db.User.createIndex({Username:1},{unique:true,name:"UNIQUE USERNAME"});
+db.User.createIndex({Email:1},{unique:true,name:"UNIQUE EMAIL"});
 //Show inserted result
 print("User Collection");
 result = db.User.find().toArray();

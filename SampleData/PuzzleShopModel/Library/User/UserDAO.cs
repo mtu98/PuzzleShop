@@ -69,6 +69,33 @@ namespace Library.UserCollection
             }
         }
 
+
+        public User GetInfomation(string username)
+        {
+            var db = utils.DBConnect.getDB();
+            var Users = db.GetCollection<User>("User");
+
+            var builder = Builders<User>.Filter;
+            var filter = builder.Where(u => u.Username.Equals(username));
+
+            try
+            {
+                List<User> list = Users.Find(filter).ToList();
+
+                if (list.Count > 0)
+                {
+                    return list[0];
+                }
+                else
+                    return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         /// <summary>
         /// Update a user password
         /// </summary>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{D78DD75B-6942-473F-BFA8-F263109E6BB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puzzle Shop", "Puzzle Shop\Puzzle Shop.csproj", "{A750BD76-9CB3-4F1C-894F-14D0D4E8BE48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D78DD75B-6942-473F-BFA8-F263109E6BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D78DD75B-6942-473F-BFA8-F263109E6BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D78DD75B-6942-473F-BFA8-F263109E6BB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A750BD76-9CB3-4F1C-894F-14D0D4E8BE48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A750BD76-9CB3-4F1C-894F-14D0D4E8BE48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A750BD76-9CB3-4F1C-894F-14D0D4E8BE48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A750BD76-9CB3-4F1C-894F-14D0D4E8BE48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
