@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.ToyCollection;
 using MongoDB.Driver;
-using Library.ToyCollection;
+
 
 
 namespace Library.OrdersCollection
@@ -27,15 +27,33 @@ namespace Library.OrdersCollection
 
             string OrderDate = DateTime.Now.ToString();
             double Total = 0;
-            OrderItem[] OrderItems = null;
+
+            OrderItem[] OrderItems = Array.Empty<OrderItem>();
+
+            //iterate through list Toy-Quantity of user's order
             foreach (KeyValuePair<Toy,int>entry in ListItems)
             {
+                ToyDAO toyDao = new ToyDAO();
+
+                //Check quantity if enough
+                if( toyDao.GetQuantity(entry.Key._id) < entry.Value)
+                {
+                    throw new Exception("Quantity exceed!");
+                }
+
+                //calculate Total price
                 Total += entry.Key.Price * entry.Value;
+
+                //Create a Order item
                 OrderItem i = new OrderItem
                 {
                     Toy = entry.Key,
                     Quantity = entry.Value
                 };
+
+                //Add more memory to array
+                Array.Resize<OrderItem>(ref OrderItems, OrderItems.Length + 1);
+                //Add Order item to Toy-Quantity list
                 OrderItems[OrderItems.Length - 1] = i;
             }
             //Status = -1 means Pending order
@@ -62,7 +80,7 @@ namespace Library.OrdersCollection
             }
         }
 
-        public List<Dictionary<Toy,int>> GetAllOrders(string Username)
+        public List<Orders> GetAllOrders(string Username)
         {
             var db = utils.DBConnect.getDB();
             var Orders = db.GetCollection<Orders>("Orders");
@@ -70,31 +88,19 @@ namespace Library.OrdersCollection
             var builder = Builders<Orders>.Filter;
             var filter = builder.Where(od => od.Username.Equals(Username));
 
-            //List All Orders of User return to client
-            List<Dictionary<Toy, int>> allOrders = new List<Dictionary<Toy, int>>();
+            List<Orders> list = new List<Orders>();
 
             try
             {
-                //Query all orders
-                List<Orders> list = Orders.Find(filter).ToList();
-                foreach(Orders o in list)
-                {
-
-                    Dictionary<Toy, int> order = new Dictionary<Toy, int>();
-                    for (int i = 0; i < o.OrderItems.Length; i++)
-                    {
-                        order.Add(o.OrderItems[i].Toy, o.OrderItems[i].Quantity);
-                    }
-                    allOrders.Add(order);
-                }
+                list = Orders.Find(filter).ToList();
             }
-            
             catch (Exception)
             {
 
                 throw;
             }
-            return allOrders;
+
+            return list;
 
         }
     }

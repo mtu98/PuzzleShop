@@ -19,7 +19,7 @@ namespace Library.ToyCollection
         public int SizeX { get; set; }
         public int SizeY { get; set; }
         public int SizeZ { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
         public int Quantity { get; set; }
         public int YearOfManufacture { get; set; }
         public string Description { get; set; }

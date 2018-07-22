@@ -40,7 +40,6 @@ namespace Test
 
                 Console.WriteLine("Comment: ");
                 string cmt = Console.ReadLine();
-                ToyDao.CommentInToy(result, list[0], cmt);
             }
             else
             {

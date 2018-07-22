@@ -19,10 +19,6 @@ namespace Library.ToyCollection
         /// <returns></returns>
         public List<Toy> FindToys(string ToyName)
         {
-            if(ToyName == null || ToyName.Length == 0)
-            {
-                return null;
-            }
             //Get connection and PuzzleShopDB
             var db = utils.DBConnect.getDB();
             var Toys = db.GetCollection<Toy>("Toy");
@@ -111,7 +107,7 @@ namespace Library.ToyCollection
         /// <param name="User"></param>
         /// <param name="Toy"></param>
         /// <param name="Content"></param>
-        public void ReviewAToy(Toy Toy, string Name, string Email, string Title, string Content)
+        public void ReviewAToy(Toy Toy, string Name, string Email, string Title, string Content, int Star)
         {
 
             var db = utils.DBConnect.getDB();
@@ -119,7 +115,7 @@ namespace Library.ToyCollection
             var builder = Builders<Toy>.Filter;
             //Build filter to query the toy need to cmt
             var filter = builder.Where(toy => toy._id.Equals(Toy._id));
-            
+
             //Create Review
             Review rv = new Review
             {
@@ -127,6 +123,7 @@ namespace Library.ToyCollection
                 Email = Email,
                 Title = Title,
                 Content = Content,
+                Star = Star,
                 Date = DateTime.Now.ToString()
             };
 
@@ -241,6 +238,21 @@ namespace Library.ToyCollection
                 throw;
             }
             
+        }
+
+
+        public int GetQuantity(string Toy_id)
+        {
+            //Get connection and PuzzleShopDB
+            var db = utils.DBConnect.getDB();
+            var Toys = db.GetCollection<Toy>("Toy");
+
+            var builder = Builders<Toy>.Filter;
+            var filter = builder.Where(t => t._id.Equals(Toy_id));
+
+            List<Toy> list = Toys.Find(filter).ToList();
+
+            return list[0].Quantity;
         }
     }
 }
