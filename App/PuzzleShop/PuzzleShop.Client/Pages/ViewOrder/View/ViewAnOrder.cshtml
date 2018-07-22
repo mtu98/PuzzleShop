@@ -1,0 +1,74 @@
+﻿@inherits PuzzleShop.Client.Pages.ViewOrder.Logic.ViewAnOrderLogic
+
+@if (Order != null) {
+    <div id="banner" class="jumbotron row">
+        <h2>Order #@OrderNumber</h2>
+    </div>
+    <section id="order" class="page-section row">
+        <div class="col-md-12 col-lg-9">
+            <div id="cart-content">
+                <div class="cart-labels clearfix hidden-xs">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        Item
+                    </div>
+                    <div class="col-sm-3 col-lg-2">
+                        Quantity
+                    </div>
+                    <div class="col-sm-3 col-lg-2">
+                        Item Total
+                    </div>
+                </div>
+                @foreach (var orderItem in Order.OrderItems) {
+                    <div class="cart-item row">
+                        <div class="col-xs-12 col-sm-2">
+                            <div class="product-thumb">
+                                <img class="img-responsive" alt="@orderItem.Toy.ToyName" src="@orderItem.Toy.PhotoURL" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 cart-details">
+                            <div class="h4 product-title">
+                                <a href="/toyDetail/@orderItem.Toy._id">@orderItem.Toy.ToyName</a>
+                                <small class="unit-price">
+                                    $@orderItem.Toy.Price.ToString("N")
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-2 no-edit">
+                            <div class="h3 quantity">
+                                @orderItem.Quantity
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-2 cart-details">
+                            <div class="h4 total-price">
+                                $@((orderItem.Toy.Price * orderItem.Quantity).ToString("N"))
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-3">
+            <table class="table table-bordered">
+                <tr>
+                    <td><strong>Order Date: </strong> </td>
+                    <td>@Order.OrderDate</td>
+                </tr>
+            </table>
+            <ul class="price-list list-group">
+                <li class="list-group-item"><span>Subtotal:</span> <i class="badge">$@Order.Total.ToString("N")</i></li>
+                <li class="list-group-item"><span>Sales Tax:</span> <i class="badge">$0.00</i></li>
+                <li class="list-group-item"><span>Shipping:</span> <i class="badge">$5.00</i></li>
+
+                <li class="list-group-item order-total h4 clearfix"><span>Total:</span>  <i class="badge">$@((Order.Total + 5).ToString("N"))</i></li>
+            </ul>
+        </div>
+
+    </section>
+} else {
+    <div class="col-xs-12">
+        <p class="flash error">Order not found</p>
+    </div>
+}
