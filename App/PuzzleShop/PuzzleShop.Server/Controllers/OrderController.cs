@@ -42,5 +42,11 @@ namespace PuzzleShop.Server.Controllers {
                 return false;
             }
         }
+
+        [HttpPost]
+        [Route("api/Order/GetOrder")]
+        public List<Orders> GetOrder([FromBody] string username) {
+            return _ordersDao.GetAllOrders(username);
+        }
     }
 }

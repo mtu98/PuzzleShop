@@ -65,35 +65,26 @@ namespace PuzzleShop.Shared.Models.Order {
             }
         }
 
-        public List<Dictionary<Toy.Toy, int>> GetAllOrders(string Username) {
+        public List<Orders> GetAllOrders(string Username) {
             var db = DBConnect.getDB();
             var Orders = db.GetCollection<Orders>("Orders");
 
             var builder = Builders<Orders>.Filter;
             var filter = builder.Where(od => od.Username.Equals(Username));
 
-            //List All Orders of User return to client
-            List<Dictionary<Toy.Toy, int>> allOrders = new List<Dictionary<Toy.Toy, int>>();
+            List<Orders> list = new List<Orders>();
 
             try {
-                //Query all orders
-                List<Orders> list = new List<Orders>();
                 list = Orders.Find(filter).ToList();
-
-                foreach (Orders o in list) {
-
-                    Dictionary<Toy.Toy, int> order = new Dictionary<Toy.Toy, int>();
-                    for (int i = 0; i < o.OrderItems.Length; i++) {
-                        order.Add(o.OrderItems[i].Toy, o.OrderItems[i].Quantity);
-                    }
-                    allOrders.Add(order);
-                }
             } catch (Exception) {
 
                 throw;
             }
-            return allOrders;
+
+            return list;
 
         }
+
+
     }
 }
