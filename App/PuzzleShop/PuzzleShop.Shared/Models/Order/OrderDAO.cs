@@ -1,32 +1,49 @@
 ﻿using MongoDB.Driver;
+using PuzzleShop.Shared.Models.Toy;
 using System;
 using System.Collections.Generic;
 using Utils;
 
 namespace PuzzleShop.Shared.Models.Order {
     public class OrdersDAO {
-
         /// <summary>
         /// Not done yet
         /// </summary>
-        /// <param name="Username"></param>
-        /// <param name="OrderItems"></param>
+        /// <param name="username"></param>
+        /// <param name="ListItems"></param>
         /// <returns></returns>
-        public bool CreateOrder(string Username, Dictionary<Toy.Toy, int> ListItems) {
+        public bool CreateOrder(string username, Dictionary<Toy.Toy, int> ListItems) {
             //Get connection and PuzzleShopDB
             var db = DBConnect.getDB();
-            var Orders = db.GetCollection<Orders>("Orders");
+            var orders = db.GetCollection<Orders>("Orders");
 
-            string OrderDate = DateTime.Now.ToString();
-            double Total = 0;
-            OrderItem[] OrderItems = null;
+            string orderDate = DateTime.Now.ToString();
+            double total = 0;
+
+            OrderItem[] orderItems = Array.Empty<OrderItem>();
+
+            //iterate through list Toy-Quantity of user's order
             foreach (KeyValuePair<Toy.Toy, int> entry in ListItems) {
-                Total += entry.Key.Price * entry.Value;
+                ToyDAO toyDao = new ToyDAO();
+
+                //Check quantity if enough
+                if (toyDao.GetQuantity(entry.Key._id) < entry.Value) {
+                    throw new Exception("Quantity exceed!");
+                }
+
+                //calculate Total price
+                total += entry.Key.Price * entry.Value;
+
+                //Create a Order item
                 OrderItem i = new OrderItem {
                     Toy = entry.Key,
                     Quantity = entry.Value
                 };
-                OrderItems[OrderItems.Length - 1] = i;
+
+                //Add more memory to array
+                Array.Resize<OrderItem>(ref orderItems, orderItems.Length + 1);
+                //Add Order item to Toy-Quantity list
+                orderItems[orderItems.Length - 1] = i;
             }
             //Status = -1 means Pending order
             // 0 means Processing order
@@ -34,11 +51,11 @@ namespace PuzzleShop.Shared.Models.Order {
             int Status = -1;
 
             try {
-                Orders.InsertOne(new Orders {
-                    OrderDate = OrderDate,
-                    Username = Username,
-                    OrderItems = OrderItems,
-                    Total = Total,
+                orders.InsertOne(new Orders {
+                    OrderDate = orderDate,
+                    Username = username,
+                    OrderItems = orderItems,
+                    Total = total,
                     Status = Status
                 });
                 return true;
@@ -60,7 +77,9 @@ namespace PuzzleShop.Shared.Models.Order {
 
             try {
                 //Query all orders
-                List<Orders> list = Orders.Find(filter).ToList();
+                List<Orders> list = new List<Orders>();
+                list = Orders.Find(filter).ToList();
+
                 foreach (Orders o in list) {
 
                     Dictionary<Toy.Toy, int> order = new Dictionary<Toy.Toy, int>();

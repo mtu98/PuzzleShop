@@ -1,0 +1,114 @@
+﻿@page "/checkout-03"
+@inherits PuzzleShop.Client.Pages.Checkout.Logic.CheckoutLogic
+
+<div id="banner" class="jumbotron row">
+    <h1>Checkout</h1>
+</div>
+
+@if (Cart != null) {
+    <section id="checkout" class="page-section row">
+        <div id="checkout-progress">
+            <ul class="breadcrumb list-inline checkout-progress">
+                <li class="active"><a href="/checkout-01">1. Billing Address</a></li>
+                <li class="active"><a href="/checkout-02">2. Shipping Method</a></li>
+                <li class="active">3. Pay</li>
+            </ul>
+
+        </div>
+
+        <div class="col-sm-12 col-md-9">
+
+            <div id="checkout-page">
+                <h2>Your Order</h2>
+                <div id="cart-content">
+                    <div class="cart-labels clearfix hidden-xs">
+                        <div class="col-sm-4 col-sm-offset-2 col-lg-5">
+                            Item
+                        </div>
+                        <div class="col-sm-3 col-lg-2">
+                            Quantity
+                        </div>
+                        <div class="col-sm-3 col-lg-3">
+                            Item Total
+                        </div>
+                    </div>
+
+                    @foreach (var item in Cart) {
+                        <div class="cart-item row">
+                            <div class="col-xs-12 col-sm-2">
+                                <div class="product-thumb">
+                                    <img class="img-responsive" alt="@item.Key.ToyName" src="@item.Key.PhotoURL">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-lg-5 cart-details">
+                                <div class="h4 product-title">
+                                    <a href="/toyDetail/@item.Key._id">@item.Key.ToyName</a>
+                                    <p>
+                                        <small class="unit-price">
+                                            $@item.Key.Price.ToString("N")
+                                        </small>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-lg-2  no-edit">
+                                <div class="quantity">
+                                    <div class="h3">@item.Value</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-3 col-lg-3 cart-details">
+                                <div class="h4 total-price">
+                                    $@((item.Key.Price * item.Value).ToString("N"))
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!--  Pay with stored cards shown in dropdown -->
+                <h2>Select a Payment Method</h2>
+                <!-- The payment method radio button clicks are handled in the main.js -->
+                <div id="payment_method" class="form-group">
+                    <form class="custom">
+
+                        <input class="custom-radio" name="paymentMethodId" value="3" type="radio" id="payment-method3">
+                        <label for="payment-method3" class="choice-title h6">Cash</label>
+
+                        <input class="custom-radio" name="paymentMethodId" value="4" type="radio" id="payment-method4" readonly="readonly">
+                        <label for="payment-method4" class="choice-title h6">Credit Card</label>
+                    </form>
+                </div>
+
+                <div id="payment_form">
+                    <p>
+                        Please select a payment method.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="cart-totals" class="col-sm-12 col-md-3">
+            <form class="custom">
+                <div id="cart-summary">
+                    <h3 class="cart-summary-title">Order Summary</h3>
+                    <ul class="price-list list-group">
+                        <li class="list-group-item">Subtotal: <span class="badge">$@GetPriceOfCart().ToString("N")</span></li>
+                        <li class="list-group-item order-shipping">Shipping: <span class="badge">$5.00</span></li>
+                        <li class="list-group-item">Tax: <span class="badge">$0.00</span></li>
+                        <li class="list-group-item order-total h4 clearfix" id="custom-total"><span>Total:</span> <span class="badge">$@((GetPriceOfCart() + 5).ToString("N"))</span></li>
+                    </ul>
+                    <input type="button" class="btn btn-primary" value="Place Order" onclick="@CheckoutOrder" />
+
+
+                </div>
+            </form>
+        </div>
+
+    </section>
+}
+
+<style>
+    #custom-total {
+        background-color: #e34f30 !important;
+    }
+</style>

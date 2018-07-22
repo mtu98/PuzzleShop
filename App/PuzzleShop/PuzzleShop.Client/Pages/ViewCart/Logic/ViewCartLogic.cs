@@ -50,5 +50,18 @@ namespace PuzzleShop.Client.Pages.ViewCart.Logic {
 
             return "return null";
         }
+
+        protected double GetPriceOfCart() {
+            if (Cart == null) {
+                return 0;
+            }
+
+            double price = 0;
+            foreach (var item in Cart) {
+                price += item.Key.Price * item.Value;
+            }
+
+            return price;
+        }
     }
 }

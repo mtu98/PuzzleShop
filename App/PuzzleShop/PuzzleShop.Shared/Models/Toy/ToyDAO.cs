@@ -219,5 +219,18 @@ namespace PuzzleShop.Shared.Models.Toy {
             }
 
         }
+
+        public int GetQuantity(string Toy_id) {
+            //Get connection and PuzzleShopDB
+            var db = DBConnect.getDB();
+            var Toys = db.GetCollection<Toy>("Toy");
+
+            var builder = Builders<Toy>.Filter;
+            var filter = builder.Where(t => t._id.Equals(Toy_id));
+
+            List<Toy> list = Toys.Find(filter).ToList();
+
+            return list[0].Quantity;
+        }
     }
 }
