@@ -51,8 +51,8 @@
                                         <!-- product ratings -->
                                         <p style="display: inline;">
                                             <span style="margin-right: -4px">
-                                                &starf;&starf;&starf;&starf;&starf;
-                                            </span> (1)
+                                                @RatingLevel[GetAverageRatingLevel()]
+                                            </span> (@CurrentToy.Review.Length)
                                             <div class="modal fade" id="productReviewModal" tabindex="-1" role="dialog" aria-labelledby="productReviewModal">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
@@ -63,80 +63,85 @@
                                                         <div class="modal-body">
                                                             <div class="row">
                                                                 <div class="col-xs-6 col-sm- 6">
-                                                                    <p>
-                                                                        <span style="margin-right: -4px">
-                                                                            &starf;&starf;&starf;&starf;&starf;
-                                                                        </span> Based on 1 review
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-xs-6 col-sm- 6 text-right">
-                                                                    <a class="blue" href="#" data-dismiss="modal" onclick="writeReview();" id="write-review-inview"><strong>Write a Review</strong></a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="reviews">
-                                                                <div class="review-rating">&starf;&starf;&starf;&starf;&starf;</div>
-                                                                <p class="review-date">Oct 20th, 2017</p>
-                                                                <p><strong>Cute and works well.</strong></p>
-                                                                <p><em>Love the colour.</em></p>
-                                                                <p>Julie</p>
-                                                                <hr>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- View Review -->
-                                            <a id="view-review" href="#" data-toggle="modal" data-target="#productReviewModal">View Review(s)</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                            <!-- Write Review -->
-                                            <a id="write-review" href="#" data-toggle="modal" data-target="#productWriteModal">Write Review</a>
+                                        <p>
+                                            <span style="margin-right: -4px">
+                                                @RatingLevel[GetAverageRatingLevel()]
+                                            </span> &nbsp; Based on @CurrentToy.Review.Length review
                                         </p>
                                     </div>
-                                <!-- <div class="col-xs-12 col-sm-6 product-review-controls">
-
-                                </div> -->
+                                    <div class="col-xs-6 col-sm- 6 text-right">
+                                        <a class="blue" href="#" data-dismiss="modal" onclick="writeReview();" id="write-review-inview"><strong>Write a Review</strong></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                <h2 itemprop="price">
-                                    $@CurrentToy.Price
-                                </h2>
-                                <link itemprop="availability" href="http://schema.org/InStock" />
-                            </div>
-                            <div class="excerpt" itemprop="description">
-                                <p>@CurrentToy.Description</p>
-                            </div>
-                            <input type="hidden" name="productId" value="13" />
-                            <div class="add-cart-holder form-group">
-                                @if (AddSuccess) {
-                                    var quantity = CurrentToy.Quantity.ToString();
-                                    <p class="flash success">@quantity item(s) added to cart.</p>
-                                    AddSuccess = false;
-                                }
-                                <div class="quantity-selector">
-                                    <button class="quantity-btn minus btn btn-lg btn-default" onclick="@(() => ChangeValue("toy-quantity", -1))"><i class="fa fa-minus"></i></button>
-                                    <input id="toy-quantity" class="form-control quantity" type="text" name="quantity" bind="@CurrentToy.Quantity" />
-                                    <button class="quantity-btn plus btn btn-lg btn-default" onclick="@(() => ChangeValue("toy-quantity", 1))"><i class="fa fa-plus"></i></button>
-                                </div>
-                                <a class="btn btn-lg btn-danger btn-add-cart" href="#" onclick="@(() => AddToCart())">
-                                    <i class="fa fa-refresh fa-spin" style="display: @AddingItemDisplay !important"></i>
-                                    Add to Cart 
-                                    <i class="fa fa-shopping-cart"></i>
-                                </a>
-                            </div>
+                                <div class="reviews">
+                                    @if (CurrentToy.Review != null) {
 
-                            <div id="sharrre" class="social-buttons">
-                                <h6 class="share-title">share with your friends</h6>
-                                <ul class="inline list-inline square-icons">
-                                    <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                </ul>
+                                        foreach (var review in CurrentToy.Review) {
+                                            <div class="review-rating">@RatingLevel[review.Star]</div>
+                                            <p class="review-date">@review.Date</p>
+                                            <p><strong>@review.Title</strong></p>
+                                            <p><em>@review.Content</em></p>
+                                            <p>@review.Name</p>
+                                            <hr>
+                                        }
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </form>
+                <!-- View Review -->
+                <a id="view-review" href="#" data-toggle="modal" data-target="#productReviewModal">View Review(s)</a>&nbsp; &nbsp;| &nbsp; &nbsp;
+                <!-- Write Review -->
+                <a id="write-review" href="#" data-toggle="modal" data-target="#productWriteModal">Write Review</a>
+                </p>
+    </div>
+    <!-- <div class="col-xs-12 col-sm-6 product-review-controls">
+
+    </div> -->
+    </div>
+    </div>
+    <div class="price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <h2 itemprop="price">
+            $@CurrentToy.Price
+        </h2>
+        <link itemprop="availability" href="http://schema.org/InStock" />
+    </div>
+    <div class="excerpt" itemprop="description">
+        <p>@CurrentToy.Description</p>
+    </div>
+    <input type="hidden" name="productId" value="13" />
+    <div class="add-cart-holder form-group">
+        @if (AddSuccess) {
+            var quantity = CurrentToy.Quantity.ToString();
+            <p class="flash success">@quantity item(s) added to cart.</p>
+            AddSuccess = false;
+        }
+        <div class="quantity-selector">
+            <button class="quantity-btn minus btn btn-lg btn-default" onclick="@(() => ChangeValue(-1))"><i class="fa fa-minus"></i></button>
+            <input id="toy-quantity" class="form-control quantity" type="number" min="1" name="quantity" bind="@CurrentToy.Quantity" />
+            <button class="quantity-btn plus btn btn-lg btn-default" onclick="@(() => ChangeValue(1))"><i class="fa fa-plus"></i></button>
+        </div>
+        <a class="btn btn-lg btn-danger btn-add-cart" href="#" onclick="@(() => AddToCart())">
+            <i class="fa fa-refresh fa-spin" style="display: @AddingItemDisplay !important"></i>
+            Add to Cart
+            <i class="fa fa-shopping-cart"></i>
+        </a>
+    </div>
+
+    <div id="sharrre" class="social-buttons">
+        <h6 class="share-title">share with your friends</h6>
+        <ul class="inline list-inline square-icons">
+            <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+        </ul>
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </form>
 
     <div id="write-modal">
         <div class="modal fade" id="productWriteModal" tabindex="-1" role="dialog" aria-labelledby="productWriteModal">

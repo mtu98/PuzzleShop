@@ -61,7 +61,7 @@
 
                             <div class="mini-cart-totals">
                                 <h4 class="subtotal">Subtotal: $@GetPriceOfCart().ToString("N")</h4>
-                                <a class="btn btn-default btn-lg" href="#">View Cart</a>
+                                <a class="btn btn-default btn-lg" href="#" onclick="@(() => ViewCart())">View Cart</a>
                                 <a class="col-xs-12 btn btn-danger solid btn-lg" href="#">Checkout</a>
                             </div>
                         }

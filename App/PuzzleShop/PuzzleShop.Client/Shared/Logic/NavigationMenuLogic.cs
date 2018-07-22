@@ -97,5 +97,10 @@ namespace PuzzleShop.Client.Shared.Logic {
                 throw;
             }
         }
+
+        protected string ViewCart() {
+            UriHelper.NavigateTo("/viewCart");
+            return "return false";
+        }
     }
 }

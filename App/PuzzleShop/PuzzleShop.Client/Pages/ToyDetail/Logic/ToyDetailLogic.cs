@@ -21,6 +21,15 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
 
         protected bool AddSuccess { get; set; } = false;
 
+        protected string[] RatingLevel = new[] {
+            "☆☆☆☆☆",
+            "★☆☆☆☆",
+            "★★☆☆☆",
+            "★★★☆☆",
+            "★★★★☆",
+            "★★★★★"
+        };
+
         [Inject]
         private HttpClient Http { get; set; }
 
@@ -34,6 +43,9 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
             CurrentToy = ToyList.SingleOrDefault(toy => toy._id.Equals(ToyId));
             if (CurrentToy != null) {
                 CurrentToy.Quantity = 1;
+                if (CurrentToy.Review == null) {
+                    CurrentToy.Review = new Review[0];
+                }
             }
             //StateHasChanged();
         }
@@ -55,7 +67,7 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
             }
         }
 
-        protected void ChangeValue(string inputId, int offsetValue) {
+        protected void ChangeValue(int offsetValue) {
             if (CurrentToy.Quantity + offsetValue <= 0) {
                 return;
             }
@@ -70,6 +82,19 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
             AddingItemDisplay = "none";
             AddSuccess = true;
             return "return false";
+        }
+
+        protected int GetAverageRatingLevel() {
+            if (CurrentToy?.Review == null || CurrentToy.Review.Length == 0) {
+                return 0;
+            }
+
+            var totalRating = 0;
+            foreach (var review in CurrentToy.Review) {
+                totalRating += review.Star;
+            }
+
+            return totalRating / CurrentToy.Review.Length;
         }
     }
 }

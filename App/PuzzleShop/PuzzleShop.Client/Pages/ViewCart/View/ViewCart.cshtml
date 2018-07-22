@@ -1,0 +1,80 @@
+﻿@page "/viewCart"
+@inherits PuzzleShop.Client.Pages.ViewCart.Logic.ViewCartLogic
+
+<div id="banner" class="jumbotron row">
+    <h1>Shopping Cart</h1>
+</div>
+
+<section id="cart" class="page-section row">
+    @if (Cart == null || Cart.Count == 0) {
+        <p>Your cart is empty!</p>
+    } else {
+        <form class="custom" method="post">
+            <div id="cart-content">
+                <div class="col-xs-12 col-md-9">
+                    <div class="items-holder">
+                        <div class="cart-labels clearfix hidden-xs">
+                            <div class="col-sm-4 col-sm-offset-2 col-lg-5">
+                                Item
+                            </div>
+                            <div class="col-sm-3 col-lg-2">
+                                Quantity
+                            </div>
+                            <div class="col-sm-3 col-lg-3">
+                                Item Total
+                            </div>
+                        </div>
+                        @foreach (var item in Cart) {
+                            <div class="cart-item row">
+                                <div class="col-xs-12 col-sm-2">
+                                    <div class="product-thumb">
+                                        <img class="img-responsive" alt="@item.Key.ToyName" src="@item.Key.PhotoURL" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-lg-5 cart-details">
+                                    <div class="h4 product-title">
+                                        <a href="#">@item.Key.ToyName</a>
+                                        <p>
+                                            <small class="unit-price">
+                                                $@item.Key.Price.ToString("N")
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-3 col-lg-2 cart-details ">
+                                    <div class="quantity">
+                                        <div class="quantity-selector">
+                                            <button class="quantity-btn minus btn btn-lg btn-default" onclick="@(() => ChangeValue(item.Key, -1))" type="button"><i class=" fa fa-minus"></i></button>
+                                            <input id="item-quantity" type="number" min="1" name="item-quantity" class="form-control quantity" bind="@Cart[item.Key]" />
+                                            <button class="quantity-btn plus btn btn-lg btn-default" onclick="@(() => ChangeValue(item.Key, 1))" type="button"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-3 col-lg-3 cart-details">
+                                    <div class="h4 total-price">
+                                        $@item.Key.Price.ToString("N")
+                                    </div>
+                                    <a class="remove-item" href="#close"><i class="fa fa-times"></i></a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div id="cart-actions" class="btn-holder clearfix">
+                        <a class="btn btn-default btn-update-cart" href="#">Update Cart <i class="fa fa-refresh"></i></a>
+                        <a class="btn btn-default btn-continue-shopping" href="/shop"><i class="fa fa-arrow-left"></i> Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <h3>Order Summary</h3>
+                    <p class="h6">Shipping costs and taxes will be evaluated during checkout</p>
+                    <ul class="price-list list-group">
+                        <li class="list-group-item">Subtotal: <span class="badge">$129.00</span></li>
+                        <li class="list-group-item important">Total: <span class="badge">$129.00</span></li>
+                    </ul>
+                    <a class="col-xs-12 btn btn-danger solid btn-lg" href="//boxie.lemonstand.com/checkout-start">Checkout</a>
+                </div>
+            </div>
+        </form>
+    }
+</section>
+
