@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Blazor;
-using Microsoft.AspNetCore.Blazor.Browser.Interop;
+using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
 using PuzzleShop.Shared.Models.Toy;
@@ -64,8 +64,8 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
 
                 largeImageUrl += imageName;
                 //RegisteredFunction.Invoke<bool>("ZoomImage", "#toy-img-zoom", largeImageUrl);
-                RegisteredFunction.Invoke<bool>("ZoomImage", "#toy-img-zoom");
-                RegisteredFunction.Invoke<bool>("ActivateStarRating");
+                JSRuntime.Current.InvokeAsync<bool>("ZoomImage", "#toy-img-zoom");
+                JSRuntime.Current.InvokeAsync<bool>("ActivateStarRating");
             }
         }
 
@@ -106,7 +106,7 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
         }
 
         protected void AlertMsg(string msg) {
-            RegisteredFunction.Invoke<bool>("AlertMsg", msg);
+            JSRuntime.Current.InvokeAsync<bool>("AlertMsg", msg);
         }
 
         protected void SetStarReview(int star) {

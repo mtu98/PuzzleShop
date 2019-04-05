@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Blazor;
-using Microsoft.AspNetCore.Blazor.Browser.Interop;
+using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
 using PuzzleShop.Shared.Models;
@@ -47,7 +47,7 @@ namespace PuzzleShop.Client.Pages.LoginRegister.Logic {
 
 
                 UriHelper.NavigateTo(user != null ? "/" : "/loginFail");
-                RegisteredFunction.Invoke<bool>("AutoReloadPage");
+                await JSRuntime.Current.InvokeAsync<bool>("AutoReloadPage");
                 EndProcessing();
             }
         }

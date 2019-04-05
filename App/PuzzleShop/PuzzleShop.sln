@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleShop.Server", "PuzzleShop.Server\PuzzleShop.Server.csproj", "{B2D138F0-6EB0-41AB-B746-6D53344AC39D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleShop.Server", "PuzzleShop.Server\PuzzleShop.Server.csproj", "{B2D138F0-6EB0-41AB-B746-6D53344AC39D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleShop.Client", "PuzzleShop.Client\PuzzleShop.Client.csproj", "{6AAF89E0-5F22-4006-A08E-FA7A3C7C7188}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleShop.Client", "PuzzleShop.Client\PuzzleShop.Client.csproj", "{6AAF89E0-5F22-4006-A08E-FA7A3C7C7188}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleShop.Shared", "PuzzleShop.Shared\PuzzleShop.Shared.csproj", "{8C08C62F-8665-4411-8948-D521FB2D7B0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleShop.Shared", "PuzzleShop.Shared\PuzzleShop.Shared.csproj", "{8C08C62F-8665-4411-8948-D521FB2D7B0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
