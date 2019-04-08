@@ -15,8 +15,8 @@ db.Toy.insertMany(
         Price:15.99,
         Quantity:50,
         YearOfManufacture: 2018,
-        Description:"",
-        PhotoURL:"",
+        PhotoURL:"img/Products/rubik-3x3.jpg",
+        Description:"Classical well-known 3x3 rubik type but still fun and interactive.",
         Review:[
         {
             Name:"ABC",
@@ -46,8 +46,8 @@ db.Toy.insertMany(
         Price:22.99,
         Quantity:50,
         YearOfManufacture: 2018,
-        PhotoURL:"",
-        Description:""
+        PhotoURL:"img/Products/rubik-4x4.jpg",
+        Description:"Higher level rubik, harder and challenging. Suitable for intermediate rubik player."
     },
     {
     	_id: "T03",
@@ -60,12 +60,12 @@ db.Toy.insertMany(
         Price:20.50,
         Quantity:60,
         YearOfManufacture: 2018,
-        PhotoURL:"",
-        Description:""
+        PhotoURL:"img/Products/rubik-4x3.jpg",
+        Description:"A pretty weird rectangular rubik cube."
     },
     {
     	_id: "T04",
-        ToyName:"1000 pieces puzzle",
+        ToyName:"500 pieces puzzle",
         ToyType:"Puzzle",
         Producer:"ABC INC",
         SizeX:50,
@@ -73,7 +73,7 @@ db.Toy.insertMany(
         Price:30.10,
         Quantity:30,
         YearOfManufacture: 2018,
-        PhotoURL:"",
+        PhotoURL:"img/Products/500-pieces-puzzle.jpg",
         Description:""
     },
     {
@@ -86,13 +86,9 @@ db.Toy.insertMany(
         Price:39.99,
         Quantity:10,
         YearOfManufacture: 2018,
-        PhotoURL:"",
+        PhotoURL:"img/Products/2000-pieces-puzzle.jpg",
         Description:""
-    }
-    ]);
-
-db.Toy.insertMany(
-    [
+    },
     {
     	_id: "T06",
         ToyName: "RUBIK’S TOWER",
