@@ -47,7 +47,7 @@ namespace PuzzleShop.Client.Pages.LoginRegister.Logic {
 
 
                 UriHelper.NavigateTo(user != null ? "/" : "/loginFail");
-                await JSRuntime.Current.InvokeAsync<bool>("AutoReloadPage");
+                await JSRuntime.Current.InvokeAsync<bool>("autoReloadPage");
                 EndProcessing();
             }
         }

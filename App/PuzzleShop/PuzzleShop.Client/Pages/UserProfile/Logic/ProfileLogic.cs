@@ -69,7 +69,7 @@ namespace PuzzleShop.Client.Pages.UserProfile.Logic {
             StartProcessing();
 
             if (!LoginUser.Password.Equals(LoginUser.ConfirmedPassword)) {
-                await JSRuntime.Current.InvokeAsync<bool>("AlertMsg", "Confirm password must match with password!");
+                await JSRuntime.Current.InvokeAsync<bool>("alertMsg", "Confirm password must match with password!");
             } else {
                 var result = await Http.PostJsonAsync<bool>("api/User/ChangePassword", LoginUser);
                 if (result) {

@@ -92,8 +92,9 @@
         <!-- end loading animation -->
     </app>
 
-    <script type="blazor-boot">
-    </script>
+    <!--<script type="blazor-boot">
+    </script>-->
+    <script src="_framework/blazor.webassembly.js"></script>
 
     <script>
         function autoReloadPage() {
@@ -107,6 +108,10 @@
         }
         function writeReview() {
             $('#productWriteModal').modal('show');
+        }
+
+        function alertMsg(msg) {
+            alert(msg);
         }
 
         function activateStarRating() {
@@ -179,23 +184,17 @@
             });
         }*/
 
-        Blazor.registerFunction("AutoReloadPage", autoReloadPage);
         //Blazor.registerFunction("ZoomImage", (toyImageId, largeImageUrl) => {
         //    zoomImage(toyImageId, largeImageUrl);
         //    return true;
         //});
-        Blazor.registerFunction("ZoomImage", (toyImageId) => {
-            $(toyImageId).zoom({
-                url: 'img/Products/large-rubik-4x4.jpg'
-            });
-            return true;
-        });
-        Blazor.registerFunction("ActivateStarRating", activateStarRating);
-        Blazor.registerFunction("AlertMsg", (msg) => {
-            alert(msg);
-            return true;
-        });
-        //Blazor.registerFunction("ActiveOwlCarousel", activeOwlCarousel);
+        //cmt Blazor.registerFunction("ZoomImage", (toyImageId) => {
+        //    $(toyImageId).zoom({
+        //        url: 'img/Products/large-rubik-4x4.jpg'
+        //    });
+        //    return true;
+        //});
+            //Blazor.registerFunction("ActiveOwlCarousel", activeOwlCarousel);
 
     </script>
 

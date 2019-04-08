@@ -64,8 +64,8 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
 
                 largeImageUrl += imageName;
                 //RegisteredFunction.Invoke<bool>("ZoomImage", "#toy-img-zoom", largeImageUrl);
-                JSRuntime.Current.InvokeAsync<bool>("ZoomImage", "#toy-img-zoom");
-                JSRuntime.Current.InvokeAsync<bool>("ActivateStarRating");
+                JSRuntime.Current.InvokeAsync<bool>("zoomImage", "#toy-img-zoom");
+                JSRuntime.Current.InvokeAsync<bool>("activateStarRating");
             }
         }
 
@@ -106,7 +106,7 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
         }
 
         protected void AlertMsg(string msg) {
-            JSRuntime.Current.InvokeAsync<bool>("AlertMsg", msg);
+            JSRuntime.Current.InvokeAsync<bool>("alertMsg", msg);
         }
 
         protected void SetStarReview(int star) {
