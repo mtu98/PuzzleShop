@@ -4,6 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <LangVersion>7.3</LangVersion>
+    <!-- Below line is fix for the problem https://stackoverflow.com/questions/53685746/problem-with-deserialization-in-blazor-project -->
+    <BlazorLinkOnBuild>false</BlazorLinkOnBuild>
+    <!-- end fix -->
   </PropertyGroup>
   
   <ItemGroup>
