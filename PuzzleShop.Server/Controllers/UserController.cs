@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PuzzleShop.Shared.Models;
+using PuzzleShop.Shared.Models.User;
 
 namespace PuzzleShop.Server.Controllers {
     public class UserController : Controller {

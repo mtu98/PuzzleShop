@@ -2,10 +2,10 @@
 using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
-using PuzzleShop.Shared.Models;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
+using PuzzleShop.Shared.Models.User;
 
 namespace PuzzleShop.Client.Pages.UserProfile.Logic {
     public class ProfileLogic : BlazorComponent {

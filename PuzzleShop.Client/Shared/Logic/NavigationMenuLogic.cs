@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Blazor;
 using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
-using PuzzleShop.Shared.Models;
 using PuzzleShop.Shared.Models.Cart;
 using PuzzleShop.Shared.Models.Toy;
 using System;
@@ -12,6 +11,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PuzzleShop.Shared.Models.User;
 
 namespace PuzzleShop.Client.Shared.Logic
 {

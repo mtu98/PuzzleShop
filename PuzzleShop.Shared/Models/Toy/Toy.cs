@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace PuzzleShop.Shared.Models.Toy {
-    public class Toy {
+namespace PuzzleShop.Shared.Models.Toy
+{
+    public class Toy
+    {
         public string _id { get; set; }
 
         public string Name { get; set; }
@@ -28,37 +30,39 @@ namespace PuzzleShop.Shared.Models.Toy {
 
         public Review[] Review { get; set; }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         // override object.Equals
-        public override bool Equals(object obj) {
-            if (obj == null || GetType() != obj.GetType()) {
-                return false;
-            }
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType()) return false;
 
             var toy = obj as Toy;
-            return toy._id.Equals(this._id);
+            return toy._id.Equals(_id);
         }
 
         // override object.GetHashCode
-        public override int GetHashCode() {
-            return this._id.GetHashCode();
+        public override int GetHashCode()
+        {
+            return _id.GetHashCode();
         }
-
     }
 
-    public class Review {
+    public class Review
+    {
         public string Name { get; set; }
         public string Email { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public int Star { get; set; }
         public string Date { get; set; }
-        public override string ToString() {
+
+        public override string ToString()
+        {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
     }
-
 }

@@ -1,11 +1,10 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 using Utils;
 
 namespace PuzzleShop.Shared.Models.Toy
@@ -21,16 +20,13 @@ namespace PuzzleShop.Shared.Models.Toy
         }
 
         /// <summary>
-        /// Find toy by ToyName
+        ///     Find toy by ToyName
         /// </summary>
         /// <param name="toyName"></param>
         /// <returns></returns>
         public List<Toy> FindByName(string toyName)
         {
-            if (string.IsNullOrEmpty(toyName))
-            {
-                return null;
-            }
+            if (string.IsNullOrEmpty(toyName)) return null;
 
             var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
             var builder = Builders<Toy>.Filter;
@@ -50,7 +46,7 @@ namespace PuzzleShop.Shared.Models.Toy
         }
 
         /// <summary>
-        /// Review a toy without login
+        ///     Review a toy without login
         /// </summary>
         /// <param name="toyId"></param>
         /// <param name="title"></param>
@@ -84,29 +80,28 @@ namespace PuzzleShop.Shared.Models.Toy
         }
 
         /// <summary>
-        /// Query some random toys
+        ///     Query some random toys
         /// </summary>
         /// <returns></returns>
         public List<Toy> GetRandomToy(int quantity)
         {
             var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
-            Random rng = new Random();
+            var rng = new Random();
             return toyCollection.Find(new BsonDocument()).Limit(quantity).Skip(rng.Next(10)).ToList();
         }
 
         /// <summary>
-        /// Get All Toys
+        ///     Get All Toys
         /// </summary>
         /// <returns></returns>
         public List<Toy> AllToys()
         {
             var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
-
             return toyCollection.Find(new BsonDocument()).ToList();
         }
 
         /// <summary>
-        /// Get all toy type and each type distinct type count
+        ///     Get all toy type and each type distinct type count
         /// </summary>
         /// <returns></returns>
         public List<JObject> GetCategoriesAndQuantities()
@@ -120,12 +115,11 @@ namespace PuzzleShop.Shared.Models.Toy
             // aggregate result and apply toJson method into each result element, return json list with format {"Category": Count}
             var result = toyCollection.Aggregate<BsonDocument>(pipeline).ToList()
                 .Select(doc => JObject.Parse(doc.ToJson())).ToList()
-                .Select(json => new JObject(new JProperty(json.GetValue("_id").ToString(), json.GetValue("count").ToString()))).ToList();
+                .Select(json =>
+                    new JObject(new JProperty(json.GetValue("_id").ToString(), json.GetValue("count").ToString())))
+                .ToList();
             Debug.WriteLine("All toy types: ");
-            foreach (var entry in result)
-            {
-                Debug.WriteLine(entry);
-            }
+            foreach (var entry in result) Debug.WriteLine(entry);
 
             return result;
         }
@@ -142,7 +136,7 @@ namespace PuzzleShop.Shared.Models.Toy
 
 
         /// <summary>
-        /// Take list found toy and filter by type
+        ///     Take list found toy and filter by type
         /// </summary>
         /// <param name="list"></param>
         /// <param name="category"></param>
@@ -150,19 +144,15 @@ namespace PuzzleShop.Shared.Models.Toy
         private List<Toy> FilterCategory(List<Toy> list, string category)
         {
             foreach (var toy in list)
-            {
                 //remove which not match the Category filter
                 if (!toy.Category.Equals(category))
-                {
                     list.Remove(toy);
-                }
-            }
 
             return list;
         }
 
         /// <summary>
-        /// Take list of found toy and filter by price range
+        ///     Take list of found toy and filter by price range
         /// </summary>
         /// <param name="list"></param>
         /// <param name="minPrice"></param>
@@ -171,13 +161,9 @@ namespace PuzzleShop.Shared.Models.Toy
         private List<Toy> FilterPrice(List<Toy> list, double minPrice, double maxPrice)
         {
             foreach (var toy in list)
-            {
                 //Remove toy that out of price range
                 if (toy.Price < minPrice || toy.Price > maxPrice)
-                {
                     list.Remove(toy);
-                }
-            }
 
             return list;
         }

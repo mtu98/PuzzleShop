@@ -1,16 +1,13 @@
-﻿namespace PuzzleShop.Shared.Models.Toy {
-    public class SimpleToyReview {
-        public string Toyid { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public int Star { get; set; }
-        public SimpleToyReview() {
-
+﻿namespace PuzzleShop.Shared.Models.Toy
+{
+    public class SimpleToyReview
+    {
+        public SimpleToyReview()
+        {
         }
 
-        public SimpleToyReview(Toy toy, Review review) {
+        public SimpleToyReview(Toy toy, Review review)
+        {
             Toyid = toy._id;
             Username = review.Name;
             Email = review.Email;
@@ -18,5 +15,12 @@
             Content = review.Content;
             Star = review.Star;
         }
+
+        public string Toyid { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public int Star { get; set; }
     }
 }
