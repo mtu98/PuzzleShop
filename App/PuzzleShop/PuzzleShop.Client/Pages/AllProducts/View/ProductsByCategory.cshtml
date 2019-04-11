@@ -1,9 +1,9 @@
-﻿@page "/shop/{CategoryName}"
+﻿@page "/shop/{Category}"
 @inherits PuzzleShop.Client.Pages.AllProducts.Logic.ProductsByCategoryLogic
 
 @if (ToyList != null) {
     <div id="banner" class="jumbotron row">
-        <h1>All Products in Category "@CategoryName"</h1>
+        <h1>All Products in Category "@Category"</h1>
     </div>
     <section id="shop" class="page-section row">
         <div class="col-xs-12 col-sm-3">
@@ -43,6 +43,6 @@
         </div>
     </section>
 }
-<!-- dimming the page while prcessing -->
+<!-- dimming the page while processing -->
 
 <DimScreen Processing="@Processing" />

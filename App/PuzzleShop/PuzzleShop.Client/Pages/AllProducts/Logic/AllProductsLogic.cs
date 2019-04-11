@@ -27,7 +27,7 @@ namespace PuzzleShop.Client.Pages.AllProducts.Logic {
 
         private async void GetAllToys() {
             StartProcessing();
-            ToyList = await Http.GetJsonAsync<List<Toy>>("api/Toy/GetAllToys");
+            ToyList = await Http.GetJsonAsync<List<Toy>>("api/toys");
             EndProcessing();
             StateHasChanged();
         }

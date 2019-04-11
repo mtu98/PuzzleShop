@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PuzzleShop.Shared.Models.Toy;
 using System.Collections.Generic;
 
 namespace PuzzleShop.Server.Controllers {
     public class ToyController : Controller {
 
-        private ToyDAO _toyDao = new ToyDAO();
+        private readonly ToyDAO _toyDao = new ToyDAO();
 
         [HttpPost]
         [Route("api/Toy/Search")]
         public List<Toy> Search([FromBody] string searchValue) {
-            var result = _toyDao.FindToys(searchValue);
+            var result = _toyDao.FindByName(searchValue);
             return result;
         }
 
@@ -22,26 +23,26 @@ namespace PuzzleShop.Server.Controllers {
             return true;
         }
 
-        [HttpPost]
-        [Route("api/Toy/GetToyById")]
-        public Toy GetToyById([FromBody] string toyId) {
-            return _toyDao.FindToyById(toyId);
+        [HttpGet]
+        [Route("api/toy/{toyId}")]
+        public Toy GetToyById([FromRoute] string toyId) {
+            return _toyDao.FindById(toyId);
         }
 
         [HttpGet]
         [Route("api/Toy/GetFeatureToys")]
         public List<Toy> GetFeatureToys() {
-            return _toyDao.Random3Toy();
+            return _toyDao.GetRandomToy(3);
         }
 
         [HttpGet]
         [Route("api/Toy/GetNewToys")]
         public List<Toy> GetNewToys() {
-            return _toyDao.Random5Toy();
+            return _toyDao.GetRandomToy(5);
         }
 
         [HttpGet]
-        [Route("api/Toy/GetAllToys")]
+        [Route("api/toys")]
         public List<Toy> GetAllToys() {
             return _toyDao.AllToys();
         }
@@ -58,10 +59,17 @@ namespace PuzzleShop.Server.Controllers {
             return _toyDao.GetQuantityOfAType(category);
         }
 
-        [HttpPost]
-        [Route("api/Toy/GetAllToysOfCategory")]
-        public List<Toy> GetAllToysOfCategory([FromBody] string category) {
-            return _toyDao.GetAllToyOfType(category);
+        [HttpGet]
+        [Route("api/toys/type")]
+        public string GetAllType()
+        {
+            return JsonConvert.SerializeObject(_toyDao.GetCategoriesAndQuantities());
+        }
+
+        [HttpGet]
+        [Route("api/toys/type/{type}")]
+        public List<Toy> GetToysOfType([FromRoute] string type) {
+            return _toyDao.GetAllToyOfType(type);
         }
     }
 }

@@ -8,15 +8,27 @@ using System.Net.Http;
 namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
     public class ToyDetailPageLogic : BlazorComponent {
         [Inject]
-        protected IUriHelper UriHelper { get; set; }
+        private IUriHelper UriHelper { get; set; }
 
         [Inject]
-        protected HttpClient Http { get; set; }
+        private HttpClient Http { get; set; }
 
         [Parameter]
         protected string ToyId { get; set; }
 
         protected Toy CurrentToy { get; set; }
+
+        protected string Processing = "hide";
+
+        private void StartProcessing()
+        {
+            Processing = "show";
+        }
+
+        private void EndProcessing()
+        {
+            Processing = "hide";
+        }
 
         protected override void OnParametersSet() {
             GetCurrentToy();
@@ -34,14 +46,5 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
             return list;
         }
 
-        protected string Processing = "hide";
-
-        private void StartProcessing() {
-            Processing = "show";
-        }
-
-        private void EndProcessing() {
-            Processing = "hide";
-        }
     }
 }
