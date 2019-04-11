@@ -1,3 +1,0 @@
-{"_id":{"$oid":"5b3872efd936bf2b2ec686ab"},"Username":"admin","PasswordHash":"21232f297a57a5a743894a0e4a801fc3","FirstName":"admin","LastName":"admin","Email":"admin@puzzleshop.com","RoleId":0}
-{"_id":{"$oid":"5b3872efd936bf2b2ec686ac"},"Username":"nmt","PasswordHash":"202cb962ac59075b964b07152d234b70","FirstName":"Tu","LastName":"Nguyen","Email":"tunguyen@gmail.com","RoleId":1}
-{"_id":{"$oid":"5b3872efd936bf2b2ec686ad"},"Username":"ttn","PasswordHash":"250cf8b51c773f3f8dc8b4be867a9a02","FirstName":"Nhan","LastName":"Tran","Email":"nhantran@gmail.com","RoleId":1}
