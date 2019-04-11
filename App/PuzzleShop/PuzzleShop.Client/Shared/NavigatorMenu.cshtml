@@ -19,11 +19,15 @@
         <div class="navbar-right navbar-utils">
             <ul class="list-unstyled clearfix">
                 <li class="hidden-xs">
-                    @if (LoginUser == null) {
+                    @if (LoginUser == null)
+                    {
                         <a href="/login" class="btn"><span>Log In</span> <i class="fa fa-lock"></i></a>
-                    } else {
+                    }
+                    else
+                    {
                         <text>Welcome, @LoginUser.Username!</text>
-                        <a href="/orders">My Orders</a> <text>|</text>
+                        <a href="/orders">My Orders</a>
+                        <text>|</text>
                         <a href="/profile">My Profile</a>
                         <a href="/logout" class="btn"><span>Log Out</span> <i class="fa fa-unlock-alt"></i></a>
 
@@ -39,11 +43,15 @@
                     </a>
                     <div id="mini-cart" class="dropdown-menu">
 
-                        @if (Cart == null || Cart.Count == 0) {
+                        @if (Cart == null || Cart.Count == 0)
+                        {
                             <h6>No items in cart.</h6>
-                        } else {
+                        }
+                        else
+                        {
                             <ul class="cart-items list-unstyled hidden-xs">
-                                @foreach (var item in Cart) {
+                                @foreach (var item in Cart)
+                                {
                                     <li class="row cart-item">
                                         <div class="product-thumb col-xs-4">
                                             <img class="img-responsive" alt="@item.Key.ToyName" src="../@item.Key.PhotoURL">
@@ -57,7 +65,7 @@
                                         </div>
                                     </li>
                                 }
-                                <DimScreen Processing="@Processing" />
+                                <DimScreen Processing="@Processing"/>
                             </ul>
 
                             <div class="mini-cart-totals">
@@ -84,8 +92,10 @@
                                     All Products
                                 </a>
                             </li>
-                            @if (CategoryList != null) {
-                                foreach (var category in CategoryList) {
+                            @if (CategoryList != null)
+                            {
+                                foreach (var category in CategoryList)
+                                {
                                     <li role="presentation">
                                         <a href="/shop/@category" role="menuitem" tabindex="-1">
                                             @category
@@ -110,7 +120,7 @@
             </div>
             <form id="search-form" class="navbar-form" role="form" method="get" onsubmit="@Search()">
                 <div class="input-group">
-                    <input type="text" class="search-form form-control" name="searchValue" id="searchValue" placeholder="Type your search term and press Enter" autocomplete="off" value="" bind="@SearchValue" />
+                    <input type="text" class="search-form form-control" name="searchValue" id="searchValue" placeholder="Type your search term and press Enter" autocomplete="off" value="" bind="@SearchValue"/>
                     <span class="input-group-btn" onclick="toggleSearchForm(this.parentElement.parentElement, this.children[0].children[0])">
                         <button class="btn search-btn toggle hidden-xs hidden-sm" type="button"><i class="fa fa-search"></i></button>
                         <button class="btn search-btn hidden-md hidden-lg" type="submit"><i class="fa fa-search"></i></button>
