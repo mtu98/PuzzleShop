@@ -1,98 +1,52 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using Utils;
 
-namespace PuzzleShop.Shared.Models.Toy {
-    public class ToyDAO {
+namespace PuzzleShop.Shared.Models.Toy
+{
+    public class ToyDAO
+    {
+        private const string CollectionName = "Toy";
 
-        public Toy FindToyById(string toyId) {
-            var db = DBConnect.getDB();
-            var toys = db.GetCollection<Toy>("Toy");
-            try {
-                var toy = toys.Find(t => t._id.Equals(toyId)).Single();
-                return toy;
-            } catch (Exception ex) {
-                throw;
-            }
+        public Toy FindById(string toyId)
+        {
+            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
+            return toyCollection.Find(t => t._id.Equals(toyId)).Single();
         }
 
         /// <summary>
         /// Find toy by ToyName
         /// </summary>
-        /// <param name="ToyName"></param>
+        /// <param name="toyName"></param>
         /// <returns></returns>
-        public List<Toy> FindToys(string ToyName) {
-            if (string.IsNullOrEmpty(ToyName)) {
+        public List<Toy> FindByName(string toyName)
+        {
+            if (string.IsNullOrEmpty(toyName))
+            {
                 return null;
             }
-            //Get connection and PuzzleShopDB
-            var db = DBConnect.getDB();
-            var toys = db.GetCollection<Toy>("Toy");
+
+            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
             var builder = Builders<Toy>.Filter;
             // i means case-insensitive
-            var filter = builder.Regex(toy => toy.ToyName, $"/{ToyName}/i");
-
-            try {
-                List<Toy> list = toys.Find(filter).ToList();
-                return list;
-            } catch (Exception) {
-
-                throw;
-            }
-
+            var filter = builder.Regex(toy => toy.ToyName, $"/{toyName}/i");
+            return toyCollection.Find(filter).ToList();
         }
 
-        public List<Toy> GetAllToyOfType(string ToyType) {
-            //Get connection and PuzzleShopDB
-            var db = DBConnect.getDB();
-            var Toys = db.GetCollection<Toy>("Toy");
+        public List<Toy> GetAllToyOfType(string toyType)
+        {
+            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
 
             var builder = Builders<Toy>.Filter;
-            var filter = builder.Where(t => t.ToyType.Equals(ToyType));
+            var filter = builder.Where(t => t.ToyType.Equals(toyType));
 
-            try {
-                List<Toy> list = Toys.Find(filter).ToList();
-                return list;
-            } catch (Exception) {
-
-                throw;
-            }
-        }
-
-
-        /// <summary>
-        /// Take list found toy and filter by type
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="ToyType"></param>
-        /// <returns></returns>
-        public List<Toy> FilterToyType(List<Toy> list, string ToyType) {
-            foreach (Toy t in list) {
-                //remove which not match the ToyType filter
-                if (!t.ToyType.Equals(ToyType)) {
-                    list.Remove(t);
-                }
-            }
-            return list;
-        }
-
-        /// <summary>
-        /// Take list of found toy and filter by price range
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="MinPrice"></param>
-        /// <param name="MaxPrice"></param>
-        /// <returns></returns>
-        public List<Toy> FilterToyPrice(List<Toy> list, double MinPrice, double MaxPrice) {
-            foreach (Toy t in list) {
-                //Remove toy that out of price range
-                if (t.Price < MinPrice || t.Price > MaxPrice) {
-                    list.Remove(t);
-                }
-            }
-            return list;
+            return toyCollection.Find(filter).ToList();
         }
 
         /// <summary>
@@ -104,16 +58,16 @@ namespace PuzzleShop.Shared.Models.Toy {
         /// <param name="name"></param>
         /// <param name="email"></param>
         /// <param name="star"></param>
-        public void ReviewAToy(string toyId, string name, string email, string title, string content, int star) {
-
-            var db = DBConnect.getDB();
-            var Toys = db.GetCollection<Toy>("Toy");
+        public void ReviewAToy(string toyId, string name, string email, string title, string content, int star)
+        {
+            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
             var builder = Builders<Toy>.Filter;
             //Build filter to query the toy need to cmt
             var filter = builder.Where(toy => toy._id.Equals(toyId));
 
             //Create Review
-            Review rv = new Review {
+            var rv = new Review
+            {
                 Name = name,
                 Email = email,
                 Title = title,
@@ -126,111 +80,132 @@ namespace PuzzleShop.Shared.Models.Toy {
             //Build update, import Comment
             var update = updateBuilder.AddToSet(toy => toy.Review, rv);
 
-            try {
-                Toys.UpdateOne(filter, update);
-            } catch (Exception) {
-
-                throw;
-            }
+            toyCollection.UpdateOne(filter, update);
         }
 
         /// <summary>
-        /// Query 3 first Toy
+        /// Query some random toys
         /// </summary>
         /// <returns></returns>
-        public List<Toy> Random3Toy() {
-            //Get connection and PuzzleShopDB
-            var db = DBConnect.getDB();
-            var Toys = db.GetCollection<Toy>("Toy");
-
+        public List<Toy> GetRandomToy(int quantity)
+        {
+            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
             Random rng = new Random();
-
-            List<Toy> list = Toys.Find(new BsonDocument()).Limit(3).Skip(rng.Next(10)).ToList();
-
-            return list;
-        }
-
-        public List<Toy> Random5Toy() {
-            //Get connection and PuzzleShopDB
-            var db = DBConnect.getDB();
-            var Toys = db.GetCollection<Toy>("Toy");
-
-            Random rng = new Random();
-
-            List<Toy> list = Toys.Find(new BsonDocument()).Limit(4).Skip(rng.Next(10)).ToList();
-
-            return list;
+            return toyCollection.Find(new BsonDocument()).Limit(quantity).Skip(rng.Next(10)).ToList();
         }
 
         /// <summary>
         /// Get All Toys
         /// </summary>
         /// <returns></returns>
-        public List<Toy> AllToys() {
-            //Get connection and PuzzleShopDB
-            var db = DBConnect.getDB();
-            var toys = db.GetCollection<Toy>("Toy");
+        public List<Toy> AllToys()
+        {
+            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
 
-            List<Toy> list = toys.Find(new BsonDocument()).ToList();
-
-            return list;
+            return toyCollection.Find(new BsonDocument()).ToList();
         }
 
         /// <summary>
         /// Get a List of All Toy Type in database
         /// </summary>
         /// <returns></returns>
-        public List<string> GetAllToyType() {
-            //Get connection and PuzzleShopDB
-            var db = DBConnect.getDB();
-            var Toys = db.GetCollection<Toy>("Toy");
+        public List<string> GetAllToyType()
+        {
+            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
+            return toyCollection.Distinct<string>("ToyType", new BsonDocument()).ToList();
+        }
 
-            List<string> AllType = new List<string>();
+        /// <summary>
+        /// Get all toy type and each type distinct type count
+        /// </summary>
+        /// <returns></returns>
+        public List<JObject> GetCategoriesAndQuantities()
+        {
+            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
 
-            try {
-                AllType = Toys.Distinct<string>("ToyType", new BsonDocument()).ToList();
-            } catch (Exception) {
+            var group = new BsonDocument().Add("$group",
+                new BsonDocument().Add("_id", "$ToyType").Add("count", new BsonDocument().Add("$sum", 1)));
+            var pipeline = new[] {group};
 
-                throw;
+            // aggregate result and apply toJson method into each result element, return json list with format {"Category": Count}
+            var result = toyCollection.Aggregate<BsonDocument>(pipeline).ToList()
+                .Select(doc => JObject.Parse(doc.ToJson())).ToList()
+                .Select(json => new JObject(new JProperty(json.GetValue("_id").ToString(), json.GetValue("count").ToString()))).ToList();
+            Debug.WriteLine("All toy types: ");
+            foreach (var entry in result)
+            {
+                Debug.WriteLine(entry);
             }
-            return AllType;
+
+            return result;
         }
 
 
         /// <summary>
         /// Get amount Toy of a Type
         /// </summary>
-        /// <param name="ToyType"></param>
+        /// <param name="toyType"></param>
         /// <returns></returns>
-        public long GetQuantityOfAType(string ToyType) {
-            //Get connection and PuzzleShopDB
-            var db = DBConnect.getDB();
-            var Toys = db.GetCollection<Toy>("Toy");
+        public long GetQuantityOfAType(string toyType)
+        {
+            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
 
             var builder = Builders<Toy>.Filter;
-            var filter = builder.Where(t => t.ToyType.Equals(ToyType));
+            var filter = builder.Where(t => t.ToyType.Equals(toyType));
 
-            try {
-                long quantity = Toys.CountDocuments(filter);
-                return quantity;
-            } catch (Exception) {
-
-                throw;
-            }
-
+            return toyCollection.CountDocuments(filter);
         }
 
-        public int GetQuantity(string Toy_id) {
-            //Get connection and PuzzleShopDB
-            var db = DBConnect.getDB();
-            var Toys = db.GetCollection<Toy>("Toy");
+        public int GetQuantity(string toyId)
+        {
+            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
 
             var builder = Builders<Toy>.Filter;
-            var filter = builder.Where(t => t._id.Equals(Toy_id));
+            var filter = builder.Where(t => t._id.Equals(toyId));
 
-            List<Toy> list = Toys.Find(filter).ToList();
+            return toyCollection.Find(filter).ToList().Single().Quantity;
+        }
 
-            return list[0].Quantity;
+
+        /// <summary>
+        /// Take list found toy and filter by type
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="toyType"></param>
+        /// <returns></returns>
+        private List<Toy> FilterToyType(List<Toy> list, string toyType)
+        {
+            foreach (Toy t in list)
+            {
+                //remove which not match the ToyType filter
+                if (!t.ToyType.Equals(toyType))
+                {
+                    list.Remove(t);
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Take list of found toy and filter by price range
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="minPrice"></param>
+        /// <param name="maxPrice"></param>
+        /// <returns></returns>
+        private List<Toy> FilterToyPrice(List<Toy> list, double minPrice, double maxPrice)
+        {
+            foreach (Toy t in list)
+            {
+                //Remove toy that out of price range
+                if (t.Price < minPrice || t.Price > maxPrice)
+                {
+                    list.Remove(t);
+                }
+            }
+
+            return list;
         }
     }
 }
