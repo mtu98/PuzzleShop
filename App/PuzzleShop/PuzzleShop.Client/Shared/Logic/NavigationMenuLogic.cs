@@ -17,7 +17,7 @@ namespace PuzzleShop.Client.Shared.Logic
 {
     public class NavigationMenuLogic : BlazorComponent
     {
-        private readonly string _getTypeApiPath = "api/toys/type";
+        private const string GetCategoryApi = "api/toys/category";
 
         [Parameter] protected User LoginUser { get; set; }
 
@@ -33,7 +33,7 @@ namespace PuzzleShop.Client.Shared.Logic
 
         private async void GetCategory()
         {
-            var jsonResponse = await Http.GetStringAsync(_getTypeApiPath);
+            var jsonResponse = await Http.GetStringAsync(GetCategoryApi);
             CategoryList = JsonConvert.DeserializeObject<List<JObject>>(jsonResponse).Properties().Select(j => j.Name).ToList();
             StateHasChanged();
         }

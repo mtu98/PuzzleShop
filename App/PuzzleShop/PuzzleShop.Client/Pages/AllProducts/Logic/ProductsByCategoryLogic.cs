@@ -23,7 +23,7 @@ namespace PuzzleShop.Client.Pages.AllProducts.Logic {
         private async void GetAllToysOfCategory() {
             // request
             Processing = "show";
-            ToyList = await Http.GetJsonAsync<List<Toy>>($"api/toys/type/{Category}");
+            ToyList = await Http.GetJsonAsync<List<Toy>>($"api/toys/category/{Category}");
             // complete request
             Processing = "hide";
             StateHasChanged();

@@ -1,43 +1,44 @@
-﻿using Microsoft.AspNetCore.Blazor;
-using Microsoft.AspNetCore.Blazor.Components;
+﻿using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace PuzzleShop.Client.Shared.Logic {
-    public class ToyCategoryLogic : BlazorComponent {
-        private readonly string _getCategoryApiPath = "api/Toy/GetCategory";
-        private readonly string _getCountItemOfCategory = "api/Toy/GetCountItemOfCategory";
-        [Inject]
-        private HttpClient Http { get; set; }
+namespace PuzzleShop.Client.Shared.Logic
+{
+    public class ToyCategoryLogic : BlazorComponent
+    {
+        private const string GetCategoryApi = "api/toys/category";
+        [Inject] private HttpClient Http { get; set; }
 
-        [Inject]
-        private IUriHelper UriHelper { get; set; }
+        [Inject] private IUriHelper UriHelper { get; set; }
 
-        protected Dictionary<string, long> Category { get; set; }
+        protected Dictionary<string, long> Categories { get; set; }
 
-        protected override void OnInit() {
-            GetCategory();
+        protected override void OnInit()
+        {
+            GetCategories();
         }
 
-        private async void GetCategory() {
-            var toyCategory = await Http.GetJsonAsync<List<string>>(_getCategoryApiPath);
-            if (toyCategory != null) {
-                foreach (var item in toyCategory) {
-                    var quantity = await Http.PostJsonAsync<long>(_getCountItemOfCategory, item);
-
-                    if (Category == null) {
-                        Category = new Dictionary<string, long>();
-                    }
-
-                    Category.Add(item, quantity);
-                }
+        private async void GetCategories()
+        {
+            var jsonResponse = await Http.GetStringAsync(GetCategoryApi);
+            if (jsonResponse != null)
+            {
+                // init dict
+                Categories = new Dictionary<string, long>();
+                // deserialize and add to dict
+                JsonConvert.DeserializeObject<List<JObject>>(jsonResponse)
+                    .ForEach(ele => Categories.Add(ele.Properties().First().Name, long.Parse(ele.Properties().First().Value.ToString())));
             }
             StateHasChanged();
         }
 
-        protected void FilterByCategory(string category) {
-            UriHelper.NavigateTo("/shop/" + category);
+        protected void FilterByCategory(string category)
+        {
+            UriHelper.NavigateTo($"/shop/{category}");
         }
     }
 }

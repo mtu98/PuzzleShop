@@ -39,7 +39,7 @@ namespace PuzzleShop.Shared.Models.Toy
             return toyCollection.Find(filter).ToList();
         }
 
-        public List<Toy> GetAllToyOfType(string category)
+        public List<Toy> GetAllToyOfCategory(string category)
         {
             var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
 
@@ -106,17 +106,6 @@ namespace PuzzleShop.Shared.Models.Toy
         }
 
         /// <summary>
-        /// Get a List of All Toy Type in database
-        /// </summary>
-        /// <returns></returns>
-        /// TODO Mark for deletion
-        public List<string> GetAllToyType()
-        {
-            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
-            return toyCollection.Distinct<string>("Category", new BsonDocument()).ToList();
-        }
-
-        /// <summary>
         /// Get all toy type and each type distinct type count
         /// </summary>
         /// <returns></returns>
@@ -139,23 +128,6 @@ namespace PuzzleShop.Shared.Models.Toy
             }
 
             return result;
-        }
-
-
-        /// <summary>
-        /// Get amount Toy of a Type
-        /// </summary>
-        /// <param name="toyType"></param>
-        /// <returns></returns>
-        /// TODO Mark for deletion
-        public long GetQuantityOfAType(string toyType)
-        {
-            var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
-
-            var builder = Builders<Toy>.Filter;
-            var filter = builder.Where(t => t.Category.Equals(toyType));
-
-            return toyCollection.CountDocuments(filter);
         }
 
         public int GetQuantity(string toyId)
