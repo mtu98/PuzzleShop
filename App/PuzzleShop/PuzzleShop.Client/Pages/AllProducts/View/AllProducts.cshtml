@@ -19,10 +19,10 @@
                             <form class="custom" onsubmit="return false">
                                 <div class="product-item text-center">
                                     <a class="product-img" href="/toyDetail/@toy._id">
-                                        <img class="img-responsive" src="@toy.PhotoURL" alt="@toy.ToyName" />
+                                        <img class="img-responsive" src="@toy.PhotoURL" alt="@toy.Name" />
                                     </a>
                                     <h3 class="product-title">
-                                        <a href="/toyDetail/@toy._id">@toy.ToyName</a>
+                                        <a href="/toyDetail/@toy._id">@toy.Name</a>
                                     </h3>
                                     <div class="h4 product-price">
                                         <span>$@toy.Price.ToString("N") </span>
@@ -42,6 +42,6 @@
         </div>
     </section>
 }
-<!-- dimming the page while prcessing -->
+<!-- dimming the page while processing -->
 
 <DimScreen Processing="@Processing" />

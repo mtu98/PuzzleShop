@@ -3,9 +3,9 @@ con = new Mongo();
 //find database, if not exist, create
 db = con.getDB("PuzzleShopDB");
 //Insert Sample into Orders
-var rubik3x3 = db.Toy.findOne({ToyName: "Rubik 3x3"})._id;
+var rubik3x3 = db.Toy.findOne({Name: "Rubik 3x3"})._id;
 
-var rubik4x4 = db.Toy.findOne({ToyName: "Rubik 4x4"})._id;
+var rubik4x4 = db.Toy.findOne({Name: "Rubik 4x4"})._id;
 db.Orders.insertMany(
 	[
 	{

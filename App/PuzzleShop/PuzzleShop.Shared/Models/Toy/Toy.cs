@@ -4,9 +4,9 @@ namespace PuzzleShop.Shared.Models.Toy {
     public class Toy {
         public string _id { get; set; }
 
-        public string ToyName { get; set; }
+        public string Name { get; set; }
 
-        public string ToyType { get; set; }
+        public string Category { get; set; }
 
         public string Producer { get; set; }
 

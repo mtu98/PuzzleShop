@@ -35,16 +35,16 @@ namespace PuzzleShop.Shared.Models.Toy
             var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
             var builder = Builders<Toy>.Filter;
             // i means case-insensitive
-            var filter = builder.Regex(toy => toy.ToyName, $"/{toyName}/i");
+            var filter = builder.Regex(toy => toy.Name, $"/{toyName}/i");
             return toyCollection.Find(filter).ToList();
         }
 
-        public List<Toy> GetAllToyOfType(string toyType)
+        public List<Toy> GetAllToyOfType(string category)
         {
             var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
 
             var builder = Builders<Toy>.Filter;
-            var filter = builder.Where(t => t.ToyType.Equals(toyType));
+            var filter = builder.Where(t => t.Category.Equals(category));
 
             return toyCollection.Find(filter).ToList();
         }
@@ -109,10 +109,11 @@ namespace PuzzleShop.Shared.Models.Toy
         /// Get a List of All Toy Type in database
         /// </summary>
         /// <returns></returns>
+        /// TODO Mark for deletion
         public List<string> GetAllToyType()
         {
             var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
-            return toyCollection.Distinct<string>("ToyType", new BsonDocument()).ToList();
+            return toyCollection.Distinct<string>("Category", new BsonDocument()).ToList();
         }
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace PuzzleShop.Shared.Models.Toy
             var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
 
             var group = new BsonDocument().Add("$group",
-                new BsonDocument().Add("_id", "$ToyType").Add("count", new BsonDocument().Add("$sum", 1)));
+                new BsonDocument().Add("_id", "$Category").Add("count", new BsonDocument().Add("$sum", 1)));
             var pipeline = new[] {group};
 
             // aggregate result and apply toJson method into each result element, return json list with format {"Category": Count}
@@ -146,12 +147,13 @@ namespace PuzzleShop.Shared.Models.Toy
         /// </summary>
         /// <param name="toyType"></param>
         /// <returns></returns>
+        /// TODO Mark for deletion
         public long GetQuantityOfAType(string toyType)
         {
             var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
 
             var builder = Builders<Toy>.Filter;
-            var filter = builder.Where(t => t.ToyType.Equals(toyType));
+            var filter = builder.Where(t => t.Category.Equals(toyType));
 
             return toyCollection.CountDocuments(filter);
         }
@@ -171,16 +173,16 @@ namespace PuzzleShop.Shared.Models.Toy
         /// Take list found toy and filter by type
         /// </summary>
         /// <param name="list"></param>
-        /// <param name="toyType"></param>
+        /// <param name="category"></param>
         /// <returns></returns>
-        private List<Toy> FilterToyType(List<Toy> list, string toyType)
+        private List<Toy> FilterCategory(List<Toy> list, string category)
         {
-            foreach (Toy t in list)
+            foreach (var toy in list)
             {
-                //remove which not match the ToyType filter
-                if (!t.ToyType.Equals(toyType))
+                //remove which not match the Category filter
+                if (!toy.Category.Equals(category))
                 {
-                    list.Remove(t);
+                    list.Remove(toy);
                 }
             }
 
@@ -194,14 +196,14 @@ namespace PuzzleShop.Shared.Models.Toy
         /// <param name="minPrice"></param>
         /// <param name="maxPrice"></param>
         /// <returns></returns>
-        private List<Toy> FilterToyPrice(List<Toy> list, double minPrice, double maxPrice)
+        private List<Toy> FilterPrice(List<Toy> list, double minPrice, double maxPrice)
         {
-            foreach (Toy t in list)
+            foreach (var toy in list)
             {
                 //Remove toy that out of price range
-                if (t.Price < minPrice || t.Price > maxPrice)
+                if (toy.Price < minPrice || toy.Price > maxPrice)
                 {
-                    list.Remove(t);
+                    list.Remove(toy);
                 }
             }
 

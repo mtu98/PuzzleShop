@@ -36,7 +36,7 @@ namespace PuzzleShop.Client.Pages.ToyDetail.Logic {
 
         private async void GetCurrentToy() {
             StartProcessing();
-            CurrentToy = await Http.SendJsonAsync<Toy>(HttpMethod.Post, "api/Toy/GetToyById", ToyId);
+            CurrentToy = await Http.GetJsonAsync<Toy>( $"api/toy/{ToyId}");
             EndProcessing();
             StateHasChanged();
         }

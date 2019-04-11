@@ -47,12 +47,21 @@ namespace PuzzleShop.Server.Controllers {
             return _toyDao.AllToys();
         }
 
+        /// <summary>
+        /// TODO Mark for deletion
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/Toy/GetCategory")]
         public List<string> GetCategory() {
             return _toyDao.GetAllToyType();
         }
 
+        /// <summary>
+        /// TODO Mark for deletion
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/Toy/GetCountItemOfCategory")]
         public long GetCountItemOfCategory([FromBody] string category) {
@@ -61,7 +70,7 @@ namespace PuzzleShop.Server.Controllers {
 
         [HttpGet]
         [Route("api/toys/type")]
-        public string GetAllType()
+        public string GetAllCategories()
         {
             return JsonConvert.SerializeObject(_toyDao.GetCategoriesAndQuantities());
         }

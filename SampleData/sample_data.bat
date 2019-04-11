@@ -9,7 +9,7 @@ if errorlevel 1 (
 mongo PuzzleShopDB --eval "db.dropDatabase()"
 
 mongo PuzzleShopDB.js
-mongo Toy.js
-mongo Orders.js
+mongo toy.js
+mongo orders.js
 
 pause

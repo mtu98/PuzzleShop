@@ -22,12 +22,12 @@
                     <div class="cart-item row">
                         <div class="col-xs-12 col-sm-2">
                             <div class="product-thumb">
-                                <img class="img-responsive" alt="@orderItem.Toy.ToyName" src="@orderItem.Toy.PhotoURL" />
+                                <img class="img-responsive" alt="@orderItem.Toy.Name" src="@orderItem.Toy.PhotoURL" />
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 cart-details">
                             <div class="h4 product-title">
-                                <a href="/toyDetail/@orderItem.Toy._id">@orderItem.Toy.ToyName</a>
+                                <a href="/toyDetail/@orderItem.Toy._id">@orderItem.Toy.Name</a>
                                 <small class="unit-price">
                                     $@orderItem.Toy.Price.ToString("N")
                                 </small>
