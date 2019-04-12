@@ -4,13 +4,14 @@
 <div id="banner" class="jumbotron row">
     <h1>Profile</h1>
 </div>
-@if (LoginUser != null) {
+@if (LoginUser != null)
+{
     <section class="page-section">
         <div class="panel-group checkout-accordions" id="profile-addresses">
             <p class="flash success @UpdateUserSuccess">User Profile updated successfully!</p>
             <p class="flash success @ChangePasswordSuccess">Password updated successfully!</p>
             <form class="custom clearfix">
-                <input type="hidden" name="billing[id]" value="" />
+                <input type="hidden" name="billing[id]" value=""/>
                 <h3 class="section-title">
                     <a data-toggle="collapse" class="collapsed" data-parent="#profile-addresses" href="#billing-info">
                         <span>User Profile</span>
@@ -19,28 +20,28 @@
                 <div id="billing-info" class="panel-collapse collapse in">
                     <div class="panel-body row">
                         <div class="col-sm-6 form-group">
-                            <input name="billing[first_name]" id="first_name" type="text" class="text form-control" placeholder="first name*" bind="@LoginUser.FirstName" />
+                            <input name="billing[first_name]" id="first_name" type="text" class="text form-control" placeholder="first name*" bind="@LoginUser.FirstName"/>
                             <label for="first_name">First Name</label>
                             <span class="error"></span>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <input name="billing[last_name]" id="last_name" type="text" class="text form-control" placeholder="last name*" bind="@LoginUser.LastName" />
+                            <input name="billing[last_name]" id="last_name" type="text" class="text form-control" placeholder="last name*" bind="@LoginUser.LastName"/>
                             <label for="last_name">Last Name</label>
                             <span class="error"></span>
                         </div>
 
                         <div class="col-sm-6 form-group">
-                            <input type="email" name="billing[email]" id="email" class="form-control" placeholder="Email*" bind="@LoginUser.Email" />
+                            <input type="email" name="billing[email]" id="email" class="form-control" placeholder="Email*" bind="@LoginUser.Email"/>
                             <label for="email">Email</label>
                             <span class="error"></span>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <input type="text" name="billing[birthdate]" id="birthdate" class="form-control" placeholder="Birthdate" readonly="readonly" bind="@LoginUser.Birthdate" />
+                            <input type="text" name="billing[birthdate]" id="birthdate" class="form-control" placeholder="Birthdate" readonly="readonly" bind="@LoginUser.Birthdate"/>
                             <label for="email">Birthdate</label>
                             <span class="error"></span>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <input data-mirror type="text" name="billing[phone]" id="phone" class="form-control" placeholder="Phone number" readonly="readonly" bind="@LoginUser.PhoneNumber" />
+                            <input data-mirror type="text" name="billing[phone]" id="phone" class="form-control" placeholder="Phone number" readonly="readonly" bind="@LoginUser.PhoneNumber"/>
                             <label for="phone">Phone Number</label>
                             <span class="error"></span>
                         </div>
@@ -48,7 +49,7 @@
                 </div>
 
                 <div class="col-xs-12 form-group">
-                    <input type="button" class="btn btn-primary pull-right" value="Save Your Profile" onclick="@UpdateUserProfile" />
+                    <input type="button" class="btn btn-primary pull-right" value="Save Your Profile" onclick="@UpdateUserProfile"/>
                 </div>
             </form>
             <h3 class="section-title">
@@ -62,18 +63,18 @@
                         <form class="custom">
                             <div class="row">
                                 <div class=" form-group col-xs-12 col-sm-6">
-                                    <input name="password" id="password" type="password" class=" form-control" value="" placeholder="New Password" bind="@LoginUser.Password" />
+                                    <input name="password" id="password" type="password" class=" form-control" value="" placeholder="New Password" bind="@LoginUser.Password"/>
                                     <label for="password">New Password</label>
                                     <span class="error"></span>
                                 </div>
                                 <div class=" form-group col-xs-12 col-sm-6">
-                                    <input name="passwordConfirm" id="passwordConfirm" type="password" class=" form-control" value="" placeholder="Confirm Password" bind="@LoginUser.ConfirmedPassword" />
+                                    <input name="passwordConfirm" id="passwordConfirm" type="password" class=" form-control" value="" placeholder="Confirm Password" bind="@LoginUser.ConfirmedPassword"/>
                                     <label for="passwordConfirm">Confirm Password</label>
                                     <span class="error"></span>
                                 </div>
                             </div>
                             <div class=" form-group ">
-                                <input type="button" class="btn btn-primary pull-right" value="Save Password" onclick="@ChangePassword" />
+                                <input type="button" class="btn btn-primary pull-right" value="Save Password" onclick="@ChangePassword"/>
                             </div>
                         </form>
                     </div>
@@ -83,6 +84,6 @@
     </section>
 }
 
-<!-- dimming the page while prcessing -->
+<!-- dimming the page while processing -->
 
-<DimScreen Processing="@Processing" />
+<DimScreen Processing="@Processing"/>

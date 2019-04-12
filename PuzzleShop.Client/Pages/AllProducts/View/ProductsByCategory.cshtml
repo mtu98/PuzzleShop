@@ -1,26 +1,28 @@
 ﻿@page "/shop/{Category}"
 @inherits PuzzleShop.Client.Pages.AllProducts.Logic.ProductsByCategoryLogic
 
-@if (ToyList != null) {
+@if (ToyList != null)
+{
     <div id="banner" class="jumbotron row">
         <h1>All Products in Category "@Category"</h1>
     </div>
     <section id="shop" class="page-section row">
         <div class="col-xs-12 col-sm-3">
             <div class="sidebar">
-                <ToyCategory />
+                <ToyCategory/>
             </div>
         </div>
         <div class="col-xs-12 col-sm-9">
             <div id="product-list">
                 <div class="product-grid">
                     <div id="" class="row">
-                        @foreach (var toy in ToyList) {
+                        @foreach (var toy in ToyList)
+                        {
                             <div class="col-xs-12 col-sm-6 col-md-4 product-holder">
                                 <form class="custom" onsubmit="return false">
                                     <div class="product-item text-center">
                                         <a class="product-img" href="/toyDetail/@toy._id">
-                                            <img class="img-responsive" src="../@toy.PhotoURL" alt="@toy.Name" />
+                                            <img class="img-responsive" src="../@toy.PhotoURL" alt="@toy.Name"/>
                                         </a>
                                         <h3 class="product-title">
                                             <a href="/toyDetail/@toy._id">@toy.Name</a>
@@ -29,7 +31,9 @@
                                             <span>$@toy.Price.ToString("N") </span>
                                         </div>
                                         <div class="buttons-holder">
-                                            <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="/toyDetail/@toy._id"><i class="fa fa-eye"></i></a>
+                                            <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="/toyDetail/@toy._id">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </form>
@@ -45,4 +49,4 @@
 }
 <!-- dimming the page while processing -->
 
-<DimScreen Processing="@Processing" />
+<DimScreen Processing="@Processing"/>

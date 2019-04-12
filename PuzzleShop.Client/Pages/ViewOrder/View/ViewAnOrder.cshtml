@@ -1,6 +1,7 @@
 ﻿@inherits PuzzleShop.Client.Pages.ViewOrder.Logic.ViewAnOrderLogic
 
-@if (Order != null) {
+@if (Order != null)
+{
     <div id="banner" class="jumbotron row">
         <h2>Order #@OrderNumber</h2>
     </div>
@@ -18,11 +19,12 @@
                         Item Total
                     </div>
                 </div>
-                @foreach (var orderItem in Order.OrderItems) {
+                @foreach (var orderItem in Order.OrderItems)
+                {
                     <div class="cart-item row">
                         <div class="col-xs-12 col-sm-2">
                             <div class="product-thumb">
-                                <img class="img-responsive" alt="@orderItem.Toy.Name" src="@orderItem.Toy.PhotoURL" />
+                                <img class="img-responsive" alt="@orderItem.Toy.Name" src="@orderItem.Toy.PhotoURL"/>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4 cart-details">
@@ -53,21 +55,33 @@
         <div class="col-md-12 col-lg-3">
             <table class="table table-bordered">
                 <tr>
-                    <td><strong>Order Date: </strong> </td>
+                    <td>
+                        <strong>Order Date: </strong>
+                    </td>
                     <td>@Order.OrderDate</td>
                 </tr>
             </table>
             <ul class="price-list list-group">
-                <li class="list-group-item"><span>Subtotal:</span> <i class="badge">$@Order.Total.ToString("N")</i></li>
-                <li class="list-group-item"><span>Sales Tax:</span> <i class="badge">$0.00</i></li>
-                <li class="list-group-item"><span>Shipping:</span> <i class="badge">$5.00</i></li>
+                <li class="list-group-item">
+                    <span>Subtotal:</span> <i class="badge">$@Order.Total.ToString("N")</i>
+                </li>
+                <li class="list-group-item">
+                    <span>Sales Tax:</span> <i class="badge">$0.00</i>
+                </li>
+                <li class="list-group-item">
+                    <span>Shipping:</span> <i class="badge">$5.00</i>
+                </li>
 
-                <li class="list-group-item order-total h4 clearfix"><span>Total:</span>  <i class="badge">$@((Order.Total + 5).ToString("N"))</i></li>
+                <li class="list-group-item order-total h4 clearfix">
+                    <span>Total:</span> <i class="badge">$@((Order.Total + 5).ToString("N"))</i>
+                </li>
             </ul>
         </div>
 
     </section>
-} else {
+}
+else
+{
     <div class="col-xs-12">
         <p class="flash error">Order not found</p>
     </div>

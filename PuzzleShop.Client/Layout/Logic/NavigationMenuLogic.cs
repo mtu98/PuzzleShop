@@ -1,29 +1,37 @@
-﻿using Microsoft.AspNetCore.Blazor;
-using Microsoft.AspNetCore.Blazor.Components;
-using Microsoft.AspNetCore.Blazor.Services;
-using PuzzleShop.Shared.Models.Cart;
-using PuzzleShop.Shared.Models.Toy;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Blazor;
+using Microsoft.AspNetCore.Blazor.Components;
+using Microsoft.AspNetCore.Blazor.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PuzzleShop.Shared.Models.Cart;
+using PuzzleShop.Shared.Models.Toy;
 using PuzzleShop.Shared.Models.User;
 
-namespace PuzzleShop.Client.Shared.Logic
+namespace PuzzleShop.Client.Layout.Logic
 {
     public class NavigationMenuLogic : BlazorComponent
     {
         private const string GetCategoryApi = "api/toys/category";
+
+        protected string Processing = "hide";
 
         [Parameter] protected User LoginUser { get; set; }
 
         [Inject] private HttpClient Http { get; set; }
 
         [Inject] private IUriHelper UriHelper { get; set; }
+
+        protected List<string> CategoryList { get; set; }
+
+        protected string SearchValue { get; set; }
+
+        protected Cart Cart { get; set; }
 
         protected override void OnInit()
         {
@@ -34,17 +42,12 @@ namespace PuzzleShop.Client.Shared.Logic
         private async void GetCategory()
         {
             var jsonResponse = await Http.GetStringAsync(GetCategoryApi);
-            CategoryList = JsonConvert.DeserializeObject<List<JObject>>(jsonResponse).Properties().Select(j => j.Name).ToList();
+            CategoryList = JsonConvert.DeserializeObject<List<JObject>>(jsonResponse).Properties().Select(j => j.Name)
+                .ToList();
             StateHasChanged();
         }
 
-        protected List<string> CategoryList { get; set; }
-
-        protected string SearchValue { get; set; }
-
-        protected Cart Cart { get; set; }
-
-        protected async void GetLoginUser()
+        private async void GetLoginUser()
         {
             string username = null;
             try
@@ -58,54 +61,37 @@ namespace PuzzleShop.Client.Shared.Logic
 
 
             if (!string.IsNullOrEmpty(username))
-            {
                 LoginUser = new User
                 {
                     Username = username
                 };
-            }
 
             StateHasChanged();
         }
 
         protected string Search()
         {
-            if (!string.IsNullOrEmpty(SearchValue))
-            {
-                UriHelper.NavigateTo("/search/" + SearchValue);
-            }
+            if (!string.IsNullOrEmpty(SearchValue)) UriHelper.NavigateTo("/search/" + SearchValue);
 
             return "return false"; // prevent the form to be submitted
         }
 
         protected double GetPriceOfCart()
         {
-            if (Cart == null)
-            {
-                return 0;
-            }
+            if (Cart == null) return 0;
 
             double price = 0;
-            foreach (var item in Cart)
-            {
-                price += item.Key.Price * item.Value;
-            }
+            foreach (var item in Cart) price += item.Key.Price * item.Value;
 
             return price;
         }
 
         protected int GetTotalItemQuantityInCart()
         {
-            if (Cart == null)
-            {
-                return 0;
-            }
+            if (Cart == null) return 0;
 
-            int quantity = 0;
-            foreach (var item in Cart)
-            {
-                quantity += item.Value;
-            }
+            var quantity = 0;
+            foreach (var item in Cart) quantity += item.Value;
 
             return quantity;
         }
@@ -141,8 +127,6 @@ namespace PuzzleShop.Client.Shared.Logic
             UriHelper.NavigateTo("/viewCart");
             return "return false";
         }
-
-        protected string Processing = "hide";
 
         private void StartProcessing()
         {

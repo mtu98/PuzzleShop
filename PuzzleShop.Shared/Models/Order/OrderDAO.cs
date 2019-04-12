@@ -9,7 +9,7 @@ namespace PuzzleShop.Shared.Models.Order
     public class OrdersDAO
     {
         /// <summary>
-        ///     Not done yet
+        ///     TODO This is not done
         /// </summary>
         /// <param name="username"></param>
         /// <param name="listItems"></param>

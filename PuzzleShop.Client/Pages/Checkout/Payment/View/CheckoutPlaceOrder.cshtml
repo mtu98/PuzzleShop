@@ -5,12 +5,17 @@
     <h1>Checkout</h1>
 </div>
 
-@if (Cart != null) {
+@if (Cart != null)
+{
     <section id="checkout" class="page-section row">
         <div id="checkout-progress">
             <ul class="breadcrumb list-inline checkout-progress">
-                <li class="active"><a href="/checkout-01">1. Billing Address</a></li>
-                <li class="active"><a href="/checkout-02">2. Shipping Method</a></li>
+                <li class="active">
+                    <a href="/checkout-01">1. Billing Address</a>
+                </li>
+                <li class="active">
+                    <a href="/checkout-02">2. Shipping Method</a>
+                </li>
                 <li class="active">3. Pay</li>
             </ul>
 
@@ -33,7 +38,8 @@
                         </div>
                     </div>
 
-                    @foreach (var item in Cart) {
+                    @foreach (var item in Cart)
+                    {
                         <div class="cart-item row">
                             <div class="col-xs-12 col-sm-2">
                                 <div class="product-thumb">
@@ -95,9 +101,11 @@
                         <li class="list-group-item">Subtotal: <span class="badge">$@GetPriceOfCart().ToString("N")</span></li>
                         <li class="list-group-item order-shipping">Shipping: <span class="badge">$5.00</span></li>
                         <li class="list-group-item">Tax: <span class="badge">$0.00</span></li>
-                        <li class="list-group-item order-total h4 clearfix" id="custom-total"><span>Total:</span> <span class="badge">$@((GetPriceOfCart() + 5).ToString("N"))</span></li>
+                        <li class="list-group-item order-total h4 clearfix" id="custom-total">
+                            <span>Total:</span> <span class="badge">$@((GetPriceOfCart() + 5).ToString("N"))</span>
+                        </li>
                     </ul>
-                    <input type="button" class="btn btn-primary" value="Place Order" onclick="@CheckoutOrder" />
+                    <input type="button" class="btn btn-primary" value="Place Order" onclick="@CheckoutOrder"/>
 
 
                 </div>
@@ -108,7 +116,5 @@
 }
 
 <style>
-    #custom-total {
-        background-color: #e34f30 !important;
-    }
+    #custom-total { background-color: #e34f30 !important; }
 </style>

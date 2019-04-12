@@ -1,8 +1,6 @@
-﻿@using PuzzleShop.Shared.Models
-@using PuzzleShop.Client.Pages.LoginRegister.Logic
-@addTagHelper *, Blazor.Validation
+﻿@addTagHelper *, Blazor.Validation
 @page "/login"
-@inherits LoginRegisterLogic
+@inherits PuzzleShop.Client.Pages.LoginRegister.Logic.LoginRegisterLogic
 <div id="banner" class="jumbotron row">
     <h1>Sign In / Register</h1>
 </div>
@@ -12,11 +10,11 @@
             <h2>Sign In</h2>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    <input type="text" name="emailOrUsername" id="emailOrUsername" class="form-control" placeholder="Email or Username" value="" bind="@LoginUser.Username" />
+                    <input type="text" name="emailOrUsername" id="emailOrUsername" class="form-control" placeholder="Email or Username" value="" bind="@LoginUser.Username"/>
                     <label for="emailOrUsername">Email or Username</label>
                 </div>
                 <div class="col-xs-12 form-group">
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" bind="@LoginUser.Password" />
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" bind="@LoginUser.Password"/>
                     <label for="password">Password</label>
                 </div>
                 <div class="col-xs-12 form-group clearfix">
@@ -31,42 +29,42 @@
             <h2>Register a New Account</h2>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    <input name="signup[username]" id="signup[username]" type="text" class="form-control" placeholder="Username *" bind="@RegisterUser.Username" />
+                    <input name="signup[username]" id="signup[username]" type="text" class="form-control" placeholder="Username *" bind="@RegisterUser.Username"/>
                     <label for="signup[username]">Username</label>
-                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.Username)" IsActive="@ActiveValidate" />
+                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.Username)" IsActive="@ActiveValidate"/>
                 </div>
                 <div class="col-xs-12 form-group">
-                    <input name="signup[first_name]" id="signup[first_name]" type="text" class="form-control" placeholder="First Name *" bind="@RegisterUser.FirstName" />
+                    <input name="signup[first_name]" id="signup[first_name]" type="text" class="form-control" placeholder="First Name *" bind="@RegisterUser.FirstName"/>
                     <label for="signup[first_name]">First Name</label>
-                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.FirstName)" IsActive="@ActiveValidate" />
+                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.FirstName)" IsActive="@ActiveValidate"/>
                 </div>
                 <div class="col-xs-12 form-group">
-                    <input name="signup[last_name]" id="signup[last_name]" type="text" class="form-control" placeholder="Last Name *" bind="@RegisterUser.LastName" />
+                    <input name="signup[last_name]" id="signup[last_name]" type="text" class="form-control" placeholder="Last Name *" bind="@RegisterUser.LastName"/>
                     <label for="signup[last_name]">Last Name</label>
-                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.LastName)" IsActive="@ActiveValidate" />
+                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.LastName)" IsActive="@ActiveValidate"/>
 
                 </div>
                 <div class="col-xs-12 form-group">
-                    <input id="signup[email]" type="email" name="signup[email]" class="form-control" placeholder="Email *" bind="@RegisterUser.Email" />
+                    <input id="signup[email]" type="email" name="signup[email]" class="form-control" placeholder="Email *" bind="@RegisterUser.Email"/>
                     <label for="signup[email]">Email</label>
-                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.Email)" IsActive="@ActiveValidate" />
+                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.Email)" IsActive="@ActiveValidate"/>
                 </div>
                 <div class="col-xs-12 form-group">
-                    <input name="signup[password]" id="signup[password]" type="password" class="form-control" placeholder="Password *" bind="@RegisterUser.Password" />
+                    <input name="signup[password]" id="signup[password]" type="password" class="form-control" placeholder="Password *" bind="@RegisterUser.Password"/>
                     <label for="signup[password]">Password</label>
-                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.Password)" IsActive="@ActiveValidate" />
+                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.Password)" IsActive="@ActiveValidate"/>
                 </div>
                 <div class="col-xs-12 form-group">
-                    <input name="signup[password_confirmation]" id="signup[password_confirmation]" type="password" class="form-control" placeholder="Confirm Password *" bind="@RegisterUser.ConfirmedPassword" />
+                    <input name="signup[password_confirmation]" id="signup[password_confirmation]" type="password" class="form-control" placeholder="Confirm Password *" bind="@RegisterUser.ConfirmedPassword"/>
                     <label for="signup[password_confirmation]">Confirm Password</label>
-                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.ConfirmedPassword)" IsActive="@ActiveValidate" />
+                    <ValidationError Subject="@RegisterUser" Property="@nameof(RegisterUser.ConfirmedPassword)" IsActive="@ActiveValidate"/>
                 </div>
                 @*<div class="col-xs-12 form-group">
                         <input name="signup[birthdate]" id="signup[birthdate]" type="date" class="form-control" placeholder="Birthdate" bind="@registerUser.Birthdate" />
                         <label for="signup[birthdate]">Birthdate</label>
                     </div>*@
                 <div class="col-xs-12 form-group">
-                    <input name="signup[phoneNumber]" id="signup[phoneNumber]" type="text" class="form-control" placeholder="Phone number" bind="@RegisterUser.PhoneNumber" />
+                    <input name="signup[phoneNumber]" id="signup[phoneNumber]" type="text" class="form-control" placeholder="Phone number" bind="@RegisterUser.PhoneNumber"/>
                     <label for="signup[phoneNumber]">Phone Number</label>
                 </div>
             </div>
@@ -76,6 +74,6 @@
     </div>
 </section>
 
-<!-- dimming the page while prcessing -->
+<!-- dimming the page while processing -->
 
-<DimScreen Processing="@Processing" />
+<DimScreen Processing="@Processing"/>

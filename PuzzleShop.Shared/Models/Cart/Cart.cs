@@ -8,7 +8,7 @@ namespace PuzzleShop.Shared.Models.Cart
         {
         }
 
-        public Cart(Dictionary<Toy.Toy, int> dict) : base(dict)
+        public Cart(IDictionary<Toy.Toy, int> dict) : base(dict)
         {
         }
     }

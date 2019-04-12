@@ -1,9 +1,11 @@
-﻿@inherits PuzzleShop.Client.Shared.Logic.ToyCategoryLogic
+﻿@inherits PuzzleShop.Client.Layout.Logic.ToyCategoryLogic
 
-@if (Categories != null) {
+@if (Categories != null)
+{
     <h4>Categories</h4>
     <ul class="list-unstyled  categories-group ">
-        @foreach (var category in Categories) {
+        @foreach (var category in Categories)
+        {
             <li>
                 <a href="#" class="" onclick="@(() => FilterByCategory(category.Key))">
                     <span class="badge">@category.Value</span>

@@ -13,29 +13,29 @@ var lsCardFormFrames = {};
  */
 (function ($, window, document) {
   var noop = function () {}
-    , popup = function (res) { window.alert(res.message || "Request failed.") }
+    , popup = function (res) { window.alert(res.message || "Request failed.") };
   function Request ($form, url, handler, opts)
   {
-    this.form     = $form
+    this.form     = $form;
     this.formElement = opts.formElement;
-    this.url      = url
-    this.handler  = handler
-    this.update   = opts.update || {}
-    this.redirect = opts.redirect
-    this.extraFields = opts.extraFields || {}
+    this.url      = url;
+    this.handler  = handler;
+    this.update   = opts.update || {};
+    this.redirect = opts.redirect;
+    this.extraFields = opts.extraFields || {};
     this.isCardForm = $form.hasClass('ls-card-form');
     this.isAddCardForm = $form.hasClass('ls-card-form-add') || $form.hasClass('ls-card-form-checkout-add');
     this.isPayCardForm = $form.hasClass('ls-card-form-pay');
     this.isUpdateCardForm = $form.hasClass('ls-card-form-update');
 
     // callback handlers
-    this.onSuccess = opts.onSuccess || noop
-    this.onFailure = opts.onFailure || popup
-    this.onAfterUpdate = opts.onAfterUpdate || noop
+    this.onSuccess = opts.onSuccess || noop;
+    this.onFailure = opts.onFailure || popup;
+    this.onAfterUpdate = opts.onAfterUpdate || noop;
 
-    this.indicator   = opts.indicator || true
-    this.indicatorId = opts.indicatorId
-    this.indicatorText = opts.indicatorText
+    this.indicator   = opts.indicator || true;
+    this.indicatorId = opts.indicatorId;
+    this.indicatorText = opts.indicatorText;
     this.requestEvent = opts.requestEvent
   }
 
@@ -45,8 +45,8 @@ var lsCardFormFrames = {};
    */
   Request.prototype.do = function ()
   {
-    var e = $.Event('onBeforeAjaxRequest')
-    this.form.trigger(e)
+    var e = $.Event('onBeforeAjaxRequest');
+    this.form.trigger(e);
 
     // Don't execute request if prevented.
     if (e.isDefaultPrevented()) {
@@ -55,10 +55,10 @@ var lsCardFormFrames = {};
 
     var data = []
       , formData  = this.form.serialize()
-      , extraData = $.param(this.extraFields)
+      , extraData = $.param(this.extraFields);
 
-    if (formData) data.push(formData)
-    if (extraData) data.push(extraData)
+    if (formData) data.push(formData);
+    if (extraData) data.push(extraData);
 
     // options object
     var opts = {
@@ -69,15 +69,15 @@ var lsCardFormFrames = {};
         'X-Event-Handler': this.handler
       , 'X-Partials'     : this.partials()
       }
-    }
+    };
 
     // call xhr
     $.ajax(opts)
       .done(this.done.bind(this))
-      .fail(this.fail.bind(this))
+      .fail(this.fail.bind(this));
 
     this.showLoadingIndicator()
-  }
+  };
 
   /**
    * done handler
@@ -101,28 +101,28 @@ var lsCardFormFrames = {};
       ]);
     }
 
-    this.hideLoadingIndicator()
+    this.hideLoadingIndicator();
 
     // redirect client
-    var redirect = res.redirect || this.redirect
-    if (redirect) return window.location = redirect
+    var redirect = res.redirect || this.redirect;
+    if (redirect) return window.location = redirect;
 
     // callback & event
     $('span.error, small.error', this.form).text('');
-    $("*[name]", this.form).removeClass("error")
+    $("*[name]", this.form).removeClass("error");
 
-    this.onSuccess(res, status, xhr)
-    $(window).trigger('onAjaxSuccess', [res, status, xhr, this.handler, this.form])
-    this.form.trigger('onSuccess', [res, status, xhr, this.handler, this.form])
+    this.onSuccess(res, status, xhr);
+    $(window).trigger('onAjaxSuccess', [res, status, xhr, this.handler, this.form]);
+    this.form.trigger('onSuccess', [res, status, xhr, this.handler, this.form]);
 
-    this.updatePartials(res)
-    $(window).trigger('onAjaxAfterUpdate', [res, status, xhr, this.handler, this.form])
+    this.updatePartials(res);
+    $(window).trigger('onAjaxAfterUpdate', [res, status, xhr, this.handler, this.form]);
 
     // Resets semaphore at the end of request life.
     if (this.requestEvent && this.requestEvent.type === 'submit') {
         lsCoreFormSubmission = false;
     }
-  }
+  };
 
   /**
    * fail handler
@@ -163,15 +163,15 @@ var lsCardFormFrames = {};
       $( this.form ).trigger('LsCardFormValidationErrors', [ JSON.parse(validationError) ]);
     } else { // Handle validation messages for existing forms.
       $('span.error, small.error', this.form).text('');
-      $("*[name]", this.form).removeClass("error")
+      $("*[name]", this.form).removeClass("error");
       if (validationError) {
-        var valError = JSON.parse(validationError)
+        var valError = JSON.parse(validationError);
         $.each(valError, function(name, val) {
           $('*[name="'+name+'"]', this.form).addClass('error');
 
            $('*[name="'+name+'"] + span.error, *[name="'+name+'"] + small.error', this.form).text(val);
 
-          var parent = $('*[name="'+name+'"]', this.form).parent()
+          var parent = $('*[name="'+name+'"]', this.form).parent();
           if (parent.data('validation-parent') !== undefined)
             $('span.error, small.error', parent).text(val);
         });
@@ -192,7 +192,7 @@ var lsCardFormFrames = {};
 
     $('input.error', this.form).first().focus();
 
-    this.form.trigger('onAjaxError', [res, status, xhr, this.handler])
+    this.form.trigger('onAjaxError', [res, status, xhr, this.handler]);
 
     $(window)
       .trigger("onAfterAjaxError")
@@ -213,22 +213,22 @@ var lsCardFormFrames = {};
     if (this.requestEvent && this.requestEvent.type === 'submit') {
         lsCoreFormSubmission = false;
     }
-  }
+  };
 
   Request.prototype.partials = function ()
   {
     var update = this.update
-      , partials = []
+      , partials = [];
 
     for (var i in update) {
       partials.push(update[i])
     }
     return partials.join(',')
-  }
+  };
 
   Request.prototype.updatePartials = function (res)
   {
-    var update = this.update
+    var update = this.update;
 
     // TODO handle malformed response, handle missing partial
     if ('undefined' === typeof res) return;
@@ -241,7 +241,7 @@ var lsCardFormFrames = {};
 
     this.onAfterUpdate(res);
     $(window).trigger('onAfterAjaxUpdate');
-  }
+  };
 
   /**
    * Shows the loading indicator.
@@ -250,18 +250,18 @@ var lsCardFormFrames = {};
    */
   Request.prototype.showLoadingIndicator = function ()
   {
-    if (!this.indicator) return
+    if (!this.indicator) return;
 
     var id = this.indicatorId || 'loading-indicator'
       , message = this.indicatorText || 'Loading...'
-      , element = $('#' + id)
+      , element = $('#' + id);
 
     if(!element.length) {
-      element = $('<div class="ls-loading-indicator" id=' + id + '><span>'+message+'</span></div>')
+      element = $('<div class="ls-loading-indicator" id=' + id + '><span>'+message+'</span></div>');
       $('body').append(element)
     }
     element.show()
-  }
+  };
 
   /**
    * Hides the loading indicator.
@@ -273,10 +273,10 @@ var lsCardFormFrames = {};
     if (!this.indicator) return;
 
     var id = this.indicatorId || "loading-indicator"
-      , element = $('#' + id)
+      , element = $('#' + id);
 
     if (element) element.hide()
-  }
+  };
 
   /**
    * Helper - gets relevant card form fields for card adds, updates.
@@ -361,11 +361,11 @@ var lsCardFormFrames = {};
         .first();
       if (fieldObj.val() && fieldObj.val().length > 0) {
         requiredFields[field] = fieldObj.val();
-      };
+      }
     });
 
     return requiredFields;
-  }
+  };
 
 
 
@@ -382,7 +382,7 @@ var lsCardFormFrames = {};
     var frame = lsCardFormFrames[form.attr('id')];
 
     frame.tokenizeCreditCard(fields);
-  }
+  };
 
   /**
    * Recaches a credit card.
@@ -397,7 +397,7 @@ var lsCardFormFrames = {};
     var frame = lsCardFormFrames[form.attr('id')];
 
     frame.recache();
-  }
+  };
 
   /**
    * Walks the DOM tree and returns the closest parent `form` element
@@ -417,12 +417,12 @@ var lsCardFormFrames = {};
    * @return null
    */
   function sendRequest (url, handler, opts) {
-    var $form = this.getForm()
+    var $form = this.getForm();
 
     // assume url omitted if only two args provided
     if (!opts) {
-      opts    = handler || {}
-      handler = url
+      opts    = handler || {};
+      handler = url;
       url     = $form.attr('action')
     }
     var req = new Request($form, url, handler, opts);
@@ -485,8 +485,8 @@ var lsCardFormFrames = {};
   }
 
   // jQuery plugin
-  $.fn.getForm     = getForm
-  $.fn.sendRequest = sendRequest
+  $.fn.getForm     = getForm;
+  $.fn.sendRequest = sendRequest;
   // load Spreedly.
   $.getScript('https://core.spreedly.com/iframe/iframe-v1.min.js', function() {
     $(window).trigger('onLsCardInit');
@@ -669,7 +669,7 @@ LsCardForm = function(opts, form)
     frame.on('paymentMethod', function(token, paymentMethod) {
       $( form ).trigger('LsCardFormTokenized', [form, token, paymentMethod]);
     });
-  }
+  };
 
   function highlightFormError(error) {
     /**
@@ -787,7 +787,7 @@ LsCardForm = function(opts, form)
 
   this.loadIFrameEventHandlers();
   lsCardFormFrames[this.id] = this.frame;
-}
+};
 
 /*
  * LemonStand data attributes: data-ajax-update, data-ajax-extra-fields, data-ajax-redirect, data-ajax-handler
@@ -795,7 +795,7 @@ LsCardForm = function(opts, form)
 function LSHandleAjaxData(element, ev) {
   var $element = $(element)
     , extraFields = {}
-    , update = {}
+    , update = {};
 
   if ($element.data('ajax-update')) {
     var idsPartials = $element.data('ajax-update').split(',');

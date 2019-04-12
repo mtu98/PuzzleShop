@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Blazor.Components;
-using Microsoft.AspNetCore.Blazor.Services;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using Microsoft.AspNetCore.Blazor.Components;
+using Microsoft.AspNetCore.Blazor.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace PuzzleShop.Client.Shared.Logic
+namespace PuzzleShop.Client.Layout.Logic
 {
     public class ToyCategoryLogic : BlazorComponent
     {
@@ -31,8 +31,10 @@ namespace PuzzleShop.Client.Shared.Logic
                 Categories = new Dictionary<string, long>();
                 // deserialize and add to dict
                 JsonConvert.DeserializeObject<List<JObject>>(jsonResponse)
-                    .ForEach(ele => Categories.Add(ele.Properties().First().Name, long.Parse(ele.Properties().First().Value.ToString())));
+                    .ForEach(ele => Categories.Add(ele.Properties().First().Name,
+                        long.Parse(ele.Properties().First().Value.ToString())));
             }
+
             StateHasChanged();
         }
 

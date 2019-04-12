@@ -6,16 +6,16 @@ namespace PuzzleShop.Shared.Models.User
 {
     public class UserDAO
     {
-        public Models.User.User CheckLogin(string emailOrUsername, string password)
+        private const string CollectionName = "User";
+
+        public User CheckLogin(string emailOrUsername, string password)
         {
-            //Get connection and PuzzleShopDB
-            var db = DBConnect.getDB();
-            var accounts = db.GetCollection<Models.User.User>("User");
-            var builder = Builders<Models.User.User>.Filter;
+            var userCollection = DBConnect.getDB().GetCollection<User>(CollectionName);
+            var builder = Builders<User>.Filter;
 
             var filter = builder.Where(user =>
                 user.Username.Equals(emailOrUsername) | user.Email.Equals(emailOrUsername));
-            var list = accounts.Find(filter).ToList();
+            var list = userCollection.Find(filter).ToList();
 
             foreach (var user in list)
             {
@@ -27,12 +27,16 @@ namespace PuzzleShop.Shared.Models.User
             return null;
         }
 
-        public bool Register(Models.User.User user)
+        /// <summary>
+        ///     TODO Adjust this pretty dirty method
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public bool Register(User user)
         {
-            var db = DBConnect.getDB();
-            var accounts = db.GetCollection<Models.User.User>("User");
+            var userCollection = DBConnect.getDB().GetCollection<User>(CollectionName);
             user.PasswordHash = MD5Hash.GetMD5Hash(user.Password);
-            accounts.InsertOneAsync(new Models.User.User
+            userCollection.InsertOne(new User
             {
                 Username = user.Username,
                 PasswordHash = user.PasswordHash,
@@ -47,19 +51,14 @@ namespace PuzzleShop.Shared.Models.User
             return true;
         }
 
-        public Models.User.User GetUserByUsername(string emailOrUsername)
+        public User GetUserByUsername(string emailOrUsername)
         {
-            //Get connection and PuzzleShopDB
-            var db = DBConnect.getDB();
-            var accounts = db.GetCollection<Models.User.User>("User");
-            var builder = Builders<Models.User.User>.Filter;
+            var userCollection = DBConnect.getDB().GetCollection<User>(CollectionName);
+            var builder = Builders<User>.Filter;
 
             var filter = builder.Where(user =>
                 user.Username.Equals(emailOrUsername) | user.Email.Equals(emailOrUsername));
-            var list = accounts.Find(filter).ToList();
-
-            foreach (var user in list) return user;
-            return null;
+            return userCollection.Find(filter).Single();
         }
 
         /// <summary>
@@ -67,20 +66,19 @@ namespace PuzzleShop.Shared.Models.User
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
-        public void ChangePassword(string username, string password)
+        public bool ChangePassword(string username, string password)
         {
-            var db = DBConnect.getDB();
-            var Users = db.GetCollection<Models.User.User>("User");
+            var userCollection = DBConnect.getDB().GetCollection<User>(CollectionName);
 
             var passwordHash = MD5Hash.GetMD5Hash(password);
 
-            var builder = Builders<Models.User.User>.Filter;
+            var builder = Builders<User>.Filter;
             var filter = builder.Where(u => u.Username.Equals(username));
 
-            var updateBuilder = Builders<Models.User.User>.Update;
+            var updateBuilder = Builders<User>.Update;
             var update = updateBuilder.Set(u => u.PasswordHash, passwordHash);
 
-            Users.UpdateOne(filter, update);
+            return userCollection.UpdateOne(filter, update).IsAcknowledged;
         }
 
         /// <summary>
@@ -90,21 +88,20 @@ namespace PuzzleShop.Shared.Models.User
         /// <param name="firstname"></param>
         /// <param name="lastname"></param>
         /// <param name="email"></param>
-        public void EditInformation(string username, string firstname, string lastname, string email)
+        public bool EditInformation(string username, string firstname, string lastname, string email)
         {
-            var db = DBConnect.getDB();
-            var Users = db.GetCollection<Models.User.User>("User");
+            var userCollection = DBConnect.getDB().GetCollection<User>(CollectionName);
 
             //Build filter to find user need to edit
-            var builder = Builders<Models.User.User>.Filter;
+            var builder = Builders<User>.Filter;
             var filter = builder.Where(u => u.Username.Equals(username));
 
             //build update
-            var updateBuilder = Builders<Models.User.User>.Update;
+            var updateBuilder = Builders<User>.Update;
             var update = updateBuilder.Set(u => u.FirstName, firstname).Set(u => u.LastName, lastname)
                 .Set(u => u.Email, email);
 
-            Users.UpdateOne(filter, update);
+            return userCollection.UpdateOne(filter, update).IsAcknowledged;
         }
     }
 }

@@ -19,13 +19,17 @@
                 <h2>Billing Information</h2>
                 <div id="billing-info" class="row">
                     <div class="col-sm-6 form-group">
-                        <p><em>This function is currently not available! Please stay tune for the update!</em></p>
+                        <p>
+                            <em>This function is currently not available! Please stay tune for the update!</em>
+                        </p>
                     </div>
                 </div>
 
                 <h2 class="inline-block">Shipping Information</h2>
                 <div class="h6">
-                    <a data-toggle-mirror="on" data-toggle="collapse" class="btn btn-default btn-form-mirror" href="#"><i class="fa fa-check"></i></a> Same as Billing Information
+                    <a data-toggle-mirror="on" data-toggle="collapse" class="btn btn-default btn-form-mirror" href="#">
+                        <i class="fa fa-check"></i>
+                    </a> Same as Billing Information
                 </div>
 
                 <div class="clearfix">
@@ -41,7 +45,9 @@
                 <ul class="price-list list-group">
                     <li class="list-group-item">Subtotal: <span class="badge">$@GetPriceOfCart().ToString("N")</span></li>
                     <li class="list-group-item">Tax: <span class="badge">$0.00</span></li>
-                    <li class="list-group-item order-total h4 clearfix"><span>Total:</span> <span class="badge">$@GetPriceOfCart().ToString("N")</span></li>
+                    <li class="list-group-item order-total h4 clearfix">
+                        <span>Total:</span> <span class="badge">$@GetPriceOfCart().ToString("N")</span>
+                    </li>
                 </ul>
             </div>
         </form>

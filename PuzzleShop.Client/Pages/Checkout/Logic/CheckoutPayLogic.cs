@@ -1,74 +1,77 @@
-﻿using Microsoft.AspNetCore.Blazor;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Net.Http;
+using Microsoft.AspNetCore.Blazor;
 using Microsoft.AspNetCore.Blazor.Components;
 using Microsoft.AspNetCore.Blazor.Services;
 using Newtonsoft.Json;
 using PuzzleShop.Shared.Models.Cart;
 using PuzzleShop.Shared.Models.Toy;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
 
-namespace PuzzleShop.Client.Pages.Checkout.Logic {
-    public class CheckoutPayLogic : BlazorComponent {
+namespace PuzzleShop.Client.Pages.Checkout.Logic
+{
+    public class CheckoutPayLogic : BlazorComponent
+    {
+        [Inject] private HttpClient Http { get; set; }
 
-        [Inject]
-        protected HttpClient Http { get; set; }
-
-        [Inject]
-        protected IUriHelper UriHelper { get; set; }
+        [Inject] private IUriHelper UriHelper { get; set; }
 
         protected Cart Cart { get; set; }
 
-        protected override void OnInit() {
+        protected override void OnInit()
+        {
             GetCart();
         }
 
-        protected async void GetCart() {
+        private async void GetCart()
+        {
             var cartJson = await Http.GetStringAsync("api/Cart/GetCart");
-            if (string.IsNullOrEmpty(cartJson)) {
-                return;
-            }
+            if (string.IsNullOrEmpty(cartJson)) return;
 
-            try {
+            try
+            {
                 var toyList = JsonConvert.DeserializeObject<List<KeyValuePair<Toy, int>>>(cartJson);
-                if (toyList != null) {
+                if (toyList != null)
+                {
                     Cart = new Cart(toyList.ToDictionary(item => item.Key, item => item.Value));
                     StateHasChanged();
-
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Debug.WriteLine("ViewCartLogic GetCart " + ex.Message);
                 throw;
             }
         }
 
-        protected string ChangeValue(Toy toy, int offset) {
-            if (Cart[toy] + offset > 0) {
-                Cart[toy] = Cart[toy] + offset;
-            }
+        protected string ChangeValue(Toy toy, int offset)
+        {
+            if (Cart[toy] + offset > 0) Cart[toy] = Cart[toy] + offset;
 
             return "return null";
         }
 
-        protected double GetPriceOfCart() {
-            if (Cart == null) {
-                return 0;
-            }
+        protected double GetPriceOfCart()
+        {
+            if (Cart == null) return 0;
 
             double price = 0;
-            foreach (var item in Cart) {
-                price += item.Key.Price * item.Value;
-            }
+            foreach (var item in Cart) price += item.Key.Price * item.Value;
 
             return price;
         }
-        protected async void CheckoutOrder() {
+
+        protected async void CheckoutOrder()
+        {
             var username = await Http.GetStringAsync("api/User/GetLoginUser");
-            if (string.IsNullOrEmpty(username)) {
+            if (string.IsNullOrEmpty(username))
+            {
                 UriHelper.NavigateTo("/login");
-            } else {
+            }
+            else
+            {
                 var result = await Http.PostJsonAsync<bool>("api/Order/SaveOrder", null);
                 //UriHelper.NavigateTo(result ? "/checkoutSuccess" : "/checkoutFail");
                 UriHelper.NavigateTo("/checkoutSuccess");

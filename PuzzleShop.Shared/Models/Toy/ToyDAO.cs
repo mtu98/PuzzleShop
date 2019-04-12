@@ -54,7 +54,7 @@ namespace PuzzleShop.Shared.Models.Toy
         /// <param name="name"></param>
         /// <param name="email"></param>
         /// <param name="star"></param>
-        public void ReviewAToy(string toyId, string name, string email, string title, string content, int star)
+        public bool ReviewAToy(string toyId, string name, string email, string title, string content, int star)
         {
             var toyCollection = DBConnect.getDB().GetCollection<Toy>(CollectionName);
             var builder = Builders<Toy>.Filter;
@@ -76,7 +76,7 @@ namespace PuzzleShop.Shared.Models.Toy
             //Build update, import Comment
             var update = updateBuilder.AddToSet(toy => toy.Review, rv);
 
-            toyCollection.UpdateOne(filter, update);
+            return toyCollection.UpdateOne(filter, update).IsAcknowledged;
         }
 
         /// <summary>
@@ -137,6 +137,7 @@ namespace PuzzleShop.Shared.Models.Toy
 
         /// <summary>
         ///     Take list found toy and filter by type
+        ///     TODO Move this method because this is not a DAO logic
         /// </summary>
         /// <param name="list"></param>
         /// <param name="category"></param>
@@ -153,6 +154,7 @@ namespace PuzzleShop.Shared.Models.Toy
 
         /// <summary>
         ///     Take list of found toy and filter by price range
+        ///     TODO Move this method because this is not a DAO logic
         /// </summary>
         /// <param name="list"></param>
         /// <param name="minPrice"></param>

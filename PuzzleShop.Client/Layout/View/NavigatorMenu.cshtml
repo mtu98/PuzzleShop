@@ -1,9 +1,6 @@
-﻿@using Microsoft.AspNetCore.Blazor.Components
-@using PuzzleShop.Shared.Models
+﻿@inherits PuzzleShop.Client.Layout.Logic.NavigationMenuLogic
 
-@inherits PuzzleShop.Client.Shared.Logic.NavigationMenuLogic
-
-@inject HttpClient http
+@inject HttpClient Http
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -14,14 +11,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img src="img/puzzle-shop-brand.png" alt=""></a>
+            <a class="navbar-brand" href="/">
+                <img src="img/puzzle-shop-brand.png" alt="">
+            </a>
         </div>
         <div class="navbar-right navbar-utils">
             <ul class="list-unstyled clearfix">
                 <li class="hidden-xs">
                     @if (LoginUser == null)
                     {
-                        <a href="/login" class="btn"><span>Log In</span> <i class="fa fa-lock"></i></a>
+                        <a href="/login" class="btn">
+                            <span>Log In</span> <i class="fa fa-lock"></i>
+                        </a>
                     }
                     else
                     {
@@ -29,8 +30,9 @@
                         <a href="/orders">My Orders</a>
                         <text>|</text>
                         <a href="/profile">My Profile</a>
-                        <a href="/logout" class="btn"><span>Log Out</span> <i class="fa fa-unlock-alt"></i></a>
-
+                        <a href="/logout" class="btn">
+                            <span>Log Out</span> <i class="fa fa-unlock-alt"></i>
+                        </a>
                     }
                 </li>
                 <li id="navbar-totals" class="totals">
@@ -61,7 +63,9 @@
                                             <div class="price">
                                                 @item.Value x <span>$@item.Key.Price.ToString("N")</span>
                                             </div>
-                                            <a class="remove-item" href="#" onclick="@(() => RemoveItem(item.Key._id))"><i class="fa fa-times"></i></a>
+                                            <a class="remove-item" href="#" onclick="@(() => RemoveItem(item.Key._id))">
+                                                <i class="fa fa-times"></i>
+                                            </a>
                                         </div>
                                     </li>
                                 }
@@ -107,12 +111,20 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li class=""><a href="/about">About</a></li>
-                    <li class=""><a href="/contact">Contact</a></li>
+                    <li class="">
+                        <a href="/about">About</a>
+                    </li>
+                    <li class="">
+                        <a href="/contact">Contact</a>
+                    </li>
                 </ul>
                 <ul class="visible-xs nav navbar-nav">
-                    <li class=""><a href="//boxie.lemonstand.com/orders">My Orders</a></li>
-                    <li class=""><a href="//boxie.lemonstand.com/profile">My Profile</a></li>
+                    <li class="">
+                        <a href="//boxie.lemonstand.com/orders">My Orders</a>
+                    </li>
+                    <li class="">
+                        <a href="//boxie.lemonstand.com/profile">My Profile</a>
+                    </li>
                     <li class="col-xs-12">
                         <a href="//boxie.lemonstand.com/login" class="btn btn-block btn-default">Login <i class="fa fa-lock"></i></a>
                     </li>
@@ -122,8 +134,12 @@
                 <div class="input-group">
                     <input type="text" class="search-form form-control" name="searchValue" id="searchValue" placeholder="Type your search term and press Enter" autocomplete="off" value="" bind="@SearchValue"/>
                     <span class="input-group-btn" onclick="toggleSearchForm(this.parentElement.parentElement, this.children[0].children[0])">
-                        <button class="btn search-btn toggle hidden-xs hidden-sm" type="button"><i class="fa fa-search"></i></button>
-                        <button class="btn search-btn hidden-md hidden-lg" type="submit"><i class="fa fa-search"></i></button>
+                        <button class="btn search-btn toggle hidden-xs hidden-sm" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        <button class="btn search-btn hidden-md hidden-lg" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </span>
                 </div>
                 <!-- /input-group -->

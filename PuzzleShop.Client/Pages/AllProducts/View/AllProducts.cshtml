@@ -3,7 +3,8 @@
 <div id="banner" class="jumbotron row">
     <h1>All Products</h1>
 </div>
-@if (ToyList != null) {
+@if (ToyList != null)
+{
     <section id="shop" class="page-section row">
         <div class="col-xs-12 col-sm-3">
             <div class="sidebar">
@@ -14,25 +15,28 @@
             <div id="product-list">
                 <div class="product-grid">
                     <div id="" class="row">
-                        @foreach (var toy in ToyList) {
-                        <div class="col-xs-12 col-sm-6 col-md-4 product-holder">
-                            <form class="custom" onsubmit="return false">
-                                <div class="product-item text-center">
-                                    <a class="product-img" href="/toyDetail/@toy._id">
-                                        <img class="img-responsive" src="@toy.PhotoURL" alt="@toy.Name" />
-                                    </a>
-                                    <h3 class="product-title">
-                                        <a href="/toyDetail/@toy._id">@toy.Name</a>
-                                    </h3>
-                                    <div class="h4 product-price">
-                                        <span>$@toy.Price.ToString("N") </span>
+                        @foreach (var toy in ToyList)
+                        {
+                            <div class="col-xs-12 col-sm-6 col-md-4 product-holder">
+                                <form class="custom" onsubmit="return false">
+                                    <div class="product-item text-center">
+                                        <a class="product-img" href="/toyDetail/@toy._id">
+                                            <img class="img-responsive" src="@toy.PhotoURL" alt="@toy.Name"/>
+                                        </a>
+                                        <h3 class="product-title">
+                                            <a href="/toyDetail/@toy._id">@toy.Name</a>
+                                        </h3>
+                                        <div class="h4 product-price">
+                                            <span>$@toy.Price.ToString("N") </span>
+                                        </div>
+                                        <div class="buttons-holder">
+                                            <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="/toyDetail/@toy._id">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="buttons-holder">
-                                        <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="/toyDetail/@toy._id"><i class="fa fa-eye"></i></a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                                </form>
+                            </div>
                         }
                     </div>
                 </div>
@@ -44,4 +48,4 @@
 }
 <!-- dimming the page while processing -->
 
-<DimScreen Processing="@Processing" />
+<DimScreen Processing="@Processing"/>

@@ -1,0 +1,25 @@
+﻿<!-- dimming the page while processing -->
+<div class="cover @Processing"></div>
+
+<style>
+    .cover {
+        background: rgba(150, 150, 150, 0.5);
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1001;
+    }
+
+    .span-link { cursor: pointer; }
+
+    .span-link:hover { text-decoration: underline; }
+</style>
+
+@functions {
+
+    [Parameter]
+    private string Processing { get; set; }
+
+}

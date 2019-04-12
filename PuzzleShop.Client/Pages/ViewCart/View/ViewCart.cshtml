@@ -6,10 +6,12 @@
 </div>
 
 <section id="cart" class="page-section row">
-    @if (Cart == null || Cart.Count == 0) {
+    @if (Cart == null || Cart.Count == 0)
+    {
         <h4 class="flash info">&nbsp;&nbsp;Your cart is empty!</h4>
-
-    } else {
+    }
+    else
+    {
         <form class="custom" method="post">
             <div id="cart-content">
                 <div class="col-xs-12 col-md-9">
@@ -25,11 +27,12 @@
                                 Item Total
                             </div>
                         </div>
-                        @foreach (var item in Cart) {
+                        @foreach (var item in Cart)
+                        {
                             <div class="cart-item row">
                                 <div class="col-xs-12 col-sm-2">
                                     <div class="product-thumb">
-                                        <img class="img-responsive" alt="@item.Key.Name" src="@item.Key.PhotoURL" />
+                                        <img class="img-responsive" alt="@item.Key.Name" src="@item.Key.PhotoURL"/>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-4 col-lg-5 cart-details">
@@ -45,9 +48,13 @@
                                 <div class="col-xs-12 col-sm-3 col-lg-2 cart-details ">
                                     <div class="quantity">
                                         <div class="quantity-selector">
-                                            <button class="quantity-btn minus btn btn-lg btn-default" onclick="@(() => ChangeValue(item.Key, -1))" type="button"><i class=" fa fa-minus"></i></button>
-                                            <input id="item-quantity" type="number" min="1" name="item-quantity" class="form-control quantity" bind="@Cart[item.Key]" />
-                                            <button class="quantity-btn plus btn btn-lg btn-default" onclick="@(() => ChangeValue(item.Key, 1))" type="button"><i class="fa fa-plus"></i></button>
+                                            <button class="quantity-btn minus btn btn-lg btn-default" onclick="@(() => ChangeValue(item.Key, -1))" type="button">
+                                                <i class=" fa fa-minus"></i>
+                                            </button>
+                                            <input id="item-quantity" type="number" min="1" name="item-quantity" class="form-control quantity" bind="@Cart[item.Key]"/>
+                                            <button class="quantity-btn plus btn btn-lg btn-default" onclick="@(() => ChangeValue(item.Key, 1))" type="button">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +62,9 @@
                                     <div class="h4 total-price">
                                         $@item.Key.Price.ToString("N")
                                     </div>
-                                    <a class="remove-item" href="#" onclick="@(async () => await RemoveItem(item.Key._id))"><i class="fa fa-times"></i></a>
+                                    <a class="remove-item" href="#" onclick="@(async () => await RemoveItem(item.Key._id))">
+                                        <i class="fa fa-times"></i>
+                                    </a>
                                 </div>
                             </div>
                         }
@@ -81,4 +90,4 @@
 
 <!-- dimming the page while processing -->
 
-<DimScreen Processing="@Processing" />
+<DimScreen Processing="@Processing"/>

@@ -1,50 +1,50 @@
-﻿using Microsoft.AspNetCore.Blazor.Server;
+﻿using System;
+using System.Linq;
+using System.Net.Mime;
+using Microsoft.AspNetCore.Blazor.Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Linq;
-using System.Net.Mime;
 
-namespace PuzzleShop.Server {
-    public class Startup {
+namespace PuzzleShop.Server
+{
+    public class Startup
+    {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services) {
-            services.AddMvc().AddJsonOptions(options => {
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc().AddJsonOptions(options =>
+            {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             });
 
-            services.AddResponseCompression(options => {
+            services.AddResponseCompression(options =>
+            {
                 options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
                 {
                     MediaTypeNames.Application.Octet,
-                    WasmMediaTypeNames.Application.Wasm,
+                    WasmMediaTypeNames.Application.Wasm
                 });
             });
 
             services.AddDistributedMemoryCache();
 
-            services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(20);
-            });
+            services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(20); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
             app.UseResponseCompression();
 
-            if (env.IsDevelopment()) {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseSession();
 
-            app.UseMvc(routes => {
-                routes.MapRoute(name: "default", template: "{controller}/{action}/{id?}");
-            });
+            app.UseMvc(routes => { routes.MapRoute("default", "{controller}/{action}/{id?}"); });
 
             app.UseBlazor<Client.Program>();
         }

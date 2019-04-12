@@ -1,19 +1,23 @@
 ﻿@inherits PuzzleShop.Client.Pages.Home.Logic.NewProductsLogic
 
-@if (ToyList != null) {
+@if (ToyList != null)
+{
     <section id="new-products" class="page-section row">
-        <h2 class="section-title"><span>What's New</span></h2>
+        <h2 class="section-title">
+            <span>What's New</span>
+        </h2>
 
         <div id="product-carousel" class="col-xs-12 owl-carousel owl-theme" style="display: block; opacity: 1;">
 
             <div class="row">
-                @foreach (var toy in ToyList) {
+                @foreach (var toy in ToyList)
+                {
                     <div class="owl-item col-xs-3">
                         <div class="product-holder">
                             <form class="custom" onsubmit="return false">
                                 <div class="product-item text-center">
                                     <a class="product-img" href="/toyDetail/@toy._id">
-                                        <img class="img-responsive" src="@toy.PhotoURL" alt="@toy.Name" />
+                                        <img class="img-responsive" src="@toy.PhotoURL" alt="@toy.Name"/>
                                     </a>
                                     <h3 class="product-title">
                                         <a href="/toyDetail/@toy._id">@toy.Name</a>
@@ -26,7 +30,9 @@
                                         <span>$@toy.Price.ToString("N")</span>
                                     </div>
                                     <div class="buttons-holder">
-                                        <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="/toyDetail/@toy._id"><i class="fa fa-eye"></i></a>
+                                        <a class="btn btn-default btn-quick-view hidden-xs" rel="tooltip" title="Quick View" href="/toyDetail/@toy._id">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </form>

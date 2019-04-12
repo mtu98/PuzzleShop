@@ -8,7 +8,7 @@
 
         public SimpleToyReview(Toy toy, Review review)
         {
-            Toyid = toy._id;
+            ToyId = toy._id;
             Username = review.Name;
             Email = review.Email;
             Title = review.Title;
@@ -16,7 +16,7 @@
             Star = review.Star;
         }
 
-        public string Toyid { get; set; }
+        public string ToyId { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
         public string Title { get; set; }
